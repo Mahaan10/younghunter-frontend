@@ -8,8 +8,8 @@ function Carousel() {
   console.log(images)
   return (
     <div>
-      <img src={`${images[0].url}`} alt="" className="w-52"/>
-      <p>{images[0].dateTaken}</p>
+      <img src={`${images[1].url}`} alt="" className="w-52"/>
+      <p>{images[1].dateTaken}</p>
     </div>
   );
 }
