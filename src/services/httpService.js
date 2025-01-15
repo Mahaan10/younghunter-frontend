@@ -1,13 +1,11 @@
-import axios from "axios"
+import axios from "axios";
 
-const BASE_URL = "/api/v1"
+const BASE_URL = "/api/v1";
 
 const app = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true
-})
-
-
+  withCredentials: true,
+});
 
 const http = {
   get: app.get,

@@ -1,16 +1,13 @@
-import Header from "../features/header/Header"
-import Carousel from "../features/carousel/carousel"
+import Header from "../features/header/Header";
+import Carousel from "../features/carousel/carousel";
 
 function Home() {
-
-
-
   return (
     <>
-    <Header/>
-    <Carousel/>
+      <Header />
+      <Carousel />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
