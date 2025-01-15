@@ -1,0 +1,9 @@
+{
+  "navbar_1" : "Home",
+  "navbar_2" : "Gallery",
+  "navbar_3" : "Contact",
+  "navbar_4" : "About",
+  "valid" : "Login / Sign Up",
+  "login" : "Login",
+  "signUp" : "Sign Up"
+}
