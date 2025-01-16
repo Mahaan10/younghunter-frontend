@@ -5,6 +5,7 @@ import HeaderNavlink from "./HeaderNavlink";
 import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
 import HeaderOffcanvas from "./HeaderOffcanvas";
+import HeaderHashlink from "./HeaderHashlink";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -12,13 +13,13 @@ function Header() {
 
   return (
     <>
-      <div className="border-b-2 flex items-center gap-x-4 border-black">
+      <div className="border-b-2 flex items-center gap-x-4 border-black relative">
         <button className="w-24">
           <Link to="/">
             <img src="./public/logo demo.jpg" alt="" />
           </Link>
         </button>
-        <h5 className="font-semibold md:text-4xl text-base text-wrap tracking-wide">
+        <h5 className="font-semibold md:text-4xl text-base tracking-wide absolute rtl:left-14 md:rtl:left-32 ltr:left-32">
           Y O U N G H U N T E R
         </h5>
       </div>
@@ -26,7 +27,7 @@ function Header() {
         <div className="flex flex-wrap items-center justify-between">
           <button
             data-testid="navbar-default"
-            className="absolute top-4 right-1 p-2 w-10 h-10 text-2xl text-gray-700 md:hidden focus:outline-none"
+            className="absolute top-4 rtl:left-1 ltr:right-1 p-2 w-10 h-10 text-2xl text-gray-700 md:hidden focus:outline-none"
             aria-controls="navbar-default"
             aria-expanded="false"
             onClick={() => setOpen(!open)}
@@ -54,15 +55,15 @@ function Header() {
             <HeaderNavlink to="gallery">
               <span>{t("navbar_2")}</span>
             </HeaderNavlink>
-            <HeaderNavlink to="contact">
+            <HeaderHashlink to="#contact">
               <span>{t("navbar_3")}</span>
-            </HeaderNavlink>
-            <HeaderNavlink to="about">
+            </HeaderHashlink>
+            <HeaderHashlink to="#about">
               <span>{t("navbar_4")}</span>
-            </HeaderNavlink>
+            </HeaderHashlink>
           </ul>
           <div className="md:flex hidden items-center gap-x-4">
-            <HeaderSelectBox />
+            <HeaderSelectBox onClose={() => setOpen(false)} />
             <Authentication />
           </div>
           <HeaderOffcanvas open={open} onClose={() => setOpen(false)} />

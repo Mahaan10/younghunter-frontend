@@ -1,6 +1,5 @@
 import i18n from "../../locales/i18n";
 
-
 function HeaderSelectBox() {
   const changeLanguageHandler = (event) => {
     if (event.target.value === "en") {
@@ -15,7 +14,7 @@ function HeaderSelectBox() {
   return (
     <select
       name="language"
-      className="border-none focus:ring-transparent text-sm p-1 font-semibold"
+      className="border-none focus:ring-transparent text-sm font-semibold"
       onChange={(event) => changeLanguageHandler(event)}
     >
       <option value="en">English</option>
