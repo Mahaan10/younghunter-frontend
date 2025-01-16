@@ -1,39 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import useCarouselImages from "../../hooks/useCarouselImages";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 import Loading from "../../ui/Loading";
 
+const carouselReducer = (state, { type, payload }) => {
+  switch (type) {
+    case "Next":
+      return {
+        ...state,
+        activeItemIndex: (state.activeItemIndex + 1) % payload,
+      };
+    case "Prev":
+      return {
+        ...state,
+        activeItemIndex:
+          state.activeItemIndex === 0 ? payload - 1 : state.activeItemIndex - 1,
+      };
+    case "SetIndex":
+      return {
+        ...state,
+        activeItemIndex: payload,
+      };
+    default:
+      return state;
+  }
+};
+
 function Carousel() {
   const { images, isLoading } = useCarouselImages();
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
   const prevCarouselItemHandler = () => {
-    if (activeItemIndex !== 0) {
-      setActiveItemIndex((prevItem) => prevItem - 1);
-    } else {
-      setActiveItemIndex(images.length - 1);
-    }
+    dispatch({ type: "Prev", payload: images.length });
   };
 
   const nextCarouselItemHandeler = () => {
-    if (activeItemIndex === 3) {
-      setActiveItemIndex(0);
-    } else {
-      setActiveItemIndex((prevItem) => prevItem + 1);
-    }
+    dispatch({ type: "Next", payload: images.length });
   };
 
   const indicatorClickHandler = (id) => {
-    setActiveItemIndex(id - 1);
+    const index = images.findIndex((image) => image._id === id);
+    dispatch({ type: "SetIndex", payload: index });
   };
 
   useEffect(() => {
     const carouselInterval = setInterval(() => {
-      setActiveItemIndex((prevItem) => (prevItem + 1) % images.length);
+      dispatch({ type: "Next", payload: images.length });
     }, 5000);
 
     return () => clearInterval(carouselInterval);
-  }, [setActiveItemIndex, images]);
+  }, [images]);
 
   if (isLoading) return <Loading />;
 
@@ -48,9 +64,11 @@ function Carousel() {
             <FaCaretLeft className="min-[475px]:size-8 size-5" />
           </button>
           <div className="md:min-w-[300px] min-w-fit flex items-center justify-center h-full rounded-lg  bg-white">
-            <button onClick={() => console.log(images[activeItemIndex]._id)}>
+            <button
+              onClick={() => console.log(images[state.activeItemIndex]._id)}
+            >
               <img
-                src={`${images[activeItemIndex].url}`}
+                src={`${images[state.activeItemIndex].url}`}
                 alt=""
                 className="object-contain shadow-3xl max-w-[326px] max-h-[456px]"
               />
@@ -70,7 +88,7 @@ function Carousel() {
                 src={`${data.url}`}
                 alt=""
                 className={`object-cover border-2 border-transparent sm:min-w-[70px] sm:min-h-[70px] ${
-                  data._id === images[activeItemIndex]._id
+                  data._id === images[state.activeItemIndex]._id
                     ? "opacity-100"
                     : "opacity-30"
                 }`}
