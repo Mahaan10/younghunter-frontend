@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function HeaderNavlink({ to, onClose, children }) {
   const navlinkClass =
-    "flex items-center transition-all duration-300 justify-center py-2 md:py-0 md:mt-0 mt-2 rounded-md md:hover:bg-white font-semibold";
+    "flex items-center transition-all duration-300 justify-center py-2 md:py-0 md:mt-0 mt-2 rounded-md md:hover:bg-white";
 
   return (
     <li className="">

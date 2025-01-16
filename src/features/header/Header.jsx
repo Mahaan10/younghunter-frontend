@@ -19,7 +19,7 @@ function Header() {
             <img src="./public/logo demo.jpg" alt="" />
           </Link>
         </button>
-        <h5 className="font-semibold md:text-4xl text-base tracking-wide absolute rtl:left-14 md:rtl:left-32 ltr:left-32">
+        <h5 className="font-bold md:text-4xl text-base tracking-wide absolute rtl:left-14 md:rtl:left-32 ltr:left-32">
           Y O U N G H U N T E R
         </h5>
       </div>
@@ -48,7 +48,7 @@ function Header() {
               />
             </svg>
           </button>
-          <ul className="hidden md:flex md:flex-row items-center gap-x-12 text-xl mb-2 ml-2 font-semibold">
+          <ul className="hidden md:flex md:flex-row items-center gap-x-12 text-xl ml-2 font-bold">
             <HeaderNavlink to="/">
               <span>{t("navbar_1")}</span>
             </HeaderNavlink>

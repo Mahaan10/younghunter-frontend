@@ -1,6 +1,27 @@
 @font-face {
   font-family: "Ubuntu";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   src: url('/Font/Ubuntu-Medium.ttf') format("ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 700;
+  src: url('/Font/Ubuntu-Bold.ttf') format("ttf");
+}
+
+@font-face {
+  font-family: "Vazir";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/Font/Vazirmatn-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vazir";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/Font/Vazirmatn-Bold.woff2") format("woff2");
 }
