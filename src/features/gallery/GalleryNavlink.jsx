@@ -40,9 +40,6 @@ export default GalleryNavlink;
 
 const SubAlbum = ({ album, openSubAlbumId, onClose }) => {
   const isOpen = album._id === openSubAlbumId;
-  {
-    console.log(isOpen);
-  }
   return (
     <div className="flex flex-col w-full text-black">
       <div className="flex items-center justify-between px-4">

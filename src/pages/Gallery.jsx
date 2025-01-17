@@ -1,6 +1,7 @@
 import GalleryContextProvider from "../context/useGalleryContext";
 import GalleryMain from "../features/gallery/GalleryMain";
 import GalleryOffcanvas from "../features/gallery/GalleryOffcanvas";
+import ScrollToTopButton from "../ui/ScrollButton";
 
 function Gallery() {
   return (
@@ -9,6 +10,7 @@ function Gallery() {
         <GalleryMain />
         <GalleryOffcanvas />
       </div>
+      <ScrollToTopButton />
     </GalleryContextProvider>
   );
 }
