@@ -26,7 +26,7 @@ function HeaderOffcanvas({ open, onClose }) {
             <HiMiniXMark className="w-5 h-5 text-gray-400 hover:text-gray-600" />
           </button>
           <div className="flex items-center">
-            <img src="../public/logo demo.jpg" alt="" className="w-10" />
+            <img src="/logo demo.jpg" alt="" className="w-10" />
           </div>
         </div>
         <Drawer.Items>

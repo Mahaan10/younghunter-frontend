@@ -16,7 +16,7 @@ function Header() {
       <div className="border-b-2 flex items-center gap-x-4 border-black relative">
         <button className="w-24">
           <Link to="/">
-            <img src="./public/logo demo.jpg" alt="" />
+            <img src="/logo demo.jpg" alt="" />
           </Link>
         </button>
         <h5 className="font-bold md:text-4xl text-base tracking-wide absolute rtl:left-14 md:rtl:left-32 ltr:left-32">

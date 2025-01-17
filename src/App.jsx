@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./features/header/Header";
 import Footer from "./features/footer/Footer";
+import Gallery from "./pages/Gallery";
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="gallery" element={<Gallery />} />
       </Routes>
       <Footer />
     </QueryClientProvider>
