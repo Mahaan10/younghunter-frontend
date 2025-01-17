@@ -1,17 +1,15 @@
-import useAlbums from "../../hooks/useAlbums"
-import Loading from "../../ui/Loading"
+import useAlbums from "../../hooks/useAlbums";
+import Loading from "../../ui/Loading";
 import { Drawer, Sidebar } from "flowbite-react";
 import { HiMiniXMark } from "react-icons/hi2";
 import { PiMagnifyingGlassDuotone } from "react-icons/pi";
 import { useGalleryContext } from "../../context/useGalleryContext";
-
+import GalleryNavlink from "./GalleryNavlink";
+import { AccordionProvider } from "../../context/useAccordionContext";
 
 function GalleryOffcanvas() {
-  const {albums, isLoading} = useAlbums()
-  const {isOpen, setIsOpen, value, setValue} = useGalleryContext()
-  
-
-
+  const { isLoading } = useAlbums();
+  const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
 
   return (
     <div className="flex flex-col">
@@ -44,29 +42,31 @@ function GalleryOffcanvas() {
             <PiMagnifyingGlassDuotone className="size-7" />
           </button>
         </div>
-        {isLoading ? <Loading/> : <Drawer.Items>
-          <Sidebar
-            aria-label="Sidebar with multi-level dropdown example"
-            className="[&>div]:bg-transparent [&>div]:p-0"
-          >
-            <div className="flex h-full flex-col justify-between py-2">
-              <div>
-                <Sidebar.Items>
-                  <Sidebar.ItemGroup>
-                    {albums.map((album) => (
-                      <li className="" key={album._id}>
-                        {album.title.en}
-                      </li>
-                    ))}
-                  </Sidebar.ItemGroup>
-                </Sidebar.Items>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Drawer.Items>
+            <Sidebar
+              aria-label="Sidebar with multi-level dropdown example"
+              className="[&>div]:bg-transparent [&>div]:p-0"
+            >
+              <div className="flex h-full flex-col justify-between py-2">
+                <div>
+                  <Sidebar.Items>
+                    <Sidebar.ItemGroup>
+                      <AccordionProvider>
+                        <GalleryNavlink />
+                      </AccordionProvider>
+                    </Sidebar.ItemGroup>
+                  </Sidebar.Items>
+                </div>
               </div>
-            </div>
-          </Sidebar>
-        </Drawer.Items>}
+            </Sidebar>
+          </Drawer.Items>
+        )}
       </Drawer>
     </div>
-  )
+  );
 }
 
-export default GalleryOffcanvas
+export default GalleryOffcanvas;
