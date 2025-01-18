@@ -14,7 +14,7 @@ function GalleryMain() {
         <GalleryNavbar />
 
         <button
-          className=" text-gray-200 hover:text-gray-300 mr-4"
+          className=" text-gray-200 hover:text-gray-300 mx-4"
           onClick={() => setIsOpen(true)}
         >
           <TbAlbum className="size-10" />
