@@ -22,7 +22,7 @@ function GalleryNavlink() {
         onClick={() => openAccordion(album._id)}
         className={
           album._id === openSubAlbumId
-            ? `${navlinkClass} !bg-gray-700 hover:!bg-gray-800 text-white`
+            ? `${navlinkClass} !bg-gray-800 hover:!bg-gray-900 text-white`
             : `${navlinkClass} hover:bg-gray-400`
         }
       >
@@ -73,7 +73,7 @@ const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
     >
       {album.tags.en.map((tag) => (
         <div
-          className={`w-full bg-gray-800 rounded-md px-4 mt-1 hover:bg-gray-600 text-white`}
+          className={`w-full bg-gray-950 rounded-md px-4 mt-1 hover:bg-gray-600 text-white`}
           key={tag}
           onClick={() => onClose()}
         >

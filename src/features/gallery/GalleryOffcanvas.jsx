@@ -36,11 +36,15 @@ function GalleryOffcanvas() {
           <input
             type="text"
             placeholder={`${language === "en" ? "Search..." : "جستجو ..."}`}
-            className="my-2 rounded-xl w-full bg-gray-700 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-800 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70"
+            className="my-2 rounded-xl w-full bg-gray-800 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-900 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <button className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 ${language === "en" ? "right-0 rounded-r-lg" : "left-0 rounded-l-xl"}`}>
+          <button
+            className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 ${
+              language === "en" ? "right-0 rounded-r-lg" : "left-0 rounded-l-xl"
+            }`}
+          >
             <PiMagnifyingGlassDuotone className="size-7" />
           </button>
         </div>
