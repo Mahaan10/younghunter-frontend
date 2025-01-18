@@ -8,13 +8,11 @@ import { useLanguage } from "../../context/useLanguageContext";
 function GalleryNavlink() {
   const { albums, isLoading } = useAlbums();
   //const { setIsOpen, isOpen } = useGalleryContext();
-  const {language} = useLanguage()
-  const { state, openAccordion, closeAccordion } = useAccordion();
-  const { openSubAlbumId } = state;
-
+  const { language } = useLanguage();
+  const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
 
   const navlinkClass =
-    "flex items-center transition-all duration-300 justify-center py-2 md:py-0 md:mt-0 mt-2 rounded-md md:hover:bg-white";
+    "flex items-center transition-all duration-300 bg-gray-300 py-2 rounded-md";
 
   if (isLoading) return <Loading />;
 
@@ -22,11 +20,10 @@ function GalleryNavlink() {
     <li className="" key={album._id}>
       <NavLink
         onClick={() => openAccordion(album._id)}
-        //to={`${album._id}`}
-        className={({ isActive }) =>
-          isActive
-            ? `${navlinkClass} bg-gray-700 md:bg-inherit md:text-black text-white hover:bg-gray-700`
-            : `${navlinkClass} hover:bg-gray-500  md:hover:text-black hover:text-white`
+        className={
+          album._id === openSubAlbumId
+            ? `${navlinkClass} !bg-gray-700 hover:!bg-gray-800 text-white`
+            : `${navlinkClass} hover:bg-gray-400`
         }
       >
         <SubAlbum
@@ -45,9 +42,9 @@ export default GalleryNavlink;
 const SubAlbum = ({ album, openSubAlbumId, onClose, language }) => {
   const isOpen = album._id === openSubAlbumId;
   return (
-    <div className="flex flex-col w-full text-black">
+    <div className="flex flex-col w-full">
       <div className="flex items-center justify-between px-4">
-        <span>{`${language === "en" ? album.title.en : album.title.fa }`}</span>
+        <span>{`${language === "en" ? album.title.en : album.title.fa}`}</span>
         <button onClick={() => onClose()}>
           <HiChevronDown
             className={`text-lg`}
@@ -55,7 +52,12 @@ const SubAlbum = ({ album, openSubAlbumId, onClose, language }) => {
           />
         </button>
       </div>
-      <SubAlbumItem album={album} isOpen={isOpen} onClose={onClose} language={language}/>
+      <SubAlbumItem
+        album={album}
+        isOpen={isOpen}
+        onClose={onClose}
+        language={language}
+      />
     </div>
   );
 };
@@ -71,7 +73,7 @@ const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
     >
       {album.tags.en.map((tag) => (
         <div
-          className={`w-full bg-gray-600 rounded-md px-4 mt-1 hover:bg-gray-500`}
+          className={`w-full bg-gray-800 rounded-md px-4 mt-1 hover:bg-gray-600 text-white`}
           key={tag}
           onClick={() => onClose()}
         >

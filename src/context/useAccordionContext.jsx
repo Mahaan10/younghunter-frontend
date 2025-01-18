@@ -1,41 +1,26 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useState } from "react";
 
-const AccordionContext = createContext();
+const AccordionContext = createContext()
 
-const initialState = {
-  openSubAlbumId: null,
-};
-
-const accordionReducer = (state, { type, payload }) => {
-  switch (type) {
-    case "Open":
-      return { ...state, openSubAlbumId: payload };
-    case "Close":
-      return { ...state, openSubAlbumId: null };
-    default:
-      return state;
-  }
-};
-
-export const AccordionProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(accordionReducer, initialState);
+export const AccordionProvider = ({children}) => {
+  const [openSubAlbumId, setOpenSubAlbumId] = useState(null)
 
   const openAccordion = (id) => {
-    dispatch({ type: "Open", payload: id });
-  };
+    setOpenSubAlbumId(id)
+  }
 
   const closeAccordion = () => {
-    dispatch({ type: "Close" });
-  };
+    setOpenSubAlbumId(null)
+  }
 
   return (
-    <AccordionContext.Provider value={{ state, openAccordion, closeAccordion }}>
+    <AccordionContext.Provider value={{openSubAlbumId, openAccordion, closeAccordion}}>
       {children}
     </AccordionContext.Provider>
-  );
-};
+  )
+}
 
 export const useAccordion = () => {
-  const context = useContext(AccordionContext);
-  return context;
-};
+  const context = useContext(AccordionContext)
+  return context
+}
