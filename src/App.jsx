@@ -5,19 +5,22 @@ import Home from "./pages/Home";
 import Header from "./features/header/Header";
 import Footer from "./features/footer/Footer";
 import Gallery from "./pages/Gallery";
+import { LanguageProvider } from "./context/useLanguageContext";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="gallery" element={<Gallery />} />
-      </Routes>
-      <Footer />
+      <LanguageProvider>
+        <Toaster />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="gallery" element={<Gallery />} />
+        </Routes>
+        <Footer />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

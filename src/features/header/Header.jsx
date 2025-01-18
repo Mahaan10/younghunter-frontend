@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import HeaderNavlink from "./HeaderNavlink";
 import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
 import HeaderOffcanvas from "./HeaderOffcanvas";
 import HeaderHashlink from "./HeaderHashlink";
+import { useLanguage } from "../../context/useLanguageContext";
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const { t } = useTranslation();
+  const {language} = useLanguage()
 
   return (
     <>
@@ -50,16 +50,16 @@ function Header() {
           </button>
           <ul className="hidden md:flex md:flex-row items-center gap-x-12 text-xl ml-2 font-bold">
             <HeaderNavlink to="/">
-              <span>{t("navbar_1")}</span>
+              <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
             </HeaderNavlink>
             <HeaderNavlink to="gallery">
-              <span>{t("navbar_2")}</span>
+              <span>{language === "en" ? "Gallery" : "گالری"}</span>
             </HeaderNavlink>
             <HeaderHashlink to="#contact">
-              <span>{t("navbar_3")}</span>
+              <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
             </HeaderHashlink>
             <HeaderHashlink to="#about">
-              <span>{t("navbar_4")}</span>
+              <span>{language === "en" ? "About" : "درباره ما"}</span>
             </HeaderHashlink>
           </ul>
           <div className="md:flex hidden items-center gap-x-4">

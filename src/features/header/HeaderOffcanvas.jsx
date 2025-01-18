@@ -3,22 +3,21 @@ import { HiMiniXMark } from "react-icons/hi2";
 import HeaderNavlink from "./HeaderNavlink";
 import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
-import { useTranslation } from "react-i18next";
 import HeaderHashlink from "./HeaderHashlink";
+import { useLanguage } from "../../context/useLanguageContext";
 
 function HeaderOffcanvas({ open, onClose }) {
-  const { t } = useTranslation();
-  const bodyDir = document.body.dir;
+  const { language, direction } = useLanguage();
 
   return (
     <div className="md:hidden">
       <Drawer
         open={open}
         onClose={onClose}
-        position={`${bodyDir === "ltr" ? "right" : "left"}`}
+        position={`${direction === "ltr" ? "right" : "left"}`}
         className="transition-all duration-300"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between w-64 mx-auto">
           <button
             className="rounded-md p-1 hover:bg-gray-200"
             onClick={onClose}
@@ -39,16 +38,18 @@ function HeaderOffcanvas({ open, onClose }) {
                 <Sidebar.Items className="bg-white">
                   <Sidebar.ItemGroup className="border-none">
                     <HeaderNavlink onClose={onClose} to="/">
-                      <span>{t("navbar_1")}</span>
+                      <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
                     </HeaderNavlink>
                     <HeaderNavlink onClose={onClose} to="gallery">
-                      <span>{t("navbar_2")}</span>
+                      <span>{language === "en" ? "Gallery" : "گالری"}</span>
                     </HeaderNavlink>
                     <HeaderHashlink onClose={onClose} to="#contact">
-                      <span>{t("navbar_3")}</span>
+                      <span>
+                        {language === "en" ? "Contact" : "تماس با ما"}
+                      </span>
                     </HeaderHashlink>
                     <HeaderHashlink onClose={onClose} to="#about">
-                      <span>{t("navbar_4")}</span>
+                      <span>{language === "en" ? "About" : "درباره ما"}</span>
                     </HeaderHashlink>
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup className="border-none">

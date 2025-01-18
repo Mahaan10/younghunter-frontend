@@ -6,39 +6,41 @@ import { PiMagnifyingGlassDuotone } from "react-icons/pi";
 import { useGalleryContext } from "../../context/useGalleryContext";
 import GalleryNavlink from "./GalleryNavlink";
 import { AccordionProvider } from "../../context/useAccordionContext";
+import { useLanguage } from "../../context/useLanguageContext";
 
 function GalleryOffcanvas() {
   const { isLoading } = useAlbums();
   const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
+  const { direction, language } = useLanguage();
 
   return (
     <div className="flex flex-col">
       <Drawer
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        position="right"
+        position={`${direction === "ltr" ? "right" : "left"}`}
         className="transition-all duration-300"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <img src="/logo demo.jpg" alt="" className="w-10" />
-          </div>
+        <div className="flex items-center justify-between w-64 mx-auto">
           <button
             className="rounded-md p-1 hover:bg-gray-200"
             onClick={() => setIsOpen(false)}
           >
             <HiMiniXMark className="w-5 h-5 text-gray-400 hover:text-gray-600" />
           </button>
+          <div className="flex items-center">
+            <img src="/logo demo.jpg" alt="" className="w-10" />
+          </div>
         </div>
-        <div className="w-full relative justify-between">
+        <div className="w-64 relative mx-auto">
           <input
             type="text"
-            placeholder="Search..."
-            className="my-2 rounded-xl w-64 bg-gray-700 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-800 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70"
+            placeholder={`${language === "en" ? "Search..." : "جستجو ..."}`}
+            className="my-2 rounded-xl w-full bg-gray-700 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-800 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <button className="absolute right-4 top-2 bg-gray-400 border border-gray-500 rounded-r-xl py-1.5">
+          <button className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 ${language === "en" ? "right-0 rounded-r-lg" : "left-0 rounded-l-xl"}`}>
             <PiMagnifyingGlassDuotone className="size-7" />
           </button>
         </div>
@@ -48,7 +50,7 @@ function GalleryOffcanvas() {
           <Drawer.Items>
             <Sidebar
               aria-label="Sidebar with multi-level dropdown example"
-              className="[&>div]:bg-transparent [&>div]:p-0"
+              className="[&>div]:bg-transparent [&>div]:p-0 w-64 mx-auto"
             >
               <div className="flex h-full flex-col justify-between py-2">
                 <div>

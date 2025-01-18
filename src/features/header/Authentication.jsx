@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Modal from "../../ui/Modal";
 import SignUp from "./SignUp";
-import { useTranslation } from "react-i18next";
 import Login from "./Login";
+import { useLanguage } from "../../context/useLanguageContext";
 
 function Authentication() {
   const [openModal, setOpenModal] = useState(false);
   const [signUp, setSignUp] = useState(false);
-  const { t } = useTranslation();
+  const { language } = useLanguage();
 
   return (
     <>
@@ -15,11 +15,19 @@ function Authentication() {
         className="text-sm font-semibold px-3 py-1"
         onClick={() => setOpenModal(true)}
       >
-        {t("valid")}
+        {language === "en" ? "Sign Up / Login" : "ورود / عضویت"}
       </button>
       {openModal && (
         <Modal
-          title={signUp ? t("signUp") : t("login")}
+          title={
+            signUp && language === "en"
+              ? "Sign Up"
+              : signUp && language === "fa"
+              ? "عضویت"
+              : !signUp && language === "en"
+              ? "Login"
+              : "ورود"
+          }
           onClose={() => setOpenModal(false)}
         >
           {signUp ? (

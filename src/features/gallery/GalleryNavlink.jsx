@@ -3,12 +3,15 @@ import { useAccordion } from "../../context/useAccordionContext";
 import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import { HiChevronDown } from "react-icons/hi2";
+import { useLanguage } from "../../context/useLanguageContext";
 
 function GalleryNavlink() {
   const { albums, isLoading } = useAlbums();
   //const { setIsOpen, isOpen } = useGalleryContext();
+  const {language} = useLanguage()
   const { state, openAccordion, closeAccordion } = useAccordion();
   const { openSubAlbumId } = state;
+
 
   const navlinkClass =
     "flex items-center transition-all duration-300 justify-center py-2 md:py-0 md:mt-0 mt-2 rounded-md md:hover:bg-white";
@@ -30,6 +33,7 @@ function GalleryNavlink() {
           album={album}
           openSubAlbumId={openSubAlbumId}
           onClose={closeAccordion}
+          language={language}
         />
       </NavLink>
     </li>
@@ -38,12 +42,12 @@ function GalleryNavlink() {
 
 export default GalleryNavlink;
 
-const SubAlbum = ({ album, openSubAlbumId, onClose }) => {
+const SubAlbum = ({ album, openSubAlbumId, onClose, language }) => {
   const isOpen = album._id === openSubAlbumId;
   return (
     <div className="flex flex-col w-full text-black">
       <div className="flex items-center justify-between px-4">
-        <span>{album.title.en}</span>
+        <span>{`${language === "en" ? album.title.en : album.title.fa }`}</span>
         <button onClick={() => onClose()}>
           <HiChevronDown
             className={`text-lg`}
@@ -51,12 +55,12 @@ const SubAlbum = ({ album, openSubAlbumId, onClose }) => {
           />
         </button>
       </div>
-      <SubAlbumItem album={album} isOpen={isOpen} onClose={onClose} />
+      <SubAlbumItem album={album} isOpen={isOpen} onClose={onClose} language={language}/>
     </div>
   );
 };
 
-const SubAlbumItem = ({ album, isOpen, onClose }) => {
+const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
   return (
     <div
       className={`${
