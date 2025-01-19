@@ -11,6 +11,10 @@ function GalleryNavlink() {
   const { language } = useLanguage();
   const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
 
+  const openAccordionHandler = (id) => {
+    openAccordion(id === openSubAlbumId ? null : id);
+  };
+
   const navlinkClass =
     "flex items-center transition-all duration-300 bg-gray-300 py-2 rounded-md";
 
@@ -19,7 +23,7 @@ function GalleryNavlink() {
   return albums.map((album) => (
     <li className="" key={album._id}>
       <NavLink
-        onClick={() => openAccordion(album._id)}
+        onClick={() => openAccordionHandler(album._id)}
         className={
           album._id === openSubAlbumId
             ? `${navlinkClass} !bg-gray-800 hover:!bg-gray-900 text-white`

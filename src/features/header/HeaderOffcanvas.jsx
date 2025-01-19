@@ -5,16 +5,18 @@ import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
+import { useLocation } from "react-router-dom";
 
 function HeaderOffcanvas({ open, onClose }) {
-  const { language, direction } = useLanguage();
+  const { language } = useLanguage();
+  const location = useLocation();
 
   return (
     <div className="md:hidden">
       <Drawer
         open={open}
         onClose={onClose}
-        position={`${direction === "ltr" ? "right" : "left"}`}
+        position="right"
         className="transition-all duration-300"
       >
         <div className="flex items-center justify-between w-64 mx-auto">
@@ -40,7 +42,7 @@ function HeaderOffcanvas({ open, onClose }) {
                     <HeaderNavlink onClose={onClose} to="/">
                       <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
                     </HeaderNavlink>
-                    <HeaderNavlink onClose={onClose} to="gallery">
+                    <HeaderNavlink onClose={onClose} to="albums">
                       <span>{language === "en" ? "Gallery" : "گالری"}</span>
                     </HeaderNavlink>
                     <HeaderHashlink onClose={onClose} to="#contact">
@@ -48,9 +50,11 @@ function HeaderOffcanvas({ open, onClose }) {
                         {language === "en" ? "Contact" : "تماس با ما"}
                       </span>
                     </HeaderHashlink>
-                    <HeaderHashlink onClose={onClose} to="#about">
-                      <span>{language === "en" ? "About" : "درباره ما"}</span>
-                    </HeaderHashlink>
+                    {location.pathname === "/" && (
+                      <HeaderHashlink onClose={onClose} to="#about">
+                        <span>{language === "en" ? "About" : "درباره ما"}</span>
+                      </HeaderHashlink>
+                    )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup className="border-none">
                     <div className="flex flex-col gap-y-4">

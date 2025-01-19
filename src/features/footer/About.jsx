@@ -5,7 +5,7 @@ function About() {
   const { language } = useLanguage();
   return (
     <div
-      className="flex items-center justify-center w-full md:border-b gap-x-10  md:border-gray-300 pb-4"
+      className="flex items-center justify-center w-full md:border-b gap-x-10  md:border-gray-300 pb-4 mt-8"
       id="about"
     >
       <div className="">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HeaderNavlink from "./HeaderNavlink";
 import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
@@ -9,17 +9,20 @@ import { useLanguage } from "../../context/useLanguageContext";
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const {language} = useLanguage()
-
+  const { language } = useLanguage();
+  const location = useLocation();
   return (
     <>
-      <div className="border-b-2 flex items-center gap-x-4 border-black relative">
+      <div
+        className="border-b-2 flex items-center gap-x-4 border-black"
+        style={{ direction: "ltr" }}
+      >
         <button className="w-24">
           <Link to="/">
             <img src="/logo demo.jpg" alt="" />
           </Link>
         </button>
-        <h5 className="font-bold md:text-4xl text-base tracking-wide absolute rtl:left-14 md:rtl:left-32 ltr:left-32">
+        <h5 className="font-bold md:text-4xl text-base tracking-wide">
           Y O U N G H U N T E R
         </h5>
       </div>
@@ -27,7 +30,8 @@ function Header() {
         <div className="flex flex-wrap items-center justify-between">
           <button
             data-testid="navbar-default"
-            className="absolute top-4 rtl:left-1 ltr:right-1 p-2 w-10 h-10 text-2xl text-gray-700 md:hidden focus:outline-none"
+            className="absolute top-4 right-1 p-2 w-10 h-10 text-2xl text-gray-700 md:hidden focus:outline-none"
+            style={{ direction: "ltr" }}
             aria-controls="navbar-default"
             aria-expanded="false"
             onClick={() => setOpen(!open)}
@@ -52,15 +56,17 @@ function Header() {
             <HeaderNavlink to="/">
               <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
             </HeaderNavlink>
-            <HeaderNavlink to="gallery">
+            <HeaderNavlink to="albums">
               <span>{language === "en" ? "Gallery" : "گالری"}</span>
             </HeaderNavlink>
             <HeaderHashlink to="#contact">
               <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
             </HeaderHashlink>
-            <HeaderHashlink to="#about">
-              <span>{language === "en" ? "About" : "درباره ما"}</span>
-            </HeaderHashlink>
+            {location.pathname === "/" && (
+              <HeaderHashlink to="#about">
+                <span>{language === "en" ? "About" : "درباره ما"}</span>
+              </HeaderHashlink>
+            )}
           </ul>
           <div className="md:flex hidden items-center gap-x-4">
             <HeaderSelectBox onClose={() => setOpen(false)} />
