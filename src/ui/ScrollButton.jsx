@@ -21,11 +21,11 @@ function ScrollToTopButton() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-// need to add some animation to the button!!!!
+
   return (
     isVisible && (
-      <button onClick={scrollToTop} className="fixed bottom-0 right-0">
-        <HiArrowCircleUp className="w-14 h-14" />
+      <button onClick={scrollToTop} className="fixed bottom-3 right-0">
+        <HiArrowCircleUp className="w-14 h-14  hover:scale-110 transition-all duration-150" />
       </button>
     )
   );
