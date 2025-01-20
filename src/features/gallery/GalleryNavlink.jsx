@@ -8,12 +8,18 @@ import { useLanguage } from "../../context/useLanguageContext";
 function GalleryNavlink() {
   const { albums, isLoading } = useAlbums();
   //const { setIsOpen, isOpen } = useGalleryContext();
+  //onClose needs to change!!!!
   const { language } = useLanguage();
   const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
-
   const openAccordionHandler = (id) => {
     openAccordion(id === openSubAlbumId ? null : id);
   };
+
+  /* const utcDate = "2025-01-20T10:10:00.00Z"
+const localDate = new Date(utcDate)
+const formattedDateFa = localDate.toLocaleString("fa-IR")
+const formattedDateEn = localDate.toLocaleString("en-US")
+console.log(formattedDateFa, formattedDateEn) */
 
   const navlinkClass =
     "flex items-center transition-all duration-300 bg-gray-300 py-2 rounded-md";
@@ -75,13 +81,18 @@ const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
           : "hidden"
       }`}
     >
-      {album.tags.en.map((tag) => (
+      {album.subAlbums.map((subAlbum) => (
         <div
-          className={`w-full bg-gray-950 rounded-md px-4 mt-1 hover:bg-gray-600 text-white`}
-          key={tag}
+          className={`w-full bg-gray-950 rounded-md px-4 mt-1 hover:bg-gray-600 text-white py-1`}
+          key={subAlbum._id}
           onClick={() => onClose()}
         >
-          <span>{tag}</span>
+          <button
+            className="flex items-center justify-start w-full"
+            onClick={() => console.log(subAlbum._id)}
+          >{`${
+            language === "en" ? subAlbum.title.en : subAlbum.title.fa
+          }`}</button>
         </div>
       ))}
     </div>
