@@ -17,7 +17,7 @@ function GalleryNavlink() {
   };
 
   useEffect(() => {
-    openSubAlbumId === 0 ? openAccordion(albums[0]._id) : "";
+    openSubAlbumId === 0 ? openAccordion(albums[0]._id) : null;
   }, [openAccordion, albums, openSubAlbumId]);
 
   /* const utcDate = "2025-01-20T10:10:00.00Z"
