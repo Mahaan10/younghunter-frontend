@@ -1,37 +1,38 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { useLanguage } from "../../context/useLanguageContext";
 
-function Login({ setSignUp }) {
+function Login() {
+  const { language } = useLanguage();
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
-      phoneNumber: "",
       password: "",
-      passwordConfirm: "",
     },
     validateOnMount: true,
     onSubmit: (values) => {
       console.log(values);
     },
     validationSchema: Yup.object({
-      name: Yup.string()
-        .required("Name is required")
-        .min(3, "Name is not valid"),
       email: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
+        .email(
+          `${language === "en" ? "Invalid email format" : "ایمیل نامعتبر است"}`
+        )
+        .required(
+          `${language === "en" ? "Email is required" : " ایمیل الزامیست"}`
+        ),
       password: Yup.string()
-        .min(8, "Password must contain 8 characters")
-        .required("Password is required"),
-      phoneNumber: Yup.string()
-        .required("Phone Number is required")
-        .matches(/^[0-9]{11}$/, "Invalid Phone Number")
-        .nullable(),
-      passwordConfirm: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Password Confirmation is required"),
+        .min(
+          8,
+          `${
+            language === "en"
+              ? "Password must contain atleast 8 characters"
+              : "کلمه عبور باید حداقل ۸ کاراکتر باشد"
+          }`
+        )
+        .required(
+          `${language === "en" ? "Password is required" : "کلمه عبور الزامیست"}`
+        ),
     }),
   });
 
@@ -40,11 +41,11 @@ function Login({ setSignUp }) {
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
           <label htmlFor="email" className="text-white mb-1">
-            Email:
+            {language === "en" ? "Email:" : "ایمیل:"}
           </label>
           <input
             type="text"
-            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-lg focus:shadow-blue-200"
+            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-md focus:shadow-sky-500"
             {...formik.getFieldProps("email")}
             name="email"
           />
@@ -57,11 +58,11 @@ function Login({ setSignUp }) {
 
         <div className="flex flex-col w-[80%]">
           <label htmlFor="password" className="text-white mb-1">
-            Password:
+            {language === "en" ? "Password:" : "کلمه عبور:"}
           </label>
           <input
             type="password"
-            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-lg focus:shadow-blue-200"
+            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-md focus:shadow-sky-500"
             {...formik.getFieldProps("password")}
             name="password"
           />
@@ -70,15 +71,6 @@ function Login({ setSignUp }) {
               {formik.errors.password}
             </div>
           )}
-        </div>
-        <div className="flex items-center text-xs gap-x-1">
-          <span className="text-white">Don&apos; t have an account?</span>
-          <Link
-            onClick={() => setSignUp(true)}
-            className="text-blue-600 underline"
-          >
-            Sign up
-          </Link>
         </div>
         <div className="w-[80%] mt-2">
           <button
