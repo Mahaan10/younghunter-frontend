@@ -4,6 +4,7 @@ import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import { HiChevronDown } from "react-icons/hi2";
 import { useLanguage } from "../../context/useLanguageContext";
+import { useEffect } from "react";
 
 function GalleryNavlink() {
   const { albums, isLoading } = useAlbums();
@@ -14,6 +15,10 @@ function GalleryNavlink() {
   const openAccordionHandler = (id) => {
     openAccordion(id === openSubAlbumId ? null : id);
   };
+
+  useEffect(() => {
+    openSubAlbumId === 0 ? openAccordion(albums[0]._id) : "";
+  }, [openAccordion, albums, openSubAlbumId]);
 
   /* const utcDate = "2025-01-20T10:10:00.00Z"
 const localDate = new Date(utcDate)

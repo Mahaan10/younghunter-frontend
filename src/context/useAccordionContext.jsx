@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AccordionContext = createContext()
 
 export const AccordionProvider = ({children}) => {
-  const [openSubAlbumId, setOpenSubAlbumId] = useState(null)
+  const [openSubAlbumId, setOpenSubAlbumId] = useState(0)
 
   const openAccordion = (id) => {
     setOpenSubAlbumId(id)
