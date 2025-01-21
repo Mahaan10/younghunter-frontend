@@ -1,4 +1,5 @@
 import { useGalleryContext } from "../../context/useGalleryContext";
+import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
 //import useCarouselImages from "../../hooks/useCarouselImages";
 import Loading from "../../ui/Loading";
@@ -9,6 +10,7 @@ function GalleryMain({ albumIndex }) {
   const { setIsOpen } = useGalleryContext();
   //const { images, isLoading } = useCarouselImages();
   const { albums, isLoading } = useAlbums();
+  const {language} = useLanguage()
 
 
   return (
@@ -42,8 +44,8 @@ function GalleryMain({ albumIndex }) {
                   alt=""
                 />
               </button>
-              <h1 className="font-bold text-2xl ml-2.5">Title</h1>
-              <h2 className="ml-2.5">
+              <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? album.title.en : album.title.fa}`}</h1>
+              <h2 className="mx-2.5">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Suscipit blanditiis.
               </h2>
