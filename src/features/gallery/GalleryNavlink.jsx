@@ -12,6 +12,7 @@ function GalleryNavlink() {
   //onClose needs to change!!!!
   const { language } = useLanguage();
   const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
+
   const openAccordionHandler = (id) => {
     openAccordion(id === openSubAlbumId ? null : id);
   };
@@ -20,7 +21,7 @@ function GalleryNavlink() {
     openAccordion(openSubAlbumId);
   }, [openAccordion, openSubAlbumId]);
 
-  console.log(openSubAlbumId);
+
   /* const utcDate = "2025-01-20T10:10:00.00Z"
 const localDate = new Date(utcDate)
 const formattedDateFa = localDate.toLocaleString("fa-IR")

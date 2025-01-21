@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import getAlbumApi from "../services/albumService";
+import getAlbumsApi from "../services/albumService";
 
 export default function useAlbums() {
   const { data, isLoading } = useQuery({
     queryKey: ["albums"],
-    queryFn: getAlbumApi,
+    queryFn: getAlbumsApi,
   });
 
   const { albums } = data || {};

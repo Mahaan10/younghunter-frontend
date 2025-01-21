@@ -6,11 +6,15 @@ import Authentication from "./Authentication";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
 import { useLocation } from "react-router-dom";
+import useAlbums from "../../hooks/useAlbums";
+import Loading from "../../ui/Loading";
 
 function HeaderOffcanvas({ open, onClose }) {
   const { language } = useLanguage();
+  const { isLoading, albums } = useAlbums();
   const location = useLocation();
 
+  if (isLoading) return <Loading />;
   return (
     <div className="md:hidden">
       <Drawer
@@ -42,7 +46,10 @@ function HeaderOffcanvas({ open, onClose }) {
                     <HeaderNavlink onClose={onClose} to="/">
                       <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
                     </HeaderNavlink>
-                    <HeaderNavlink onClose={onClose} to="albums">
+                    <HeaderNavlink
+                      onClose={onClose}
+                      to={`albums/${albums[0]._id}`}
+                    >
                       <span>{language === "en" ? "Gallery" : "گالری"}</span>
                     </HeaderNavlink>
                     <HeaderHashlink onClose={onClose} to="#contact">
