@@ -13,7 +13,8 @@ export default {
         '3xl': '0 10px 30px rgba(0,0,0,0.45)'
       },
       fontFamily: {
-        sans: ["Ubuntu", "Vazir", ...fontFamily.sans]
+        sans: ["Ubuntu", "Vazir", ...fontFamily.sans],
+        headerFont : ["Ivy mode"]
       }
     },
   },

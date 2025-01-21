@@ -22,7 +22,7 @@ function Header() {
             <img src="/logo demo.jpg" alt="" />
           </Link>
         </button>
-        <h5 className="font-bold md:text-4xl text-base tracking-wide">
+        <h5 className="md:text-4xl text-base tracking-wide font-headerFont font-bold">
           Y O U N G H U N T E R
         </h5>
       </div>

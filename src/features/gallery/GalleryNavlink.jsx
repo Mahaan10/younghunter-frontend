@@ -17,9 +17,10 @@ function GalleryNavlink() {
   };
 
   useEffect(() => {
-    openSubAlbumId === 0 ? openAccordion(albums[0]._id) : null;
-  }, [openAccordion, albums, openSubAlbumId]);
+    openAccordion(openSubAlbumId);
+  }, [openAccordion, openSubAlbumId]);
 
+  console.log(openSubAlbumId);
   /* const utcDate = "2025-01-20T10:10:00.00Z"
 const localDate = new Date(utcDate)
 const formattedDateFa = localDate.toLocaleString("fa-IR")
