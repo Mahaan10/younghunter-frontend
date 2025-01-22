@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useGalleryContext } from "../../context/useGalleryContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
@@ -11,6 +12,7 @@ function GalleryMain() {
   //const { images, isLoading } = useCarouselImages();
   const { albums, isLoading } = useAlbums();
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -36,7 +38,7 @@ function GalleryMain() {
               <span className="text-xs text-center font-bold text-red-950">
                 Lorem, ipsum dolor sit amet.
               </span>
-              <button className="" onClick={() => console.log(album._id)}>
+              <button className="" onClick={() => navigate(album._id)}>
                 <img
                   src={album.imageCover}
                   className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}

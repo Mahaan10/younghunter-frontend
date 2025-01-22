@@ -3,7 +3,7 @@ import { useLanguage } from "../../context/useLanguageContext";
 import GallerySortSelectBox from "./GallerySortSelectBox";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 
-function GalleryNavbar() {
+function GalleryInputFields() {
   const { value, setValue } = useGalleryContext();
   const { language } = useLanguage();
 
@@ -28,4 +28,4 @@ function GalleryNavbar() {
   );
 }
 
-export default GalleryNavbar;
+export default GalleryInputFields;
