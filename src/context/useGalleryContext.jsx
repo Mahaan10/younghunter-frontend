@@ -7,7 +7,14 @@ export default function GalleryContextProvider({ children }) {
   const [value, setValue] = useState("");
 
   return (
-    <GalleryContext.Provider value={{ isOpen, setIsOpen, value, setValue }}>
+    <GalleryContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        value,
+        setValue,
+      }}
+    >
       {children}
     </GalleryContext.Provider>
   );

@@ -6,12 +6,11 @@ import Loading from "../../ui/Loading";
 import GalleryNavbar from "./GalleryNavbar";
 import { TbAlbum } from "react-icons/tb";
 
-function GalleryMain({ albumIndex }) {
+function GalleryMain() {
   const { setIsOpen } = useGalleryContext();
   //const { images, isLoading } = useCarouselImages();
   const { albums, isLoading } = useAlbums();
-  const {language} = useLanguage()
-
+  const { language } = useLanguage();
 
   return (
     <>
@@ -29,7 +28,7 @@ function GalleryMain({ albumIndex }) {
         <Loading />
       ) : (
         <div className="rounded-2xl shadow-3xl  gap-y-4 p-5 max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3">
-          {albums[albumIndex].subAlbums.map((album) => (
+          {albums.map((album) => (
             <div
               key={album._id}
               className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
@@ -39,16 +38,14 @@ function GalleryMain({ albumIndex }) {
               </span>
               <button className="" onClick={() => console.log(album._id)}>
                 <img
-                  //src={img.url}
+                  src={album.imageCover}
                   className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}
                   alt=""
                 />
               </button>
-              <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? album.title.en : album.title.fa}`}</h1>
-              <h2 className="mx-2.5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Suscipit blanditiis.
-              </h2>
+              <h1 className="font-bold text-2xl mx-2.5">{`${
+                language === "en" ? album.title.en : album.title.fa
+              }`}</h1>
             </div>
           ))}
         </div>

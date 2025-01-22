@@ -1,11 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import useAlbums from "../hooks/useAlbums";
 
 const AccordionContext = createContext();
 
 export const AccordionProvider = ({ children }) => {
-  const { albums } = useAlbums();
-  const [openSubAlbumId, setOpenSubAlbumId] = useState(albums[0]._id);
+  const [openSubAlbumId, setOpenSubAlbumId] = useState(null);
 
   const openAccordion = (id) => {
     setOpenSubAlbumId(id);

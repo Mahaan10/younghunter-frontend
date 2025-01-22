@@ -6,16 +6,12 @@ import Authentication from "./Authentication";
 import HeaderOffcanvas from "./HeaderOffcanvas";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
-import useAlbums from "../../hooks/useAlbums";
-import Loading from "../../ui/Loading";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
-  const { isLoading, albums } = useAlbums();
   const location = useLocation();
 
-  if (isLoading) return <Loading />;
   return (
     <>
       <div
@@ -61,7 +57,7 @@ function Header() {
             <HeaderNavlink to="/">
               <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
             </HeaderNavlink>
-            <HeaderNavlink to={`albums/${albums[0]._id}`}>
+            <HeaderNavlink to="albums">
               <span>{language === "en" ? "Gallery" : "گالری"}</span>
             </HeaderNavlink>
             <HeaderHashlink to="#contact">

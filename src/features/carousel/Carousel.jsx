@@ -27,7 +27,7 @@ const carouselReducer = (state, { type, payload }) => {
 };
 
 function Carousel() {
-  const { images, isLoading } = useCarouselImages();
+  const { images, isLoading, isError } = useCarouselImages();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
   const prevCarouselItemHandler = () => {
@@ -46,12 +46,13 @@ function Carousel() {
   useEffect(() => {
     const carouselInterval = setInterval(() => {
       dispatch({ type: "Next", payload: images.length });
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(carouselInterval);
   }, [images]);
 
   if (isLoading) return <Loading />;
+  if(isError) return <p>Error</p>
 
   return (
     <div className="max-w-[500px] mt-10 mx-auto bg-white shadow-3xl flex items-center justify-center relative p-5 rounded-2xl">
@@ -82,17 +83,17 @@ function Carousel() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-x-3 filmstrip w-full sm:gap-x-6">
-          {images.map((data) => (
-            <button key={data._id}>
+          {images.map((img) => (
+            <button key={img._id}>
               <img
-                src={`${data.url}`}
+                src={`${img.url}`}
                 alt=""
                 className={`object-cover border-2 border-transparent sm:min-w-[70px] sm:min-h-[70px] ${
-                  data._id === images[state.activeItemIndex]._id
+                  img._id === images[state.activeItemIndex]._id
                     ? "opacity-100"
                     : "opacity-30"
                 }`}
-                onClick={() => indicatorClickHandler(data._id)}
+                onClick={() => indicatorClickHandler(img._id)}
               />
             </button>
           ))}
