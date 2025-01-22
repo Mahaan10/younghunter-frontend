@@ -1,14 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useGalleryContext } from "../../context/useGalleryContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
 //import useCarouselImages from "../../hooks/useCarouselImages";
 import Loading from "../../ui/Loading";
-import GalleryNavbar from "./GalleryNavbar";
-import { TbAlbum } from "react-icons/tb";
 
 function GalleryMain() {
-  const { setIsOpen } = useGalleryContext();
   //const { images, isLoading } = useCarouselImages();
   const { albums, isLoading } = useAlbums();
   const { language } = useLanguage();
@@ -16,16 +12,6 @@ function GalleryMain() {
 
   return (
     <>
-      <div className="bg-gray-950 bg-opacity-70 shadow-sm shadow-gray-500 mt-1 mb-5 flex items-center justify-center relative">
-        <GalleryNavbar />
-
-        <button
-          className=" text-gray-200 hover:text-gray-300 mx-4"
-          onClick={() => setIsOpen(true)}
-        >
-          <TbAlbum className="size-10" />
-        </button>
-      </div>
       {isLoading ? (
         <Loading />
       ) : (

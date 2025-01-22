@@ -7,6 +7,7 @@ import Footer from "./features/footer/Footer";
 import Gallery from "./pages/Gallery";
 import { LanguageProvider } from "./context/useLanguageContext";
 import SingleAlbum from "./features/album/SingleAlbum";
+import Albums from "./features/gallery/Albums";
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,8 +19,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="albums">
-            <Route index element={<Gallery />} />
+          <Route path="/albums" element={<Gallery />}>
+            <Route index element={<Albums />} />
             <Route path=":id" element={<SingleAlbum />} />
           </Route>
         </Routes>
