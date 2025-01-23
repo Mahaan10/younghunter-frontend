@@ -8,7 +8,7 @@ import {
 function Contact() {
   return (
     <>
-      <div className="flex w-full gap-x-3" id="contact">
+      <div className="flex w-full gap-x-3">
         <button className="btn bg-[#25d366]">
           <span className="text-[12px]">WhatsApp</span>
           <FaWhatsapp className="w-5 h-5" />

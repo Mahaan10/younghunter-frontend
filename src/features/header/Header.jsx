@@ -60,13 +60,15 @@ function Header() {
             <HeaderNavlink to="albums">
               <span>{language === "en" ? "Gallery" : "گالری"}</span>
             </HeaderNavlink>
-            <HeaderHashlink to="#contact">
-              <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
-            </HeaderHashlink>
             {location.pathname === "/" && (
-              <HeaderHashlink to="#about">
-                <span>{language === "en" ? "About" : "درباره ما"}</span>
-              </HeaderHashlink>
+              <>
+                <HeaderHashlink to="#contact">
+                  <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
+                </HeaderHashlink>
+                <HeaderHashlink to="#about">
+                  <span>{language === "en" ? "About" : "درباره ما"}</span>
+                </HeaderHashlink>
+              </>
             )}
           </ul>
           <div className="md:flex hidden items-center gap-x-4">

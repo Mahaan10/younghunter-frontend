@@ -1,5 +1,5 @@
 import { HiUserCircle } from "react-icons/hi2";
-import { useLanguage } from "../../context/useLanguageContext";
+import { useLanguage } from "../context/useLanguageContext";
 
 function About() {
   const { language } = useLanguage();

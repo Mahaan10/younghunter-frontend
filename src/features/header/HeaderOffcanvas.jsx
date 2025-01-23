@@ -46,15 +46,20 @@ function HeaderOffcanvas({ open, onClose }) {
                     <HeaderNavlink onClose={onClose} to="albums">
                       <span>{language === "en" ? "Gallery" : "گالری"}</span>
                     </HeaderNavlink>
-                    <HeaderHashlink onClose={onClose} to="#contact">
-                      <span>
-                        {language === "en" ? "Contact" : "تماس با ما"}
-                      </span>
-                    </HeaderHashlink>
                     {location.pathname === "/" && (
-                      <HeaderHashlink onClose={onClose} to="#about">
-                        <span>{language === "en" ? "About" : "درباره ما"}</span>
-                      </HeaderHashlink>
+                      <>
+                        <HeaderHashlink onClose={onClose} to="#contact">
+                          <span>
+                            {language === "en" ? "Contact" : "تماس با ما"}
+                          </span>
+                        </HeaderHashlink>
+
+                        <HeaderHashlink onClose={onClose} to="#about">
+                          <span>
+                            {language === "en" ? "About" : "درباره ما"}
+                          </span>
+                        </HeaderHashlink>
+                      </>
                     )}
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup className="border-none">
