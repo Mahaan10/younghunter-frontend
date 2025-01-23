@@ -1,11 +1,13 @@
 import Carousel from "../features/carousel/Carousel";
-import About from "../features/footer/About";
+import Information from "../features/footer/Information";
+import ScrollToTopButton from "../ui/ScrollButton";
 
 function Home() {
   return (
     <>
       <Carousel />
-      <About />
+      <Information />
+      <ScrollToTopButton />
     </>
   );
 }

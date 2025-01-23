@@ -1,11 +1,9 @@
-import Contact from "./Contact";
-
 function Footer() {
   return (
-    <>
-      <Contact />
-    </>
-  );
+    <div className="max-w-screen-lg">
+      .
+    </div>
+  )
 }
 
 export default Footer;
