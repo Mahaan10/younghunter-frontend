@@ -2,6 +2,8 @@ import { useEffect, useReducer } from "react";
 import useCarouselImages from "../../hooks/useCarouselImages";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 import Loading from "../../ui/Loading";
+import toast from "react-hot-toast";
+import { useLanguage } from "../../context/useLanguageContext";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {
@@ -28,6 +30,7 @@ const carouselReducer = (state, { type, payload }) => {
 
 function Carousel() {
   const { images, isLoading, isError } = useCarouselImages();
+  const { language } = useLanguage();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
   const prevCarouselItemHandler = () => {
@@ -52,7 +55,8 @@ function Carousel() {
   }, [images]);
 
   if (isLoading) return <Loading />;
-  if(isError) return <p>Error</p>
+  if (isError)
+    return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
 
   return (
     <div className="max-w-[500px] mt-10 mx-auto bg-white shadow-3xl flex items-center justify-center relative p-5 rounded-2xl">

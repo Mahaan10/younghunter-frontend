@@ -6,7 +6,7 @@ function FooterNavlink({ to, children }) {
   };
 
   const navlinkClass =
-    "flex items-center flex-col transition-colors duration-300 justify-center px-2 py-1 mt-2 rounded-md";
+    "flex items-center transition-colors duration-300 justify-center px-2 py-1 mt-2 rounded-md";
 
   return (
     <li className="">
@@ -14,7 +14,7 @@ function FooterNavlink({ to, children }) {
         onClick={scrollToTop}
         to={to}
         className={({ isActive }) =>
-          isActive ? `${navlinkClass} bg-black rounded-md` : `${navlinkClass}`
+          isActive ? `${navlinkClass} bg-black` : `${navlinkClass}`
         }
       >
         {children}
