@@ -8,7 +8,7 @@ import {
 function Contact() {
   return (
     <>
-      <div className="flex w-full gap-x-3">
+      <div className="flex w-full items-center justify-center gap-x-3">
         <button className="btn bg-[#25d366]">
           <span className="text-[12px]">WhatsApp</span>
           <FaWhatsapp className="w-5 h-5" />
@@ -18,8 +18,8 @@ function Contact() {
           <FaInstagram className="w-5 h-5" />
         </button>
       </div>
-      <hr className="w-full mt-2 h-[1px] bg-gradient-to-r from-black via-[rgba(0,0,0,0.75)] to-black" />
-      <div className="flex w-full gap-x-3 mt-2">
+      <hr className="md:w-full min-w-[250px] mt-2 h-[1px] bg-gradient-to-r from-[rgba(255,255,255,0.75)] via-black to-[rgba(255,255,255,0.75)] border-none" />
+      <div className="flex w-full items-center justify-center gap-x-3 mt-2">
         <button className="btn bg-[#24a1de]">
           <span className="text-[12px]">Telegram</span>
           <FaTelegram className="w-5 h-5" />
