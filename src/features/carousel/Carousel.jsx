@@ -75,7 +75,7 @@ function Carousel() {
               <img
                 src={`${images[state.activeItemIndex].url}`}
                 alt=""
-                className="object-contain shadow-3xl max-w-[326px] max-h-[456px]"
+                className="object-contain shadow-3xl w-[326px] h-[456px]"
               />
             </button>
           </div>
@@ -92,7 +92,11 @@ function Carousel() {
               <img
                 src={`${img.url}`}
                 alt=""
-                className={`object-cover border-2 border-transparent sm:min-w-[70px] sm:min-h-[70px] ${
+                className={`object-cover border-2 border-transparent sm:min-w-[70px] ${
+                  img.position === "horizontal"
+                    ? "sm:min-h-[105px]"
+                    : "sm:min-h-[70px]"
+                } ${
                   img._id === images[state.activeItemIndex]._id
                     ? "opacity-100"
                     : "opacity-30"
