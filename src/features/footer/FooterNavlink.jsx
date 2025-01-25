@@ -6,7 +6,7 @@ function FooterNavlink({ to, children }) {
   };
 
   const navlinkClass =
-    "transition-all duration-300 w-24 px-2 py-1 flex items-center justify-start md:mt-2 rounded-md";
+    "transition-all duration-300 w-24 px-6 py-1 flex rounded-md";
 
   return (
       <NavLink
@@ -14,8 +14,8 @@ function FooterNavlink({ to, children }) {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? `${navlinkClass} bg-black dark:bg-neutral-200`
-            : `${navlinkClass}`
+            ? `${navlinkClass} bg-neutral-200 dark:bg-black`
+            : `${navlinkClass} dark:text-black`
         }
       >
         {children}
