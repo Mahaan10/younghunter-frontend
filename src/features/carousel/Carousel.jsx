@@ -59,8 +59,8 @@ function Carousel() {
     return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
 
   return (
-    <div className="w-full dark:bg-zinc-950 py-10">
-      <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 transition-all duration-300 flex items-center justify-center relative p-5 rounded-2xl">
+    <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
+      <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
           <div className="flex items-center justify-between">
             <button
@@ -87,7 +87,10 @@ function Carousel() {
               <FaCaretRight className="min-[475px]:size-8 size-5" />
             </button>
           </div>
-          <div className="flex items-center justify-center gap-x-3 filmstrip w-full sm:gap-x-6">
+          <div
+            className="flex items-center justify-center gap-x-3 filmstrip w-full sm:gap-x-6"
+            style={{ direction: "ltr" }}
+          >
             {images.map((img) => (
               <button key={img._id}>
                 <img

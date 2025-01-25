@@ -16,7 +16,7 @@ function Header() {
   return (
     <>
       <div
-        className="flex border-black border-b-2 dark:border-neutral-200 items-center justify-between dark:bg-zinc-950 dark:text-neutral-200"
+        className="flex border-black border-b-2 dark:border-neutral-200 items-center justify-between dark:bg-zinc-950 dark:text-neutral-200 transition-all duration-300"
         style={{ direction: "ltr" }}
       >
         <div className="flex items-center gap-x-4">
@@ -33,7 +33,7 @@ function Header() {
           <ThemeMode />
         </div>
       </div>
-      <div className="md:border-b dark:border-neutral-200 md:border-black md:border-opacity-20 md:pt-2 dark:bg-zinc-950 dark:text-neutral-200">
+      <div className="md:border-b dark:border-neutral-200 md:border-black md:border-opacity-20 md:pt-2 dark:bg-zinc-950 dark:text-neutral-200 transition-all duration-300">
         <div className="flex flex-wrap items-center justify-between">
           <button
             data-testid="navbar-default"
@@ -68,7 +68,7 @@ function Header() {
             </HeaderNavlink>
             {location.pathname === "/" && (
               <>
-                <HeaderHashlink to="#contact">
+                <HeaderHashlink to="#about">
                   <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
                 </HeaderHashlink>
                 <HeaderHashlink to="#about">

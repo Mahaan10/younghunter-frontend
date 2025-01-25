@@ -6,10 +6,9 @@ function FooterNavlink({ to, children }) {
   };
 
   const navlinkClass =
-    "flex items-center transition-colors duration-300 justify-center px-2 py-1 mt-2 rounded-md";
+    "transition-all duration-300 w-24 px-2 py-1 flex items-center justify-start md:mt-2 rounded-md";
 
   return (
-    <li className="">
       <NavLink
         onClick={scrollToTop}
         to={to}
@@ -21,7 +20,6 @@ function FooterNavlink({ to, children }) {
       >
         {children}
       </NavLink>
-    </li>
   );
 }
 

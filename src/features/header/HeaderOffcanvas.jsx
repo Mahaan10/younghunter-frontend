@@ -48,7 +48,7 @@ function HeaderOffcanvas({ open, onClose }) {
                     </HeaderNavlink>
                     {location.pathname === "/" && (
                       <>
-                        <HeaderHashlink onClose={onClose} to="#contact">
+                        <HeaderHashlink onClose={onClose} to="#about">
                           <span>
                             {language === "en" ? "Contact" : "تماس با ما"}
                           </span>
