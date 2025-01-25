@@ -16,7 +16,7 @@ function HeaderSelectBox() {
   return (
     <select
       name="language"
-      className="border-none focus:ring-transparent text-sm font-semibold"
+      className="appearance-none text-sm font-semibold px-3 md:w-28 border border-gray-400 focus:ring-transparent focus:border-gray-400 focus:outline-none rounded-xl shadow-md shadow-slate-800 transition-all duration-300 dark:shadow-neutral-500 dark:bg-inherit dark:[&>option]:bg-zinc-950 w-full"
       value={language}
       onChange={changeLanguageHandler}
     >

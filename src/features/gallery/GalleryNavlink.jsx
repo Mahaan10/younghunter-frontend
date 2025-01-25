@@ -26,14 +26,14 @@ console.log(formattedDateFa, formattedDateEn) */
     "flex items-center transition-all duration-300 bg-gray-300 py-2 rounded-md";
 
   if (isLoading) return <Loading />;
-
+  //dark mode in navlink needs change!!
   return albums.map((album) => (
     <li className="" key={album._id}>
       <NavLink
         onClick={() => openAccordionHandler(album._id)}
         className={
           album._id === openSubAlbumId
-            ? `${navlinkClass} !bg-gray-800 hover:!bg-gray-900 text-white`
+            ? `${navlinkClass} !bg-gray-800 hover:!bg-gray-900 dark:!bg-gray-300 dark:text-black text-white`
             : `${navlinkClass} hover:bg-gray-400`
         }
       >

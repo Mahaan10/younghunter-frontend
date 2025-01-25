@@ -1,4 +1,4 @@
-@import url("../public/fonts.css");
+@import url("/fonts.css");
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 @layer components {
   .btn {
-    @apply flex items-center justify-between text-white w-28 px-2 py-2 rounded-md text-opacity-60 hover:text-opacity-100 hover:scale-110 transition-all duration-150
+    @apply flex items-center justify-between text-white w-28 px-2 py-2 rounded-md text-opacity-60 hover:text-opacity-100 hover:scale-110 transition-all duration-150;
   }
 }
 

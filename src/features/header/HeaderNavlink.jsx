@@ -11,8 +11,8 @@ function HeaderNavlink({ to, onClose, children }) {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? `${navlinkClass} bg-gray-700 md:underline md:underline-offset-13 md:bg-inherit md:text-black text-white hover:bg-gray-700`
-            : `${navlinkClass} hover:bg-gray-500  md:hover:text-black hover:text-white`
+            ? `${navlinkClass} bg-gray-700 font-bold md:underline md:underline-offset-18 md:bg-inherit md:text-black dark:text-white text-white hover:bg-gray-700`
+            : `${navlinkClass} hover:bg-gray-500  md:hover:text-black hover:text-white dark:hover:text-white`
         }
       >
         {children}

@@ -18,7 +18,7 @@ function HeaderOffcanvas({ open, onClose }) {
         open={open}
         onClose={onClose}
         position="right"
-        className="transition-all duration-300"
+        className="transition-all duration-300 dark:bg-zinc-950"
       >
         <div className="flex items-center justify-between w-64 mx-auto">
           <button
@@ -36,9 +36,9 @@ function HeaderOffcanvas({ open, onClose }) {
             aria-label="Sidebar with multi-level dropdown example"
             className="[&>div]:p-0 mx-auto"
           >
-            <div className="flex h-full flex-col justify-between py-2 bg-white">
+            <div className="flex h-full flex-col justify-between py-2 bg-white dark:bg-zinc-950">
               <div>
-                <Sidebar.Items className="bg-white">
+                <Sidebar.Items className="bg-white dark:bg-zinc-950">
                   <Sidebar.ItemGroup className="border-none">
                     <HeaderNavlink onClose={onClose} to="/">
                       <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>

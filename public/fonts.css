@@ -1,15 +1,29 @@
 @font-face {
   font-family: "Ubuntu";
   font-style: normal;
+  font-weight: 300;
+  src: url("/Font/Ubuntu-Light.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
   font-weight: 400;
-  src: url('/Font/Ubuntu-Medium.ttf') format("ttf");
+  src: url("/Font/Ubuntu-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/Font/Ubuntu-Medium.ttf") format("ttf");
 }
 
 @font-face {
   font-family: "Ubuntu";
   font-style: normal;
   font-weight: 700;
-  src: url('/Font/Ubuntu-Bold.ttf') format("ttf");
+  src: url("/Font/Ubuntu-Bold.ttf") format("ttf");
 }
 
 @font-face {

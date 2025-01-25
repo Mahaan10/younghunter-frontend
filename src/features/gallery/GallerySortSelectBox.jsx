@@ -5,7 +5,7 @@ function GallerySortSelectBox() {
   return (
     <select
       name="preferSearch"
-      className="w-full md:w-fit border-none focus:ring-transparent text-sm p-1 rounded-md shadow-sm shadow-slate-800 md:mb-0 mb-2"
+      className="appearance-none text-xs font-semibold px-3 md:w-40 border border-gray-400 focus:ring-transparent focus:border-gray-400 focus:outline-none rounded-xl shadow-md shadow-slate-800 transition-all duration-300 dark:shadow-neutral-500 dark:bg-inherit dark:[&>option]:bg-zinc-950 w-full dark:text-neutral-200"
       onChange={(e) => console.log(e.target.value)}
     >
       <option value="new">

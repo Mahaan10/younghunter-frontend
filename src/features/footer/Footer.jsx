@@ -16,10 +16,10 @@ function Footer() {
     return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
 
   return (
-    <div className="bg-gray-950 bg-opacity-90 w-full mx-auto text-white">
+    <div className="bg-gray-950 dark:bg-opacity-65 dark:text-black bg-opacity-90 w-full mx-auto text-white">
       <div className="max-w-[85%] p-5 mx-auto grid grid-cols-1 md:grid-cols-2 min-[900px]:grid-cols-3 text-sm">
         <div className="w-full mx-auto">
-          <h1 className="w-40 text-center text-nowrap text-neutral-300">
+          <h1 className="w-40 text-center text-nowrap text-neutral-100 text-opacity-65 dark:text-neutral-950 dark:text-opacity-85 font-bold text-xl">
             {language === "en" ? "Page List" : "صفحات"}
           </h1>
           <ul className="w-40">
@@ -32,7 +32,7 @@ function Footer() {
           </ul>
         </div>
         <div className="">
-          <h1 className="text-neutral-300">
+          <h1 className="text-neutral-100 text-opacity-65 dark:text-neutral-950 dark:text-opacity-85 font-bold text-xl">
             {language === "en" ? "Albums" : "آلبوم ها"}
           </h1>
           <ul>
@@ -46,7 +46,7 @@ function Footer() {
           </ul>
         </div>
         <div className="">
-          <h1 className="text-neutral-300">
+          <h1 className="text-neutral-100 text-opacity-65 dark:text-neutral-950 dark:text-opacity-85 font-bold text-xl">
             {language === "en" ? "Sub Albums" : "زیر آلبوم ها"}
           </h1>
           {albums.map((album, albumIndex) => (

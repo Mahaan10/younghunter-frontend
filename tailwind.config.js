@@ -1,4 +1,4 @@
-import {fontFamily} from "tailwindcss/defaultTheme"
+import { fontFamily } from "tailwindcss/defaultTheme";
 const flowbite = require("flowbite-react/tailwind");
 
 /** @type {import('tailwindcss').Config} */
@@ -7,16 +7,17 @@ export default {
   theme: {
     extend: {
       textUnderlineOffset: {
-        13 : "13px"
+        18: "18px",
       },
       boxShadow: {
-        '3xl': '0 10px 30px rgba(0,0,0,0.45)'
+        "3xl": "0 10px 30px rgba(0,0,0,0.45)",
       },
       fontFamily: {
         sans: ["Ubuntu", "Vazir", ...fontFamily.sans],
-        headerFont : ["Ivy mode"]
-      }
+        headerFont: ["Ivy mode"],
+      },
     },
   },
+  darkMode: "class",
   plugins: [flowbite.plugin()],
 };

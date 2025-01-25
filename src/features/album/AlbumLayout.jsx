@@ -6,16 +6,17 @@ import ScrollToTopButton from "../../ui/ScrollButton";
 
 function AlbumLayout() {
   const { setIsOpen } = useGalleryContext();
+
   return (
-    <div>
-      <div className="bg-gray-950 bg-opacity-70 shadow-sm shadow-gray-500 mt-1 mb-5 flex items-center justify-center relative">
+    <div className="">
+      <div className="bg-gray-950 bg-opacity-70 dark:bg-opacity-90 shadow-sm shadow-gray-500 mt-1 flex items-center justify-center relative">
         <GalleryNavbar />
 
         <button
           className=" text-gray-200 hover:text-gray-300 mx-4"
           onClick={() => setIsOpen(true)}
         >
-          <TbAlbum className="size-10" />
+          <TbAlbum className="h-10 w-10" />
         </button>
       </div>
       <Outlet />

@@ -12,7 +12,7 @@ function Authentication() {
   return (
     <>
       <button
-        className="text-sm font-semibold px-3 py-1 mx-2"
+        className="text-sm font-semibold border border-gray-400 md:mx-2 md:w-24 py-1.5 rounded-lg shadow-md shadow-slate-800 dark:shadow-neutral-500 w-full mx-auto"
         onClick={() => setOpenModal(true)}
       >
         {language === "en" ? "Login" : "ورود"}

@@ -6,6 +6,7 @@ import Authentication from "./Authentication";
 import HeaderOffcanvas from "./HeaderOffcanvas";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
+import ThemeMode from "../../ui/ThemeMode";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -15,23 +16,28 @@ function Header() {
   return (
     <>
       <div
-        className="border-b-2 flex items-center gap-x-4 border-black"
+        className="flex border-black border-b-2 dark:border-neutral-200 items-center justify-between dark:bg-zinc-950 dark:text-neutral-200"
         style={{ direction: "ltr" }}
       >
-        <button className="w-24">
-          <Link to="/">
-            <img src="/logo demo.jpg" alt="" />
-          </Link>
-        </button>
-        <h5 className="md:text-4xl text-base tracking-wide font-headerFont font-bold">
-          Y O U N G H U N T E R
-        </h5>
+        <div className="flex items-center gap-x-4">
+          <button className="w-24">
+            <Link to="/">
+              <img src="/logo demo.jpg" alt="" />
+            </Link>
+          </button>
+          <h5 className="md:text-4xl text-base tracking-wide font-headerFont font-bold">
+            Y O U N G H U N T E R
+          </h5>
+        </div>
+        <div className="flex items-center mr-16 md:mr-10">
+          <ThemeMode />
+        </div>
       </div>
-      <div className="md:border-b md:border-black md:border-opacity-20 mt-2">
+      <div className="md:border-b dark:border-neutral-200 md:border-black md:border-opacity-20 md:pt-2 dark:bg-zinc-950 dark:text-neutral-200">
         <div className="flex flex-wrap items-center justify-between">
           <button
             data-testid="navbar-default"
-            className="absolute top-4 right-1 p-2 w-10 h-10 text-2xl text-gray-700 md:hidden focus:outline-none"
+            className="absolute top-4 right-1 p-2 w-10 h-10 text-2xl text-gray-700 dark:text-neutral-200 md:hidden focus:outline-none"
             style={{ direction: "ltr" }}
             aria-controls="navbar-default"
             aria-expanded="false"
@@ -53,7 +59,7 @@ function Header() {
               />
             </svg>
           </button>
-          <ul className="hidden md:flex md:flex-row items-center gap-x-12 text-xl ml-2 font-bold">
+          <ul className="hidden md:flex md:flex-row items-center gap-x-12 text-xl ml-2">
             <HeaderNavlink to="/">
               <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
             </HeaderNavlink>
@@ -71,7 +77,7 @@ function Header() {
               </>
             )}
           </ul>
-          <div className="md:flex hidden items-center gap-x-4">
+          <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
             <HeaderSelectBox onClose={() => setOpen(false)} />
             <Authentication />
           </div>

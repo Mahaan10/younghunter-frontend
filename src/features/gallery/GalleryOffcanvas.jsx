@@ -9,9 +9,11 @@ import { AccordionProvider } from "../../context/useAccordionContext";
 import { useLanguage } from "../../context/useLanguageContext";
 
 function GalleryOffcanvas() {
-  const { isLoading } = useAlbums();
+  const { isLoading, albums, isError } = useAlbums();
   const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
   const { direction, language } = useLanguage();
+
+  if (isError) return <div>Error</div>;
 
   return (
     <div className="flex flex-col">
@@ -19,7 +21,7 @@ function GalleryOffcanvas() {
         open={isOpen}
         onClose={() => setIsOpen(false)}
         position={`${direction === "ltr" ? "right" : "left"}`}
-        className="transition-all duration-300"
+        className="dark:bg-zinc-950 transition-all duration-300"
       >
         <div className="flex items-center justify-between w-64 mx-auto">
           <button
@@ -36,12 +38,12 @@ function GalleryOffcanvas() {
           <input
             type="text"
             placeholder={`${language === "en" ? "Search..." : "جستجو ..."}`}
-            className="my-2 rounded-xl w-full bg-gray-800 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-900 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70"
+            className="my-2 rounded-xl w-full bg-gray-800 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-900 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70 dark:bg-neutral-200 dark:text-black dark:placeholder-black dark:placeholder-opacity-60 dark:shadow-neutral-500"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
           <button
-            className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 ${
+            className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 dark:bg-gray-950 dark:text-neutral-200 ${
               language === "en" ? "right-0 rounded-r-lg" : "left-0 rounded-l-xl"
             }`}
           >
@@ -56,7 +58,7 @@ function GalleryOffcanvas() {
               aria-label="Sidebar with multi-level dropdown example"
               className="[&>div]:bg-transparent [&>div]:p-0 w-64 mx-auto"
             >
-              <div className="flex h-full flex-col justify-between py-2">
+              <div className="flex h-full flex-col justify-between py-2 dark:bg-zinc-950">
                 <div>
                   <Sidebar.Items>
                     <Sidebar.ItemGroup>

@@ -21,6 +21,5 @@ export default function GalleryContextProvider({ children }) {
 }
 
 export const useGalleryContext = () => {
-  const context = useContext(GalleryContext);
-  return context;
+  return useContext(GalleryContext);
 };

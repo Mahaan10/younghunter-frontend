@@ -14,7 +14,9 @@ function FooterNavlink({ to, children }) {
         onClick={scrollToTop}
         to={to}
         className={({ isActive }) =>
-          isActive ? `${navlinkClass} bg-black` : `${navlinkClass}`
+          isActive
+            ? `${navlinkClass} bg-black dark:bg-neutral-200`
+            : `${navlinkClass}`
         }
       >
         {children}

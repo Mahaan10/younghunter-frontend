@@ -8,25 +8,28 @@ import Gallery from "./pages/Gallery";
 import { LanguageProvider } from "./context/useLanguageContext";
 import SingleAlbum from "./features/album/SingleAlbum";
 import Albums from "./features/gallery/Albums";
+import ThemeModeProvider from "./context/ThemeModeContext";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <Toaster />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/albums" element={<Gallery />}>
-            <Route index element={<Albums />} />
-            <Route path=":id" element={<SingleAlbum />} />
-          </Route>
-        </Routes>
-        <Footer />
-      </LanguageProvider>
-    </QueryClientProvider>
+    <ThemeModeProvider>
+      <QueryClientProvider client={queryClient}>
+        <LanguageProvider>
+          <Toaster />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/albums" element={<Gallery />}>
+              <Route index element={<Albums />} />
+              <Route path=":id" element={<SingleAlbum />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </LanguageProvider>
+      </QueryClientProvider>
+    </ThemeModeProvider>
   );
 }
 

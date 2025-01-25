@@ -18,7 +18,7 @@ function GalleryMain() {
 
   return (
     <>
-      <div className="rounded-2xl shadow-3xl  gap-y-4 p-5 max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3">
+      <div className="rounded-2xl shadow-3xl  gap-y-4 p-5 max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3 dark:bg-neutral-200 dark:shadow-neutral-600">
         {albums.map((album) => (
           <div
             key={album._id}
