@@ -5,12 +5,9 @@ import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
-import { useLocation } from "react-router-dom";
 
 function HeaderOffcanvas({ open, onClose }) {
   const { language } = useLanguage();
-
-  const location = useLocation();
 
   return (
     <div className="md:hidden">
@@ -43,24 +40,17 @@ function HeaderOffcanvas({ open, onClose }) {
                     <HeaderNavlink onClose={onClose} to="/">
                       <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
                     </HeaderNavlink>
-                    <HeaderNavlink onClose={onClose} to="albums">
+                    <HeaderNavlink onClose={onClose} to="/albums">
                       <span>{language === "en" ? "Gallery" : "گالری"}</span>
                     </HeaderNavlink>
-                    {location.pathname === "/" && (
-                      <>
-                        <HeaderHashlink onClose={onClose} to="#about">
-                          <span>
-                            {language === "en" ? "Contact" : "تماس با ما"}
-                          </span>
-                        </HeaderHashlink>
-
-                        <HeaderHashlink onClose={onClose} to="#about">
-                          <span>
-                            {language === "en" ? "About" : "درباره ما"}
-                          </span>
-                        </HeaderHashlink>
-                      </>
-                    )}
+                    <HeaderHashlink onClose={onClose} to="/#about">
+                      <span>
+                        {language === "en" ? "Contact" : "تماس با ما"}
+                      </span>
+                    </HeaderHashlink>
+                    <HeaderHashlink onClose={onClose} to="/#about">
+                      <span>{language === "en" ? "About" : "درباره ما"}</span>
+                    </HeaderHashlink>
                   </Sidebar.ItemGroup>
                   <Sidebar.ItemGroup className="border-none">
                     <div className="flex flex-col gap-y-4">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HeaderNavlink from "./HeaderNavlink";
 import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
@@ -11,7 +11,6 @@ import ThemeMode from "../../ui/ThemeMode";
 function Header() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
-  const location = useLocation();
 
   return (
     <>
@@ -63,19 +62,15 @@ function Header() {
             <HeaderNavlink to="/">
               <span>{language === "en" ? "Home" : "صفحه اصلی"}</span>
             </HeaderNavlink>
-            <HeaderNavlink to="albums">
+            <HeaderNavlink to="/albums">
               <span>{language === "en" ? "Gallery" : "گالری"}</span>
             </HeaderNavlink>
-            {location.pathname === "/" && (
-              <>
-                <HeaderHashlink to="#about">
-                  <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
-                </HeaderHashlink>
-                <HeaderHashlink to="#about">
-                  <span>{language === "en" ? "About" : "درباره ما"}</span>
-                </HeaderHashlink>
-              </>
-            )}
+            <HeaderHashlink to="/#about">
+              <span>{language === "en" ? "Contact" : "تماس با ما"}</span>
+            </HeaderHashlink>
+            <HeaderHashlink to="/#about">
+              <span>{language === "en" ? "About" : "درباره ما"}</span>
+            </HeaderHashlink>
           </ul>
           <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
             <HeaderSelectBox onClose={() => setOpen(false)} />
