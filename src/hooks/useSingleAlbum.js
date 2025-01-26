@@ -8,9 +8,11 @@ export default function useSingleAlbum() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["single-album", id],
     queryFn: () => getSingleAlbumApi(id),
-    retry: false,
+    retry: 1,
+    enabled: !!id,
   });
 
-  const { singleAlbum } = data || {};
-  return { singleAlbum, isLoading, isError };
+  const {album} = data || {};
+
+  return { album, isLoading, isError };
 }
