@@ -2,10 +2,12 @@ import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
 import useSingleAlbum from "../../hooks/useSingleAlbum";
 import { useLanguage } from "../../context/useLanguageContext";
+import { useNavigate } from "react-router-dom";
 
 function SingleAlbum() {
   const { isError, isLoading, album } = useSingleAlbum();
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   if (isLoading) return <Loading />;
   if (isError) return toast.error("Error");
@@ -20,7 +22,7 @@ function SingleAlbum() {
           <span className="text-xs text-center font-bold text-red-950">
             Lorem, ipsum dolor sit amet.
           </span>
-          <button className="" onClick={() => console.log(subAlbum._id)}>
+          <button className="" onClick={() => navigate(subAlbum._id)}>
             <img
               src={subAlbum.imageCover}
               className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}

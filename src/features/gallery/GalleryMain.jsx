@@ -26,7 +26,7 @@ function GalleryMain() {
           <span className="text-xs text-center font-bold text-red-950">
             Lorem, ipsum dolor sit amet.
           </span>
-          <button className="" onClick={() => navigate(album._id)}>
+          <button className="" onClick={() => navigate(`${album._id}/sub-albums`)}>
             <img
               src={album.imageCover}
               className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}

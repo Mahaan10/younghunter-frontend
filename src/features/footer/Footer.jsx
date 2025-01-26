@@ -55,7 +55,7 @@ function FooterMain() {
                 className="space-y-2 dark:text-black dark:text-opacity-80"
               >
                 {albums.map((album) => (
-                  <FooterLink key={album._id} href={`albums/${album._id}`}>
+                  <FooterLink key={album._id} href={`albums/${album._id}/sub-albums`}>
                     {language === "en" ? album.title.en : album.title.fa}
                   </FooterLink>
                 ))}

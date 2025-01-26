@@ -9,6 +9,7 @@ import SingleAlbum from "./features/album/SingleAlbum";
 import Albums from "./features/gallery/Albums";
 import ThemeModeProvider from "./context/ThemeModeContext";
 import FooterMain from "./features/footer/Footer";
+import SingleSubAlbum from "./features/album/SingleSubAlbum";
 
 function App() {
   const queryClient = new QueryClient();
@@ -23,7 +24,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/albums" element={<Gallery />}>
               <Route index element={<Albums />} />
-              <Route path=":id" element={<SingleAlbum />} />
+              <Route path=":id/sub-albums" element={<SingleAlbum />} />
+              <Route path=":id/sub-albums/:id" element={<SingleSubAlbum />} />
             </Route>
           </Routes>
           <FooterMain />

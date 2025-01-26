@@ -1,18 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getSingleAlbumApi } from "../services/albumService";
+import { getSingleSubAlbumApi } from "../services/albumService";
 
 export default function useSingleAlbum() {
   const { id } = useParams();
-
+console.log(id)
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["single-album", id],
-    queryFn: () => getSingleAlbumApi(id),
+    queryKey: ["single-sub-album", id],
+    queryFn: () => getSingleSubAlbumApi(id),
     retry: 1,
     enabled: !!id,
   });
 
-  const { album } = data || {};
 
-  return { album, isLoading, isError };
+console.log(data)
+  //const { album } = data || {};
+
+  return { data, isLoading, isError };
 }
