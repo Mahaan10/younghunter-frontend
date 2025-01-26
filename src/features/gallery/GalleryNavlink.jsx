@@ -23,7 +23,7 @@ const formattedDateEn = localDate.toLocaleString("en-US")
 console.log(formattedDateFa, formattedDateEn) */
 
   const navlinkClass =
-    "flex items-center transition-all duration-300 bg-gray-300 py-2 rounded-md";
+    "flex items-center transition-all duration-300 bg-gray-300 dark:bg-gray-700 dark:text-neutral-200 py-2 rounded-md";
 
   if (isLoading) return <Loading />;
   //dark mode in navlink needs change!!
@@ -33,8 +33,8 @@ console.log(formattedDateFa, formattedDateEn) */
         onClick={() => openAccordionHandler(album._id)}
         className={
           album._id === openSubAlbumId
-            ? `${navlinkClass} !bg-gray-800 hover:!bg-gray-900 dark:!bg-gray-300 dark:text-black text-white`
-            : `${navlinkClass} hover:bg-gray-400`
+            ? `${navlinkClass} !bg-gray-500 hover:!bg-gray-600 text-black dark:!bg-gray-900 dark:!text-neutral-200 dark:hover:!bg-gray-950`
+            : `${navlinkClass} hover:bg-gray-400 dark:hover:bg-gray-800`
         }
       >
         <SubAlbum
@@ -84,7 +84,7 @@ const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
     >
       {album.subAlbums.map((subAlbum) => (
         <div
-          className={`w-full bg-gray-950 rounded-md px-4 mt-1 hover:bg-gray-600 text-white py-1`}
+          className="w-full bg-gray-300 text-black rounded-md px-4 mt-1 hover:bg-gray-400 py-1 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-800"
           key={subAlbum._id}
           onClick={() => onClose()}
         >

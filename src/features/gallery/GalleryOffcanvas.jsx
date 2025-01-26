@@ -9,7 +9,7 @@ import { AccordionProvider } from "../../context/useAccordionContext";
 import { useLanguage } from "../../context/useLanguageContext";
 
 function GalleryOffcanvas() {
-  const { isLoading, albums, isError } = useAlbums();
+  const { isLoading, isError } = useAlbums();
   const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
   const { direction, language } = useLanguage();
 
