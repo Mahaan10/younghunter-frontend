@@ -25,7 +25,10 @@ function App() {
             <Route path="/albums" element={<Gallery />}>
               <Route index element={<Albums />} />
               <Route path=":id/sub-albums" element={<SingleAlbum />} />
-              <Route path=":id/sub-albums/:id" element={<SingleSubAlbum />} />
+              <Route
+                path=":albumId/sub-albums/:subAlbumId"
+                element={<SingleSubAlbum />}
+              />
             </Route>
           </Routes>
           <FooterMain />

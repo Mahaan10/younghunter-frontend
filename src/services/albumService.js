@@ -10,6 +10,6 @@ export function getSingleAlbumApi(albumId) {
 
 export function getSingleSubAlbumApi(albumId, subAlbumId) {
   return http
-    .get(`albums/${albumId}/sub-albums/${subAlbumId}`)
+    .get(`/albums/${albumId}/sub-albums/${subAlbumId}`)
     .then(({ data }) => data.data);
 }
