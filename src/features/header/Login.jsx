@@ -1,9 +1,14 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useLanguage } from "../../context/useLanguageContext";
+import useUsers from "../../hooks/useUsers";
+import toast from "react-hot-toast";
 
-function Login() {
+function Login({setIsAdmin, setOpenModal}) {
+  const { users, error, isError, isLoading } = useUsers();
   const { language } = useLanguage();
+
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -11,7 +16,16 @@ function Login() {
     },
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
+
+      const findAdmin = users.filter((user) => user.email === values.email && user.role === "admin")
+      if(findAdmin.length === 0) {
+        toast.error("Only Admin can Login!")
+        setOpenModal(false)
+      } else {
+        toast.success(`Welcome ${findAdmin[0].name}`)
+        setIsAdmin(true)
+        setOpenModal(false)
+      }
     },
     validationSchema: Yup.object({
       email: Yup.string()

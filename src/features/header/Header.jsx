@@ -11,6 +11,7 @@ import ThemeMode from "../../ui/ThemeMode";
 function Header() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <>
@@ -74,9 +75,9 @@ function Header() {
           </ul>
           <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
             <HeaderSelectBox onClose={() => setOpen(false)} />
-            <Authentication />
+            <Authentication isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
           </div>
-          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} />
+          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
         </div>
       </div>
     </>
