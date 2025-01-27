@@ -12,8 +12,7 @@ export default function useSingleAlbum() {
     enabled: !!albumId && !!subAlbumId,
   });
 
-  console.log(data);
-  //const { album } = data || {};
+  const { subAlbum } = data || {};
 
-  return { data, isLoading, isError, error };
+  return { subAlbum, isLoading, isError, error };
 }

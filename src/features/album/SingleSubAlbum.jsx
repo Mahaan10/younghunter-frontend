@@ -6,7 +6,7 @@ function SingleSubAlbum() {
   const { data, error, isError, isLoading } = useSingleSubAlbum();
 
   if (isLoading) return <Loading />;
-  if (isError) return toast.error(error.message);
+  if (isError) return toast.error(error.response.data.message);
 
   return <div>SingleSubAlbum</div>;
 }

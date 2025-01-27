@@ -29,7 +29,7 @@ const carouselReducer = (state, { type, payload }) => {
 };
 
 function Carousel() {
-  const { images, isLoading, isError } = useCarouselImages();
+  const { images, isLoading, isError, error } = useCarouselImages();
   const { language } = useLanguage();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
@@ -55,8 +55,7 @@ function Carousel() {
   }, [images]);
 
   if (isLoading) return <Loading />;
-  if (isError)
-    return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
+  if (isError) return toast.error(error.response.data.message);
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">

@@ -6,15 +6,12 @@ import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
 
 function GalleryMain() {
-  //const { images, isLoading } = useCarouselImages();
-  const { albums, isLoading, isError } = useAlbums();
+  const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
   const navigate = useNavigate();
 
   if (isLoading) return <Loading />;
-  // error message needs to be re-watch!
-  if (isError)
-    return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
+  if (isError) return toast.error(error.response.data.message);
 
   return (
     <>
@@ -26,7 +23,10 @@ function GalleryMain() {
           <span className="text-xs text-center font-bold text-red-950">
             Lorem, ipsum dolor sit amet.
           </span>
-          <button className="" onClick={() => navigate(`${album._id}/sub-albums`)}>
+          <button
+            className=""
+            onClick={() => navigate(`${album._id}/sub-albums`)}
+          >
             <img
               src={album.imageCover}
               className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}

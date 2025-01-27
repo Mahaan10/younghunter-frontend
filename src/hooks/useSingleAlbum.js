@@ -5,7 +5,7 @@ import { getSingleAlbumApi } from "../services/albumService";
 export default function useSingleAlbum() {
   const { id } = useParams();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["single-album", id],
     queryFn: () => getSingleAlbumApi(id),
     retry: 1,
@@ -14,5 +14,5 @@ export default function useSingleAlbum() {
 
   const { album } = data || {};
 
-  return { album, isLoading, isError };
+  return { album, isLoading, isError, error };
 }

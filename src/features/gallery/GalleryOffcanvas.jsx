@@ -7,13 +7,14 @@ import { useGalleryContext } from "../../context/useGalleryContext";
 import GalleryNavlink from "./GalleryNavlink";
 import { AccordionProvider } from "../../context/useAccordionContext";
 import { useLanguage } from "../../context/useLanguageContext";
+import toast from "react-hot-toast";
 
 function GalleryOffcanvas() {
-  const { isLoading, isError } = useAlbums();
+  const { isLoading, isError, error } = useAlbums();
   const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
   const { direction, language } = useLanguage();
 
-  if (isError) return <div>Error</div>;
+  if (isError) return toast.error(error.response.data.message);
 
   return (
     <div className="flex flex-col">
