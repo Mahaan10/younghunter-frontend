@@ -30,7 +30,7 @@ function Authentication({ isAdmin, setIsAdmin }) {
       ) : (
         //users[1] need to be changed!
         <button className="px-3 md:w-28 text-sm font-bold flex items-center justify-between">
-          <span>{users[1].name}</span>
+          <span>{users[0].name}</span>
           <FaChevronDown className="size-3" />
         </button>
       )}
