@@ -5,12 +5,12 @@ import { useLanguage } from "../../context/useLanguageContext";
 import { useNavigate } from "react-router-dom";
 
 function SingleAlbum() {
-  const { isError, isLoading, album } = useSingleAlbum();
+  const { isError, isLoading, album, error } = useSingleAlbum();
   const { language } = useLanguage();
   const navigate = useNavigate();
 
   if (isLoading) return <Loading />;
-  if (isError) return toast.error("Error");
+  if (isError) return toast.error(error.response.data.message);
 
   return (
     <>

@@ -4,9 +4,10 @@ import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import { HiChevronDown } from "react-icons/hi2";
 import { useLanguage } from "../../context/useLanguageContext";
+import toast from "react-hot-toast";
 
 function GalleryNavlink() {
-  const { albums, isLoading } = useAlbums();
+  const { albums, isLoading, isError, error } = useAlbums();
   //const { setIsOpen, isOpen } = useGalleryContext();
   //onClose needs to change!!!!
   const { language } = useLanguage();
@@ -26,6 +27,8 @@ console.log(formattedDateFa, formattedDateEn) */
     "flex items-center transition-all duration-300 bg-gray-300 dark:bg-gray-700 dark:text-neutral-200 py-2 rounded-md";
 
   if (isLoading) return <Loading />;
+  if (isError) return toast.error(error.response.data.message);
+
   //dark mode in navlink needs change!!
   return albums.map((album) => (
     <li className="" key={album._id}>
