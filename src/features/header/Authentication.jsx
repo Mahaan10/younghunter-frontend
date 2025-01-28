@@ -3,24 +3,24 @@ import Modal from "../../ui/Modal";
 
 import Login from "./Login";
 import { useLanguage } from "../../context/useLanguageContext";
-import useUsers from "../../hooks/useUsers";
 import { FaChevronDown } from "react-icons/fa6";
 import toast from "react-hot-toast";
-import Loading from "../../ui/Loading";
+import { useAdmin } from "../../context/useAdminContext";
 
-function Authentication({ isAdmin, setIsAdmin }) {
+function Authentication() {
   const [openModal, setOpenModal] = useState(false);
 
   const { language } = useLanguage();
-  const { error, isError, isLoading, users } = useUsers();
+  const { isAdmin, isLoading, isError, error, users, setIsAdmin } = useAdmin();
 
   if (isError) return toast.error(error.response.data.message);
-//Loading component needs to be different!
-  if (isLoading) return <Loading />;
+  //Loading component needs to be different!
+  if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;
 
   return (
     <>
       {!isAdmin ? (
+        //need to be drop down for logout!
         <button
           className="text-sm font-semibold border border-gray-400 md:mx-2 md:w-28 px-3 py-1.5 rounded-xl shadow-md shadow-slate-800 dark:border-neutral-200 dark:shadow-transparent w-full mx-auto transition-all duration-300"
           onClick={() => setOpenModal(true)}
@@ -28,7 +28,6 @@ function Authentication({ isAdmin, setIsAdmin }) {
           {language === "en" ? "Login" : "ورود"}
         </button>
       ) : (
-        //users[1] need to be changed!
         <button className="px-3 md:w-28 text-sm font-bold flex items-center justify-between">
           <span>{users[0].name}</span>
           <FaChevronDown className="size-3" />

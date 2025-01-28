@@ -10,7 +10,7 @@ import Albums from "./features/gallery/Albums";
 import ThemeModeProvider from "./context/ThemeModeContext";
 import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
-import AdminProvider from "./context/AdminContext";
+import AdminProvider from "./context/useAdminContext";
 
 function App() {
   const queryClient = new QueryClient();

@@ -4,6 +4,7 @@ import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
 import { useLanguage } from "../../context/useLanguageContext";
+import { useAdmin } from "../../context/useAdminContext";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {
@@ -30,6 +31,7 @@ const carouselReducer = (state, { type, payload }) => {
 
 function Carousel() {
   const { images, isLoading, isError, error } = useCarouselImages();
+  const { isAdmin } = useAdmin();
   const { language } = useLanguage();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
@@ -59,6 +61,19 @@ function Carousel() {
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
+      {isAdmin && (
+        <div className="flex items-center justify-center gap-x-8 text-sm pb-4">
+          <button className="bg-green-600 adminRoleBtn">
+            {language === "en" ? "Add" : "افزودن"}
+          </button>
+          <button className="bg-cyan-600 adminRoleBtn">
+            {language === "en" ? "Edit" : "ادیت کردن"}
+          </button>
+          <button className="bg-red-600 adminRoleBtn">
+            {language === "en" ? "Delete" : "پاک کردن"}
+          </button>
+        </div>
+      )}
       <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
           <div className="flex items-center justify-between">
