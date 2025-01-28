@@ -1,13 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
+import useUsers from "../hooks/useUsers";
 
 const AdminContext = createContext();
 
 export default function AdminProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const isAdmin = user?.role === "admin";
-
+  const { users } = useUsers();
+  //const [user, setUser] = useState(null)
+  const isAdmin = users[0].role === "admin";
+  //const isAdmin = user?.role === "admin";
+  //add user and setUser in value!
   return (
-    <AdminContext.Provider value={{ user, isAdmin, setUser }}>
+    <AdminContext.Provider value={{ isAdmin }}>
       {children}
     </AdminContext.Provider>
   );

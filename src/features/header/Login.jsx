@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/useLanguageContext";
 import useUsers from "../../hooks/useUsers";
 import toast from "react-hot-toast";
 
-function Login({setIsAdmin, setOpenModal}) {
+function Login({ setIsAdmin, setOpenModal }) {
   const { users, error, isError, isLoading } = useUsers();
   const { language } = useLanguage();
 
@@ -16,15 +16,16 @@ function Login({setIsAdmin, setOpenModal}) {
     },
     validateOnMount: true,
     onSubmit: (values) => {
-
-      const findAdmin = users.filter((user) => user.email === values.email && user.role === "admin")
-      if(findAdmin.length === 0) {
-        toast.error("Only Admin can Login!")
-        setOpenModal(false)
+      const findAdmin = users.filter(
+        (user) => user.email === values.email && user.role === "admin"
+      );
+      if (findAdmin.length === 0) {
+        toast.error("Only Admin can Login!");
+        setOpenModal(false);
       } else {
-        toast.success(`Welcome ${findAdmin[0].name}`)
-        setIsAdmin(true)
-        setOpenModal(false)
+        toast.success(`Welcome ${findAdmin[0].name}`);
+        setIsAdmin(true);
+        setOpenModal(false);
       }
     },
     validationSchema: Yup.object({
