@@ -4,11 +4,10 @@ import { useLanguage } from "../../context/useLanguageContext";
 import useUsers from "../../hooks/useUsers";
 import toast from "react-hot-toast";
 
-function Login({setIsAdmin, setOpenModal}) {
+function Login({ setIsAdmin, setOpenModal }) {
   const { users, error, isError, isLoading } = useUsers();
   const { language } = useLanguage();
-
-
+  // need to modify new Loading component!
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,15 +15,17 @@ function Login({setIsAdmin, setOpenModal}) {
     },
     validateOnMount: true,
     onSubmit: (values) => {
-
-      const findAdmin = users.filter((user) => user.email === values.email && user.role === "admin")
-      if(findAdmin.length === 0) {
-        toast.error("Only Admin can Login!")
-        setOpenModal(false)
+      const findAdmin = users.filter(
+        (user) => user.email === values.email && user.role === "admin"
+      );
+      if (findAdmin.length === 0) {
+        toast.error("Only Admin can Login!");
+        setOpenModal(false);
+        setIsAdmin(false);
       } else {
-        toast.success(`Welcome ${findAdmin[0].name}`)
-        setIsAdmin(true)
-        setOpenModal(false)
+        toast.success(`Welcome ${findAdmin[0].name}`);
+        setIsAdmin(true);
+        setOpenModal(false);
       }
     },
     validationSchema: Yup.object({
@@ -92,7 +93,13 @@ function Login({setIsAdmin, setOpenModal}) {
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
             disabled={!formik.isValid}
           >
-            {language === "en" ? "Login" : "ورود"}
+            {isLoading ? (
+              <h1 className="">...</h1>
+            ) : language === "en" ? (
+              "Login"
+            ) : (
+              "ورود"
+            )}
           </button>
         </div>
       </div>
