@@ -62,7 +62,7 @@ function Carousel() {
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
       {isAdmin && (
-        <div className="flex items-center justify-center gap-x-8 text-sm pb-4">
+        <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
           <button className="bg-green-600 adminRoleBtn">
             {language === "en" ? "Add" : "افزودن"}
           </button>

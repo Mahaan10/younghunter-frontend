@@ -13,3 +13,7 @@ export function getSingleSubAlbumApi(albumId, subAlbumId) {
     .get(`/albums/${albumId}/sub-albums/${subAlbumId}`)
     .then(({ data }) => data.data);
 }
+
+export function createAlbumApi(data) {
+  return http.post("/albums", data).then(({ data }) => data.data);
+}

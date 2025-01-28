@@ -1,4 +1,4 @@
-import { useThemeMode } from "../context/ThemeModeContext";
+import { useThemeMode } from "../context/useThemeModeContext";
 import {
   WiMoonAltWaningCrescent1,
   WiMoonAltWaxingCrescent6,

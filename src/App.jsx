@@ -7,10 +7,11 @@ import Gallery from "./pages/Gallery";
 import { LanguageProvider } from "./context/useLanguageContext";
 import SingleAlbum from "./features/album/SingleAlbum";
 import Albums from "./features/gallery/Albums";
-import ThemeModeProvider from "./context/ThemeModeContext";
+import ThemeModeProvider from "./context/useThemeModeContext";
 import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
+import OpenModalProvider from "./context/useOpenModalContext";
 
 function App() {
   const queryClient = new QueryClient();
@@ -21,19 +22,21 @@ function App() {
         <LanguageProvider>
           <Toaster />
           <AdminProvider>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/albums" element={<Gallery />}>
-                <Route index element={<Albums />} />
-                <Route path=":id/sub-albums" element={<SingleAlbum />} />
-                <Route
-                  path=":albumId/sub-albums/:subAlbumId"
-                  element={<SingleSubAlbum />}
-                />
-              </Route>
-            </Routes>
-            <FooterMain />
+            <OpenModalProvider>
+              <Header />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/albums" element={<Gallery />}>
+                  <Route index element={<Albums />} />
+                  <Route path=":id/sub-albums" element={<SingleAlbum />} />
+                  <Route
+                    path=":albumId/sub-albums/:subAlbumId"
+                    element={<SingleSubAlbum />}
+                  />
+                </Route>
+              </Routes>
+              <FooterMain />
+            </OpenModalProvider>
           </AdminProvider>
         </LanguageProvider>
       </QueryClientProvider>
