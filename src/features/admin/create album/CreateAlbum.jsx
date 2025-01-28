@@ -1,25 +1,28 @@
-import { Modal } from "flowbite-react";
 import { useLanguage } from "../../../context/useLanguageContext";
+import Modal from "../../../ui/Modal";
 import CreateAlbumForm from "./CreateAlbumForm";
 
 function CreateAlbum({ openModal, setOpenModal }) {
   const { language } = useLanguage();
 
-  const clickHandler = () => {
-    setOpenModal(!openModal)
-    console.log(openModal)
-  }
   return (
     <>
       <button
         className="bg-green-600 adminRoleBtn max-w-40"
-        onClick={clickHandler}
+        onClick={() => setOpenModal(true)}
       >
         {language === "en" ? "Create New Album" : "افزودن آلبوم جدید"}
       </button>
       {openModal && (
-        <Modal title="Create">
-          <CreateAlbumForm/>
+        <Modal
+          title={
+            openModal && language === "en"
+              ? "Create New Album"
+              : "افزودن آلبوم جدید"
+          }
+          onClose={() => setOpenModal(false)}
+        >
+          <CreateAlbumForm />
         </Modal>
       )}
     </>

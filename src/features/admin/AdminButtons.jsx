@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAdmin } from "../../context/useAdminContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import { useModal } from "../../context/useOpenModalContext";
@@ -7,8 +6,7 @@ import CreateAlbum from "./create album/CreateAlbum";
 function AdminButtons() {
   const { isAdmin } = useAdmin();
   const { language } = useLanguage();
-  //const {openModal, setOpenModal} = useModal()
-  const [openModal, setOpenModal] = useState(false)
+  const {openModal, setOpenModal} = useModal()
 
   return (
     <>
