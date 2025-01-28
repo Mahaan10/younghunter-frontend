@@ -64,13 +64,13 @@ function Carousel() {
       {isAdmin && (
         <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
           <button className="bg-green-600 adminRoleBtn">
-            {language === "en" ? "Add" : "افزودن"}
+            {language === "en" ? "Add Image" : "افزودن عکس"}
           </button>
           <button className="bg-cyan-600 adminRoleBtn">
-            {language === "en" ? "Edit" : "ادیت کردن"}
+            {language === "en" ? "Edit Image" : "ادیت کردن عکس"}
           </button>
           <button className="bg-red-600 adminRoleBtn">
-            {language === "en" ? "Delete" : "پاک کردن"}
+            {language === "en" ? "Delete Image" : "پاک کردن عکس"}
           </button>
         </div>
       )}

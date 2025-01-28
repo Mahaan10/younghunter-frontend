@@ -22,7 +22,7 @@ function CreateAlbum({ openModal, setOpenModal }) {
           }
           onClose={() => setOpenModal(false)}
         >
-          <CreateAlbumForm />
+          <CreateAlbumForm onClose={() => setOpenModal(false)} />
         </Modal>
       )}
     </>

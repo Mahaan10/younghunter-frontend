@@ -1,62 +1,121 @@
-import { useFormik } from "formik";
+import { useState } from "react";
 import { useLanguage } from "../../../context/useLanguageContext";
 import useCreateAlbum from "../../../hooks/useCreateAlbum";
+import { useForm } from "react-hook-form";
+import InputTextField from "../../../ui/InputTextField";
 
-function CreateAlbumForm() {
+function CreateAlbumForm({ onClose }) {
   const { createAlbum, isCreating } = useCreateAlbum();
   const { language } = useLanguage();
-  const formik = useFormik({
-    //!!
-  });
 
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
+
+  //const [tags, setTags] = useState(prevTags || [])
+
+  const onSubmit = (data) => {
+    const newAlbum = {
+      title: { en: data.enTitle, fa: data.faTitle },
+      //imageCover: URL.createObjectURL(data.imageCover),
+    };
+    createAlbum(newAlbum, {
+      onSuccess: () => {
+        onClose();
+        reset();
+      },
+      onError: () => {
+        onClose();
+      },
+    });
+  };
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="email" className="text-white mb-1">
-            {language === "en" ? "Email:" : "ایمیل:"}
-          </label>
-          <input
-            type="text"
-            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-md focus:shadow-sky-500"
-            {...formik.getFieldProps("email")}
-            name="email"
+          <InputTextField
+            label={language === "en" ? "English Title" : "عنوان به انگلیسی"}
+            name="enTitle"
+            register={register}
+            required
+            validationSchema={{
+              required: `${
+                language === "en" ? "Title is required" : "عنوان ضروری است"
+              }`,
+              minLength: {
+                value: 3,
+                message: `${
+                  language === "en"
+                    ? "Title must be atleast 3 character"
+                    : "عنوان حداقل باید 3 کاراکتر باشد"
+                }`,
+              },
+            }}
+            errors={errors}
           />
-          {formik.errors.email && formik.touched.email && (
-            <div className="text-sm mt-1 font-bold text-red-600">
-              {formik.errors.email}
-            </div>
-          )}
         </div>
-
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="password" className="text-white mb-1">
-            {language === "en" ? "Password:" : "کلمه عبور:"}
+          <InputTextField
+            label={language === "en" ? "Persian Title" : "عنوان به فارسی"}
+            name="faTitle"
+            register={register}
+            required
+            validationSchema={{
+              required: `${
+                language === "en" ? "Title is required" : "عنوان ضروری است"
+              }`,
+              minLength: {
+                value: 3,
+                message: `${
+                  language === "en"
+                    ? "Title must be atleast 3 character"
+                    : "عنوان حداقل باید 3 کاراکتر باشد"
+                }`,
+              },
+            }}
+            errors={errors}
+          />
+        </div>
+        <div className="flex flex-col w-[80%]">
+          <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
+            {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
+            <span className="text-red-600">*</span>
           </label>
           <input
-            type="password"
-            className="rounded-xl text-gray-900 border border-gray-100 bg-gray-100 hover:border-blue-500 focus:border-blue-500 focus:bg-gray-50 transition-all duration-300 ease-out focus:shadow-md focus:shadow-sky-500"
-            {...formik.getFieldProps("password")}
-            name="password"
+            type="file"
+            /* {...register("file", {
+              required: `${
+                language === "en"
+                  ? "Image Cover is required"
+                  : "عکس کاور ضروری است"
+              }`,
+              validate: {
+                acceptedFormats: (file) =>
+                  file && ["image/jpg"].includes(file[0]?.type),
+                fileSize: (file) => file && file[0]?.size <= 20 * 1024 * 1024, //20MB limit
+              },
+            })} */
           />
-          {formik.errors.password && formik.touched.password && (
-            <div className="text-sm mt-1 font-bold text-red-600">
-              {formik.errors.password}
-            </div>
+          {errors.file && (
+            <span className="text-red-600 block text-sm mt-2">
+              {errors?.file?.message}
+            </span>
           )}
         </div>
         <div className="w-[80%] mt-2">
           <button
             type="submit"
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
-            disabled={!formik.isValid}
           >
             {isCreating ? (
               <h1 className="">...</h1>
             ) : language === "en" ? (
-              "Login"
+              "Post"
             ) : (
-              "ورود"
+              "ایجاد کردن"
             )}
           </button>
         </div>
