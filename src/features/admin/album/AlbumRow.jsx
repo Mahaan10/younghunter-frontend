@@ -6,11 +6,13 @@ import Modal from "../../../ui/Modal";
 import AlbumForm from "./AlbumForm";
 import { HiOutlineTrash } from "react-icons/hi";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
+import useDeleteAlbum from "../../../hooks/useDeleteAlbum";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const { deleteAlbum, isRemoving } = useDeleteAlbum();
 
   return (
     <Table.Row>
@@ -51,11 +53,14 @@ function AlbumRow({ album, index }) {
               onClose={() => setIsDeleteOpen(false)}
             >
               <ConfirmDelete
-                resourceName={
-                  language === "en" ? album.title.en : album.title.fa
-                }
+                englishTitle={album.title.en}
+                persianTitle={album.title.fa}
                 onClose={() => setIsDeleteOpen(false)}
-                //onConfirm
+                onConfirm={() =>
+                  deleteAlbum(album._id, {
+                    onSuccess: () => setIsDeleteOpen(false),
+                  })
+                }
                 disabled={false}
               />
             </Modal>
