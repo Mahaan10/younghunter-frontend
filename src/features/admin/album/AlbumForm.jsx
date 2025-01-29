@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLanguage } from "../../../context/useLanguageContext";
 import useCreateAlbum from "../../../hooks/useCreateAlbum";
 import { useForm } from "react-hook-form";
@@ -12,8 +11,8 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
   const { _id: editId } = albumToEdit;
   const isEditSession = Boolean(editId);
 
-  const {
-    title: {},
+ /*  const {
+    title: {en, fa},
     imageCover,
   } = albumToEdit;
 
@@ -24,7 +23,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
       title: { en: data.enTitle, fa: data.faTitle },
       imageCover,
     };
-  }
+  } */
 
   const {
     register,
@@ -40,7 +39,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
       //title: { en: data.enTitle, fa: data.faTitle },
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
-      imageCover,
+      //imageCover,
       //imageCover: URL.createObjectURL(data.imageCover),
     };
 

@@ -1,55 +1,45 @@
+import toast from "react-hot-toast";
 import { useAdmin } from "../../context/useAdminContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import { useModal } from "../../context/useOpenModalContext";
-import CreateAlbum from "./album/CreateAlbum";
-import EditAlbum from "./album/EditAlbum";
+import useAlbums from "../../hooks/useAlbums";
+import Loading from "../../ui/Loading";
+import AlbumsTable from "./album/AlbumsTable";
+import AccessModal from "../../ui/AccessModal";
+import AlbumsHeader from "./album/AlbumsHeader";
 
 function AdminButtons() {
   const { isAdmin } = useAdmin();
   const { language } = useLanguage();
   const { openModal, setOpenModal } = useModal();
+  const { error, isError, isLoading } = useAlbums();
+
+  if (isLoading) return <Loading />;
+  if (isError) return toast.error(error?.response?.data?.message);
 
   return (
     <>
       {isAdmin && (
-        <div className="flex items-center justify-between gap-x-8 text-xs pb-4 flex-wrap md:flex-row flex-col max-w-[85%] mx-auto gap-y-2">
+        <div className="flex items-center justify-center  gap-x-8 text-xs pb-4 flex-wrap md:flex-row flex-col max-w-[85%] mx-auto gap-y-2">
           <div className="flex items-center gap-x-2">
-            <CreateAlbum openModal={openModal} setOpenModal={setOpenModal} />
-            <EditAlbum openModal={openModal} setOpenModal={setOpenModal} />
-
-            <button className="bg-red-600 adminRoleBtn max-w-40">
-              {language === "en" ? "Delete Album" : "پاک کردن آلبوم"}
-            </button>
-          </div>
-          <div className="flex items-center gap-x-2 md:flex-row">
-            <button className="bg-green-600 adminRoleBtn max-w-40 ">
-              {language === "en" ? "Create Sub Album" : "افزودن زیر آلبوم"}
-            </button>
-            <button className="bg-cyan-600 adminRoleBtn max-w-40">
-              {language === "en" ? "Edit Sub Album" : "ادیت کردن زیر آلبوم"}
-            </button>
-            <button className="bg-yellow-600 adminRoleBtn max-w-40 ">
-              {language === "en"
-                ? "Add Sub Album to Album"
-                : " افزودن زیر آلبوم به آلبوم"}
-            </button>
-            <button className="bg-red-600 adminRoleBtn max-w-40 ">
-              {language === "en" ? "Delete Sub Album" : "پاک کردن زیر آلبوم"}
-            </button>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <button className="bg-green-600 adminRoleBtn max-w-40 ">
-              {language === "en"
-                ? "Add Image to Sub Album"
-                : "افزودن عکس به زیر آلبوم"}
-            </button>
-            <button className="bg-red-600 adminRoleBtn">
-              {language === "en"
-                ? "Delete image from Sub Album"
-                : "پاک کردن عکس از زیر آلبوم"}
+            <button
+              className="bg-green-600 adminRoleBtn w-32"
+              onClick={() => setOpenModal(true)}
+            >
+              {language === "en" ? "Album Access" : "دسترسی به آلبوم ها"}
             </button>
           </div>
         </div>
+      )}
+
+      {openModal && (
+        <AccessModal
+          title={language == "en" ? "Album Access" : "دسترسی به آلبوم"}
+          onClose={() => setOpenModal(false)}
+        >
+          <AlbumsHeader />
+          <AlbumsTable />
+        </AccessModal>
       )}
     </>
   );

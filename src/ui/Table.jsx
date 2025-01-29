@@ -1,6 +1,6 @@
 function Table({ children }) {
   return (
-    <div className="bg-neutral-200 dark:bg-zinc-950 overflow-auto">
+    <div className="bg-neutral-200 text-black dark:text-neutral-200 dark:bg-zinc-950 overflow-auto">
       <table>{children}</table>
     </div>
   );
@@ -17,11 +17,11 @@ function TableHeader({ children }) {
 }
 
 function TableBody({ children }) {
-  return <tr>{children}</tr>;
+  return <tbody>{children}</tbody>;
 }
 
 function TableRow({ children }) {
-  return <tbody>{children}</tbody>;
+  return <tr>{children}</tr>;
 }
 
 Table.Header = TableHeader;
