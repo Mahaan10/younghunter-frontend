@@ -19,7 +19,7 @@ function ConfirmDelete({
       </h2>
       <div className="flex justify-between items-center gap-x-16">
         <button
-          className="btn flex-1 bg-red-600 text-neutral-200"
+          className="adminRoleBtn flex items-center justify-between flex-1 bg-red-600 text-neutral-200"
           onClick={onConfirm}
           disabled={disabled}
         >
@@ -27,7 +27,7 @@ function ConfirmDelete({
           <IoCheckmarkDoneSharp className="w-5 h-5" />
         </button>
         <button
-          className="btn flex-1 bg-teal-600"
+          className="adminRoleBtn flex items-center justify-between flex-1 bg-teal-600 text-neutral-200"
           onClick={onClose}
           disabled={disabled}
         >
