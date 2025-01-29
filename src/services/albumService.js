@@ -17,3 +17,11 @@ export function getSingleSubAlbumApi(albumId, subAlbumId) {
 export function createAlbumApi(data) {
   return http.post("/albums", data).then(({ data }) => data.data);
 }
+
+export function editAlbumApi({ id, newProject }) {
+  return http.patch(`/albums/${id}`, newProject).then(({ data }) => data.data);
+}
+
+export function removeAlbumApi(id) {
+  return http.remove(`/albums/${id}`).then(({ data }) => data.data);
+}

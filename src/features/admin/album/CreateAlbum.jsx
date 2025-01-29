@@ -1,6 +1,6 @@
 import { useLanguage } from "../../../context/useLanguageContext";
 import Modal from "../../../ui/Modal";
-import CreateAlbumForm from "./CreateAlbumForm";
+import AlbumForm from "./AlbumForm";
 
 function CreateAlbum({ openModal, setOpenModal }) {
   const { language } = useLanguage();
@@ -22,7 +22,7 @@ function CreateAlbum({ openModal, setOpenModal }) {
           }
           onClose={() => setOpenModal(false)}
         >
-          <CreateAlbumForm onClose={() => setOpenModal(false)} />
+          <AlbumForm onClose={() => setOpenModal(false)} />
         </Modal>
       )}
     </>

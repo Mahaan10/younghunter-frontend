@@ -3,10 +3,28 @@ import { useLanguage } from "../../../context/useLanguageContext";
 import useCreateAlbum from "../../../hooks/useCreateAlbum";
 import { useForm } from "react-hook-form";
 import InputTextField from "../../../ui/InputTextField";
+import useEditAlbum from "../../../hooks/useEditAlbum";
 
-function CreateAlbumForm({ onClose }) {
+function AlbumForm({ onClose, albumToEdit = {} }) {
   const { createAlbum, isCreating } = useCreateAlbum();
+  const { editAlbum, isEditing } = useEditAlbum();
   const { language } = useLanguage();
+  const { _id: editId } = albumToEdit;
+  const isEditSession = Boolean(editId);
+
+  const {
+    title: {},
+    imageCover,
+  } = albumToEdit;
+
+  let editValues = {};
+
+  if (isEditSession) {
+    editValues = {
+      title: { en: data.enTitle, fa: data.faTitle },
+      imageCover,
+    };
+  }
 
   const {
     register,
@@ -19,18 +37,30 @@ function CreateAlbumForm({ onClose }) {
 
   const onSubmit = (data) => {
     const newAlbum = {
+      //title: { en: data.enTitle, fa: data.faTitle },
+      ...data,
       title: { en: data.enTitle, fa: data.faTitle },
+      imageCover,
       //imageCover: URL.createObjectURL(data.imageCover),
     };
-    createAlbum(newAlbum, {
-      onSuccess: () => {
-        onClose();
-        reset();
-      },
-      onError: () => {
-        onClose();
-      },
-    });
+
+    if (isEditSession) {
+      editAlbum(
+        { id: editId, newAlbum },
+        {
+          onSuccess: () => {
+            onClose();
+            reset();
+          },
+        }
+      );
+    } else {
+      createAlbum(newAlbum, {
+        onSuccess: () => {
+          onClose(), reset();
+        },
+      });
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +140,7 @@ function CreateAlbumForm({ onClose }) {
             type="submit"
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
           >
-            {isCreating ? (
+            {isCreating || isEditing ? (
               <h1 className="">...</h1>
             ) : language === "en" ? (
               "Post"
@@ -124,4 +154,4 @@ function CreateAlbumForm({ onClose }) {
   );
 }
 
-export default CreateAlbumForm;
+export default AlbumForm;

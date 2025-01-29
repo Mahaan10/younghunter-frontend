@@ -55,3 +55,11 @@
   padding: calc(var(--size) * 2.85) calc(var(--size) * 2);
   /* box-sizing: border-box; */
 }
+
+/* Table */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}

@@ -1,22 +1,22 @@
 import { useAdmin } from "../../context/useAdminContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import { useModal } from "../../context/useOpenModalContext";
-import CreateAlbum from "./create album/CreateAlbum";
+import CreateAlbum from "./album/CreateAlbum";
+import EditAlbum from "./album/EditAlbum";
 
 function AdminButtons() {
   const { isAdmin } = useAdmin();
   const { language } = useLanguage();
-  const {openModal, setOpenModal} = useModal()
+  const { openModal, setOpenModal } = useModal();
 
   return (
     <>
       {isAdmin && (
         <div className="flex items-center justify-between gap-x-8 text-xs pb-4 flex-wrap md:flex-row flex-col max-w-[85%] mx-auto gap-y-2">
           <div className="flex items-center gap-x-2">
-            <CreateAlbum openModal={openModal} setOpenModal={setOpenModal}/>
-            <button className="bg-cyan-600 adminRoleBtn max-w-40">
-              {language === "en" ? "Edit Album" : "ادیت کردن آلبوم"}
-            </button>
+            <CreateAlbum openModal={openModal} setOpenModal={setOpenModal} />
+            <EditAlbum openModal={openModal} setOpenModal={setOpenModal} />
+
             <button className="bg-red-600 adminRoleBtn max-w-40">
               {language === "en" ? "Delete Album" : "پاک کردن آلبوم"}
             </button>
