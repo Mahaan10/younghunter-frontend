@@ -11,13 +11,13 @@ import {
 } from "flowbite-react";
 
 function FooterMain() {
-  const { albums, isLoading, isError } = useAlbums();
+  const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
 
   if (isLoading) return <Loading />;
   // error message needs to be re-watch!
   if (isError)
-    return toast.error(`${language === "en" ? "an error ocuured!" : "ارور"}`);
+    return toast.error(error?.response?.data?.message);
 
   return (
     <Footer
