@@ -1,17 +1,17 @@
 import toast from "react-hot-toast";
 import { useAdmin } from "../../context/useAdminContext";
 import { useLanguage } from "../../context/useLanguageContext";
-import { useModal } from "../../context/useOpenModalContext";
 import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import AlbumsTable from "./album/AlbumsTable";
 import AccessModal from "../../ui/AccessModal";
 import AlbumsHeader from "./album/AlbumsHeader";
+import { useState } from "react";
 
 function AdminButtons() {
   const { isAdmin } = useAdmin();
   const { language } = useLanguage();
-  const { openModal, setOpenModal } = useModal();
+  const [openModal, setOpenModal] = useState();
   const { error, isError, isLoading } = useAlbums();
 
   if (isLoading) return <Loading />;
@@ -19,18 +19,16 @@ function AdminButtons() {
 
   return (
     <>
-      {isAdmin && (
-        <div className="flex items-center justify-center  gap-x-8 text-xs pb-4 flex-wrap md:flex-row flex-col max-w-[85%] mx-auto gap-y-2">
-          <div className="flex items-center gap-x-2">
-            <button
-              className="bg-green-600 adminRoleBtn w-32"
-              onClick={() => setOpenModal(true)}
-            >
-              {language === "en" ? "Album Access" : "دسترسی به آلبوم ها"}
-            </button>
-          </div>
+      <div className="flex items-center justify-center  gap-x-8 text-xs pb-4 flex-wrap md:flex-row flex-col max-w-[85%] mx-auto gap-y-2">
+        <div className="flex items-center gap-x-2">
+          <button
+            className="bg-green-600 adminRoleBtn w-32"
+            onClick={() => setOpenModal(true)}
+          >
+            {language === "en" ? "Album Access" : "دسترسی به آلبوم ها"}
+          </button>
         </div>
-      )}
+      </div>
 
       {openModal && (
         <AccessModal

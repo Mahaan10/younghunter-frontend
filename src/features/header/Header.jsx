@@ -75,9 +75,9 @@ function Header() {
           </ul>
           <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
             <HeaderSelectBox onClose={() => setOpen(false)} />
-            <Authentication isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+            <Authentication isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
           </div>
-          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         </div>
       </div>
     </>

@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useLanguage } from "../../context/useLanguageContext";
-import useUsers from "../../hooks/useUsers";
-import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
-function Login({ setIsAdmin, setOpenModal }) {
-  const { users, error, isError, isLoading } = useUsers();
+function Login({ setOpenModal }) {
+  const { getLoggedIn, isLoggedIn } = useAuth()
   const { language } = useLanguage();
   // need to modify new Loading component!
   const formik = useFormik({
@@ -15,18 +14,8 @@ function Login({ setIsAdmin, setOpenModal }) {
     },
     validateOnMount: true,
     onSubmit: (values) => {
-      const findAdmin = users.filter(
-        (user) => user.email === values.email && user.role === "admin"
-      );
-      if (findAdmin.length === 0) {
-        toast.error("Only Admin can Login!");
-        setOpenModal(false);
-        setIsAdmin(false);
-      } else {
-        toast.success(`Welcome ${findAdmin[0].name}`);
-        setIsAdmin(true);
-        setOpenModal(false);
-      }
+      getLoggedIn({ email: values.email, password: values.password })
+      setOpenModal(false)
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -39,10 +28,9 @@ function Login({ setIsAdmin, setOpenModal }) {
       password: Yup.string()
         .min(
           8,
-          `${
-            language === "en"
-              ? "Password must contain atleast 8 characters"
-              : "کلمه عبور باید حداقل ۸ کاراکتر باشد"
+          `${language === "en"
+            ? "Password must contain atleast 8 characters"
+            : "کلمه عبور باید حداقل ۸ کاراکتر باشد"
           }`
         )
         .required(
@@ -93,7 +81,7 @@ function Login({ setIsAdmin, setOpenModal }) {
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
             disabled={!formik.isValid}
           >
-            {isLoading ? (
+            {isLoggedIn ? (
               <h1 className="">...</h1>
             ) : language === "en" ? (
               "Login"

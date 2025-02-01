@@ -22,6 +22,9 @@ function AlbumsTable() {
         <th>
           {language === "en" ? "Persian Title" : "عنوان به فارسی"}
         </th>
+        <th>
+          {language === "en" ? "Sub Albums" : "زیر آلبوم"}
+        </th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>

@@ -61,8 +61,7 @@ function Carousel() {
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
-      {isAdmin && (
-        <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
+        {/* <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
           <button className="bg-green-600 adminRoleBtn">
             {language === "en" ? "Add Image" : "افزودن عکس"}
           </button>
@@ -72,8 +71,7 @@ function Carousel() {
           <button className="bg-red-600 adminRoleBtn">
             {language === "en" ? "Delete Image" : "پاک کردن عکس"}
           </button>
-        </div>
-      )}
+        </div> */}
       <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
           <div className="flex items-center justify-between">
