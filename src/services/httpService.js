@@ -1,27 +1,31 @@
 import axios from "axios";
+import Cookies from "js-cookie"
 
 const BASE_URL = "/api/v1";
 
 const app = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  withCredentials: "include"
 });
 
-/* app.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return token;
-  },
-  (error) => Promise.reject(error)
-); */
+
+app.interceptors.request.use(
+(config) => {
+  const token = Cookies.get("token")
+  if(token) {
+    config.headers["Authorization"] = `Bearer ${token}`
+  }
+  return config
+},
+(error) => {
+  return Promise.reject(error)
+}
+)
 
 const http = {
   get: app.get,
   post: app.post,
-  remove: app.delete,
+  delete: app.delete,
   put: app.put,
   patch: app.patch,
 };

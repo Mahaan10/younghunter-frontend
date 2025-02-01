@@ -9,7 +9,7 @@ export default function useAuth() {
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
-      Cookies.set("jwt", data.token);
+      Cookies.set("token", data.token);
       Cookies.set("role", data.data.user.role);
       toast.success(
         `${
@@ -19,7 +19,7 @@ export default function useAuth() {
         }`
       );
     },
-    onError: (error) => toast.error(error?.response?.data?.message),
+    onError: (error) => toast.error(error?.response?.data?.message || error.message),
   });
   return { isLoggedIn, getLoggedIn };
 }

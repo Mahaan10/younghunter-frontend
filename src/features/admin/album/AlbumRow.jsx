@@ -28,7 +28,7 @@ function AlbumRow({ album, index }) {
         </button>
       </td>
       <td>
-        <div className="flex items-center justify-center gap-x-8">
+        <main className="flex items-center justify-center gap-x-8">
           <button
             className="flex items-center justify-between btn bg-cyan-600"
             onClick={() => setIsEditOpen(true)}
@@ -46,7 +46,7 @@ function AlbumRow({ album, index }) {
             <HiOutlineTrash className="w-5 h-5" />
           </button>
           
-        </div>
+        </main>
       </td>
       {isEditOpen && (
             <Modal

@@ -22,6 +22,6 @@ export function editAlbumApi({ id, newProject }) {
   return http.patch(`/albums/${id}`, newProject).then(({ data }) => data.data);
 }
 
-export function removeAlbumApi(id) {
-  return http.remove(`/albums/${id}`).then(({ data }) => data.data);
+export function removeAlbumApi(albumId) {
+  return http.delete(`/albums/${albumId}`).then(({ data }) => data.data);
 }
