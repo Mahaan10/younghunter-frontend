@@ -9,11 +9,13 @@ import { HiOutlineTrash } from "react-icons/hi";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import useDeleteAlbum from "../../../hooks/useDeleteAlbum";
 import toast from "react-hot-toast";
+import AccessModal from "../../../ui/AccessModal";
+import SubAlbumsTable from "../subAlbum/SubAlbumsTable";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [isSubAlbumOpen, setIsSubAlbumOpen] = useState(false)
+  const [isSubAlbumOpen, setIsSubAlbumOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { deleteAlbum, isRemoving } = useDeleteAlbum();
 
@@ -23,7 +25,10 @@ function AlbumRow({ album, index }) {
       <td>{album.title.en}</td>
       <td>{album.title.fa}</td>
       <td className="flex justify-center">
-        <button className="flex items-center justify-between btn w-32 bg-lime-800">
+        <button
+          className="flex items-center justify-between btn w-32 bg-lime-800"
+          onClick={() => setIsSubAlbumOpen(true)}
+        >
           <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
           <FiLayers className="w-5 h-5" />
         </button>
@@ -38,7 +43,6 @@ function AlbumRow({ album, index }) {
             <TbPencilMinus className="w-5 h-5" />
           </button>
 
-
           <button
             className="flex items-center justify-between btn bg-red-600"
             onClick={() => setIsDeleteOpen(true)}
@@ -46,7 +50,6 @@ function AlbumRow({ album, index }) {
             <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
             <HiOutlineTrash className="w-5 h-5" />
           </button>
-
         </main>
       </td>
       {isEditOpen && (
@@ -54,10 +57,7 @@ function AlbumRow({ album, index }) {
           title={language === "en" ? "Edit Album" : "ویرایش آلبوم"}
           onClose={() => setIsEditOpen(false)}
         >
-          <AlbumForm
-            albumToEdit={album}
-            onClose={() => setIsEditOpen(false)}
-          />
+          <AlbumForm albumToEdit={album} onClose={() => setIsEditOpen(false)} />
         </Modal>
       )}
       {isDeleteOpen && (
@@ -72,16 +72,30 @@ function AlbumRow({ album, index }) {
             onConfirm={() =>
               deleteAlbum(album._id, {
                 onSuccess: () => {
-                  setIsDeleteOpen(false)
-                  toast.success(`${language === "en" ? `You deleted ${album.title.en} successfully!` : `آلبوم ${album.title.fa} با موفقیت حذف شد!`}`)
+                  setIsDeleteOpen(false);
+                  toast.success(
+                    `${
+                      language === "en"
+                        ? `You deleted ${album.title.en} successfully!`
+                        : `آلبوم ${album.title.fa} با موفقیت حذف شد!`
+                    }`
+                  );
                 },
-                onError: () => setIsDeleteOpen(false)
+                onError: () => setIsDeleteOpen(false),
               })
             }
             isRemoving={isRemoving}
             disabled={false}
           />
         </Modal>
+      )}
+      {isSubAlbumOpen && (
+        <AccessModal
+          title={language == "en" ? "Sub Album Access" : "دسترسی به زیر آلبوم"}
+          onClose={() => setIsSubAlbumOpen(false)}
+        >
+          <SubAlbumsTable album={album}/>
+        </AccessModal>
       )}
     </Table.Row>
   );

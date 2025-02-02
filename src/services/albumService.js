@@ -25,3 +25,9 @@ export function editAlbumApi({ id, newAlbum }) {
 export function removeAlbumApi(albumId) {
   return http.delete(`/albums/${albumId}`).then(({ data }) => data.data);
 }
+
+export function removeSubAlbumApi(albumId, subAlbumId) {
+  return http
+    .delete(`/albums/${albumId}/sub-albums/${subAlbumId}`)
+    .then(({ data }) => data.data);
+}
