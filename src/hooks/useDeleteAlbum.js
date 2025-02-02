@@ -7,14 +7,12 @@ export default function useDeleteAlbum() {
 
   const { isPending: isRemoving, mutate: deleteAlbum } = useMutation({
     mutationFn: removeAlbumApi,
-    onSuccess: (data) => {
-      toast.success(data.message);
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["single-album"],
+        queryKey: ["albums"],
       });
     },
-    onError: (error) => toast.error(error?.response?.data?.message || error.message),
+    onError: (error) => toast.error(error?.response?.data?.message || error.message)
   });
 
   return { isRemoving, deleteAlbum };

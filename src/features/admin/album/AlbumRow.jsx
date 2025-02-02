@@ -8,6 +8,7 @@ import AlbumForm from "./AlbumForm";
 import { HiOutlineTrash } from "react-icons/hi";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import useDeleteAlbum from "../../../hooks/useDeleteAlbum";
+import toast from "react-hot-toast";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
@@ -45,38 +46,43 @@ function AlbumRow({ album, index }) {
             <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
             <HiOutlineTrash className="w-5 h-5" />
           </button>
-          
+
         </main>
       </td>
       {isEditOpen && (
-            <Modal
-              title={language === "en" ? "Edit Album" : "ویرایش آلبوم"}
-              onClose={() => setIsEditOpen(false)}
-            >
-              <AlbumForm
-                albumToEdit={album}
-                onClose={() => setIsEditOpen(false)}
-              />
-            </Modal>
-          )}
-          {isDeleteOpen && (
-            <Modal
-              title={language === "en" ? "Delete Album" : "حذف آلبوم"}
-              onClose={() => setIsDeleteOpen(false)}
-            >
-              <ConfirmDelete
-                englishTitle={album.title.en}
-                persianTitle={album.title.fa}
-                onClose={() => setIsDeleteOpen(false)}
-                onConfirm={() =>
-                  deleteAlbum(album._id, {
-                    onSuccess: () => setIsDeleteOpen(false),
-                  })
-                }
-                disabled={false}
-              />
-            </Modal>
-          )}
+        <Modal
+          title={language === "en" ? "Edit Album" : "ویرایش آلبوم"}
+          onClose={() => setIsEditOpen(false)}
+        >
+          <AlbumForm
+            albumToEdit={album}
+            onClose={() => setIsEditOpen(false)}
+          />
+        </Modal>
+      )}
+      {isDeleteOpen && (
+        <Modal
+          title={language === "en" ? "Delete Album" : "حذف آلبوم"}
+          onClose={() => setIsDeleteOpen(false)}
+        >
+          <ConfirmDelete
+            englishTitle={album.title.en}
+            persianTitle={album.title.fa}
+            onClose={() => setIsDeleteOpen(false)}
+            onConfirm={() =>
+              deleteAlbum(album._id, {
+                onSuccess: () => {
+                  setIsDeleteOpen(false)
+                  toast.success(`${language === "en" ? `You deleted ${album.title.en} successfully!` : `آلبوم ${album.title.fa} با موفقیت حذف شد!`}`)
+                },
+                onError: () => setIsDeleteOpen(false)
+              })
+            }
+            isRemoving={isRemoving}
+            disabled={false}
+          />
+        </Modal>
+      )}
     </Table.Row>
   );
 }

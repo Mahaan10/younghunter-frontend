@@ -8,6 +8,7 @@ function ConfirmDelete({
   onClose,
   disabled,
   onConfirm,
+  isRemoving
 }) {
   const { language } = useLanguage();
   return (
@@ -23,7 +24,7 @@ function ConfirmDelete({
           onClick={onConfirm}
           disabled={disabled}
         >
-          <span>{language === "en" ? "Confirm" : "تایید"}</span>
+          {isRemoving ? "..." : <span>{language === "en" ? "Confirm" : "تایید"}</span>}
           <IoCheckmarkDoneSharp className="w-5 h-5" />
         </button>
         <button
