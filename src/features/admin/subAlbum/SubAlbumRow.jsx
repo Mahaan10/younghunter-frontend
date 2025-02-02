@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Table from "../../../ui/Table";
 import { useLanguage } from "../../../context/useLanguageContext";
 import { TbPencilMinus } from "react-icons/tb";
