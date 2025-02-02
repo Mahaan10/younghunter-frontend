@@ -26,8 +26,17 @@ export function removeAlbumApi(albumId) {
   return http.delete(`/albums/${albumId}`).then(({ data }) => data.data);
 }
 
-export function removeSubAlbumApi(albumId, subAlbumId) {
+export function removeSubAlbumApi({ albumId, subAlbumId }) {
   return http
     .delete(`/albums/${albumId}/sub-albums/${subAlbumId}`)
     .then(({ data }) => data.data);
+}
+
+export function createSubAlbumApi(albumId) {
+  return http.post(`/albums/${albumId}/sub-albums`).then(({ data }) => data.data)
+}
+
+export function editSubAlbumApi({ albumId, subAlbumId, newSubAlbum }) {
+  console.log(newSubAlbum)
+  return http.patch(`/albums/${albumId.id}/sub-albums/${subAlbumId}`, newSubAlbum).then(({ data }) => data.data)
 }

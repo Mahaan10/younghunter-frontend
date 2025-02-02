@@ -11,6 +11,7 @@ import useDeleteAlbum from "../../../hooks/useDeleteAlbum";
 import toast from "react-hot-toast";
 import AccessModal from "../../../ui/AccessModal";
 import SubAlbumsTable from "../subAlbum/SubAlbumsTable";
+import SubAlbumsHeader from "../subAlbum/SubAlbumHeader";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
@@ -74,10 +75,9 @@ function AlbumRow({ album, index }) {
                 onSuccess: () => {
                   setIsDeleteOpen(false);
                   toast.success(
-                    `${
-                      language === "en"
-                        ? `You deleted ${album.title.en} successfully!`
-                        : `آلبوم ${album.title.fa} با موفقیت حذف شد!`
+                    `${language === "en"
+                      ? `You deleted ${album.title.en} successfully!`
+                      : `آلبوم ${album.title.fa} با موفقیت حذف شد!`
                     }`
                   );
                 },
@@ -94,7 +94,8 @@ function AlbumRow({ album, index }) {
           title={language == "en" ? "Sub Album Access" : "دسترسی به زیر آلبوم"}
           onClose={() => setIsSubAlbumOpen(false)}
         >
-          <SubAlbumsTable album={album}/>
+          <SubAlbumsHeader album={album} />
+          <SubAlbumsTable album={album} />
         </AccessModal>
       )}
     </Table.Row>

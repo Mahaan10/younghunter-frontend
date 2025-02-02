@@ -46,6 +46,7 @@ function SubAlbumRow({ subAlbum, index, album }) {
         >
           <SubAlbumForm
             subAlbumToEdit={subAlbum}
+            album={album}
             onClose={() => setIsSubAlbumEditOpen(false)}
           />
         </Modal>
@@ -60,14 +61,13 @@ function SubAlbumRow({ subAlbum, index, album }) {
             persianTitle={subAlbum.title.fa}
             onClose={() => setIsSubAlbumDeleteOpen(false)}
             onConfirm={() =>
-              deleteSubAlbum(album._id, subAlbum._id, {
+              deleteSubAlbum({ albumId: album._id, subAlbumId: subAlbum._id }, { 
                 onSuccess: () => {
                   setIsSubAlbumDeleteOpen(false);
                   toast.success(
-                    `${
-                      language === "en"
-                        ? `You deleted ${subAlbum.title.en} successfully!`
-                        : `آلبوم ${subAlbum.title.fa} با موفقیت حذف شد!`
+                    `${language === "en"
+                      ? `You deleted ${subAlbum.title.en} successfully!`
+                      : `آلبوم ${subAlbum.title.fa} با موفقیت حذف شد!`
                     }`
                   );
                 },
