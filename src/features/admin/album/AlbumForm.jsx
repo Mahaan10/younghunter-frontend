@@ -3,6 +3,9 @@ import useCreateAlbum from "../../../hooks/useCreateAlbum";
 import { useForm } from "react-hook-form";
 import InputTextField from "../../../ui/InputTextField";
 import useEditAlbum from "../../../hooks/useEditAlbum";
+import { TagsInput } from "react-tag-input-component"
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 function AlbumForm({ onClose, albumToEdit = {} }) {
   const { createAlbum, isCreating } = useCreateAlbum();
@@ -11,19 +14,19 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
   const { _id: editId } = albumToEdit;
   const isEditSession = Boolean(editId);
 
- /*  const {
-    title: {en, fa},
-    imageCover,
-  } = albumToEdit;
-
-  let editValues = {};
-
-  if (isEditSession) {
-    editValues = {
-      title: { en: data.enTitle, fa: data.faTitle },
-      imageCover,
-    };
-  } */
+  /*  const {
+     title: {en, fa},
+     imageCover,
+   } = albumToEdit;
+ 
+   let editValues = {};
+ 
+   if (isEditSession) {
+     editValues = {
+       title: { en: data.enTitle, fa: data.faTitle },
+       imageCover,
+     };
+   } */
 
   const {
     register,
@@ -32,16 +35,20 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     reset,
   } = useForm();
 
-  //const [tags, setTags] = useState(prevTags || [])
+  const [enTags, setEnTags] = useState([])
+  const [faTags, setFaTags] = useState([])
 
   const onSubmit = (data) => {
     const newAlbum = {
-      //title: { en: data.enTitle, fa: data.faTitle },
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
-      //imageCover,
+      category: { en: data.enCategory, fa: data.faCategory },
+      imageCover: data.imageCover,
+      tags: { en: enTags, fa: faTags }
       //imageCover: URL.createObjectURL(data.imageCover),
     };
+
+    toast.success(`${language === "en" ? `Create ${data.enTitle} successfully` : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`}`)
 
     if (isEditSession) {
       editAlbum(
@@ -50,13 +57,18 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
           onSuccess: () => {
             onClose();
             reset();
+            setEnTags([])
+            setFaTags([])
           },
         }
       );
     } else {
       createAlbum(newAlbum, {
         onSuccess: () => {
-          onClose(), reset();
+          onClose();
+          reset();
+          setEnTags([])
+          setFaTags([])
         },
       });
     }
@@ -71,16 +83,14 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${
-                language === "en" ? "Title is required" : "عنوان ضروری است"
-              }`,
+              required: `${language === "en" ? "Title is required" : "عنوان ضروری است"
+                }`,
               minLength: {
                 value: 3,
-                message: `${
-                  language === "en"
-                    ? "Title must be atleast 3 character"
-                    : "عنوان حداقل باید 3 کاراکتر باشد"
-                }`,
+                message: `${language === "en"
+                  ? "Title must be atleast 3 character"
+                  : "عنوان حداقل باید 3 کاراکتر باشد"
+                  }`,
               },
             }}
             errors={errors}
@@ -93,16 +103,54 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${
-                language === "en" ? "Title is required" : "عنوان ضروری است"
-              }`,
+              required: `${language === "en" ? "Title is required" : "عنوان ضروری است"
+                }`,
               minLength: {
                 value: 3,
-                message: `${
-                  language === "en"
-                    ? "Title must be atleast 3 character"
-                    : "عنوان حداقل باید 3 کاراکتر باشد"
+                message: `${language === "en"
+                  ? "Title must be atleast 3 character"
+                  : "عنوان حداقل باید 3 کاراکتر باشد"
+                  }`,
+              },
+            }}
+            errors={errors}
+          />
+        </div>
+        <div className="flex flex-col w-[80%]">
+          <InputTextField
+            label={language === "en" ? "English Category" : "عنوان دسته بندی به انگلیسی"}
+            name="enCategory"
+            register={register}
+            required
+            validationSchema={{
+              required: `${language === "en" ? "Category is required" : "دسته بندی ضروری است"
                 }`,
+              minLength: {
+                value: 3,
+                message: `${language === "en"
+                  ? "Category must be atleast 3 character"
+                  : "دسته بندی حداقل باید 3 کاراکتر باشد"
+                  }`,
+              },
+            }}
+            errors={errors}
+          />
+        </div>
+        <div className="flex flex-col w-[80%]">
+          <InputTextField
+            label={language === "en" ? "Persian Category" : "عنوان دسته بندی به فارسی"}
+            name="faCategory"
+            register={register}
+            required
+            validationSchema={{
+              required: `${language === "en" ? "Category is required" : "دسته بندی ضروری است"
+                }`,
+              minLength: {
+                value: 3,
+                message: `${language === "en"
+                  ? "Category must be atleast 3 character"
+                  : "دسته بندی حداقل باید 3 کاراکتر باشد"
+                  }`,
               },
             }}
             errors={errors}
@@ -113,9 +161,10 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
             {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
             <span className="text-red-600">*</span>
           </label>
-          <input
+          <InputTextField name="imageCover" register={register} errors={errors} />
+          {/* <input
             type="file"
-            /* {...register("file", {
+            {...register("file", {
               required: `${
                 language === "en"
                   ? "Image Cover is required"
@@ -126,13 +175,25 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
                   file && ["image/jpg"].includes(file[0]?.type),
                 fileSize: (file) => file && file[0]?.size <= 20 * 1024 * 1024, //20MB limit
               },
-            })} */
-          />
+            })}
+          /> */}
           {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
               {errors?.file?.message}
             </span>
           )}
+        </div>
+        <div className="flex flex-col w-[80%] text-neutral-200">
+          <label htmlFor="enTags">
+            {language === "en" ? "English Tags" : "تگ ها به انگلیسی"}
+          </label>
+          <TagsInput value={enTags} onChange={setEnTags} name="enTags" />
+        </div>
+        <div className="flex flex-col w-[80%] text-neutral-200">
+          <label htmlFor="faTags">
+            {language === "en" ? "Persian Tags" : "تگ ها به فارسی"}
+          </label>
+          <TagsInput value={faTags} onChange={setFaTags} name="faTags" />
         </div>
         <div className="w-[80%] mt-2">
           <button

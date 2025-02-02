@@ -7,9 +7,7 @@ export default function useCreateAlbum() {
 
   const { isPending: isCreating, mutate: createAlbum } = useMutation({
     mutationFn: createAlbumApi,
-    onSuccess: (data) => {
-      toast.success(data.message);
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["albums"],
       });
