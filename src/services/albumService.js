@@ -18,8 +18,8 @@ export function createAlbumApi(data) {
   return http.post("/albums", data).then(({ data }) => data.data);
 }
 
-export function editAlbumApi({ id, newProject }) {
-  return http.patch(`/albums/${id}`, newProject).then(({ data }) => data.data);
+export function editAlbumApi({ id, newAlbum }) {
+  return http.patch(`/albums/${id}`, newAlbum).then(({ data }) => data.data);
 }
 
 export function removeAlbumApi(albumId) {

@@ -7,11 +7,9 @@ export default function useEditAlbum() {
 
   const { isPending: isEditing, mutate: editAlbum } = useMutation({
     mutationFn: editAlbumApi,
-    onSuccess: (data) => {
-      toast.success(data.message);
-
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["single-album"],
+        queryKey: ["albums"],
       });
     },
 

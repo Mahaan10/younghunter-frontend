@@ -1,5 +1,4 @@
 import toast from "react-hot-toast";
-import { useAdmin } from "../../context/useAdminContext";
 import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
@@ -9,7 +8,6 @@ import AlbumsHeader from "./album/AlbumsHeader";
 import { useState } from "react";
 
 function AdminButtons() {
-  const { isAdmin } = useAdmin();
   const { language } = useLanguage();
   const [openModal, setOpenModal] = useState();
   const { error, isError, isLoading } = useAlbums();

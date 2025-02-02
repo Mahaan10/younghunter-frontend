@@ -4,7 +4,6 @@ import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
 import { useLanguage } from "../../context/useLanguageContext";
-import { useAdmin } from "../../context/useAdminContext";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {
@@ -31,7 +30,6 @@ const carouselReducer = (state, { type, payload }) => {
 
 function Carousel() {
   const { images, isLoading, isError, error } = useCarouselImages();
-  const { isAdmin } = useAdmin();
   const { language } = useLanguage();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 

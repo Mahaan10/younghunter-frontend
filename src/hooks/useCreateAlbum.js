@@ -13,7 +13,7 @@ export default function useCreateAlbum() {
       });
     },
 
-    onError: (error) => toast.error(error.response.data.message),
+    onError: (error) => toast.error(error?.response?.data?.message),
   });
 
   return { isCreating, createAlbum };
