@@ -1,11 +1,11 @@
 import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
-import useSingleAlbum from "../../hooks/useSingleAlbum";
 import { useLanguage } from "../../context/useLanguageContext";
 import { useNavigate } from "react-router-dom";
+import useAllSubAlbums from "../../hooks/useAllSubAlbumsForSingleAlbum";
 
 function SingleAlbum() {
-  const { isError, isLoading, album, error } = useSingleAlbum();
+  const { isError, isLoading, subAlbums, error } = useAllSubAlbums();
   const { language } = useLanguage();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function SingleAlbum() {
 
   return (
     <>
-      {album.subAlbums.map((subAlbum) => (
+      {subAlbums.map((subAlbum) => (
         <div
           key={subAlbum._id}
           className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"

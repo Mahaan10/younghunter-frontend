@@ -4,8 +4,8 @@ export default function getAlbumsApi() {
   return http.get("/albums").then(({ data }) => data.data);
 }
 
-export function getSingleAlbumApi(albumId) {
-  return http.get(`/albums/${albumId}`).then(({ data }) => data.data);
+export function getAllSubAlbumsForSingleAlbumApi(albumId) {
+  return http.get(`/albums/${albumId}/sub-albums`).then(({ data }) => data.data);
 }
 
 export function getSingleSubAlbumApi(albumId, subAlbumId) {
