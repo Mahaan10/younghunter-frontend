@@ -13,16 +13,22 @@ function ImageHeader({ subAlbum }) {
         className="btn flex items-center justify-between w-64 bg-green-600"
         onClick={() => setIsOpen(true)}
       >
-        <span>{language === "en" ? "Add New Image to Sub album" : "افزودن عکس جدید به زیر آلبوم"}</span>
+        <span>
+          {language === "en"
+            ? "Add New Image to Sub album"
+            : "افزودن عکس جدید به زیر آلبوم"}
+        </span>
         <HiOutlinePlus className="w-5 h-5" />
       </button>
       {isOpen && (
         <Modal
-          title={language === "en" ? "Create New Sub Album" : "افزودن زیر آلبوم جدید"}
+          title={
+            language === "en" ? "Create New Sub Album" : "افزودن زیر آلبوم جدید"
+          }
           onClose={() => setIsOpen(false)}
         >
-{/*           <SubAlbumForm onClose={() => setIsOpen(false)} subAlbum={subAlbum} />
- */}        </Modal>
+          {/* !!!!!!!!! */}
+        </Modal>
       )}
     </div>
   );

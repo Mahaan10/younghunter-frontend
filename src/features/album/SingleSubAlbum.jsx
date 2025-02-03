@@ -9,7 +9,7 @@ function SingleSubAlbum() {
 
   if (isLoading) return <Loading />;
   if (isError) return toast.error(error.response.data.message);
-  console.log(subAlbum.images);
+
   return (
     <>
       {subAlbum.images.map((subAlbumImgs) => (
