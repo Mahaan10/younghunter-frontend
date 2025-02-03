@@ -1,19 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createSubAlbumApi } from "../services/albumService";
+import { toast } from "react-hot-toast";
 
 export default function useCreateSubAlbums() {
-    const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-    const {isPending: isCreating, mutate: createSubAlbum} = useMutation({
-        mutationFn: createSubAlbumApi,
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ["single-sub-album"],
-            });
-          },
-      
-          onError: (error) => toast.error(error?.response?.data?.message),
-    })
+  const { isPending: isCreating, mutate: createSubAlbum } = useMutation({
+    mutationFn: createSubAlbumApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["albums"],
+      });
+    },
 
-    return {isCreating, createSubAlbum}
+    onError: (error) => toast.error(error?.response?.data?.message),
+  });
+
+  return { isCreating, createSubAlbum };
 }

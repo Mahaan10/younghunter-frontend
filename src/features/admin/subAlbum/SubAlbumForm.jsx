@@ -8,8 +8,8 @@ import useCreateSubAlbums from "../../../hooks/useCreateSubAlbums";
 import useEditSubAlbum from "../../../hooks/useEditSubAlbum";
 
 function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
-  const { createSubAlbum, isCreating } = useCreateSubAlbums()
-  const { editSubAlbum, isEditing } = useEditSubAlbum()
+  const { createSubAlbum, isCreating } = useCreateSubAlbums();
+  const { editSubAlbum, isEditing } = useEditSubAlbum();
   const { language } = useLanguage();
   const { _id: editId } = subAlbumToEdit;
 
@@ -55,9 +55,10 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
         {
           onSuccess: () => {
             toast.success(
-              `${language === "en"
-                ? `Edit ${data.enTitle} successfully`
-                : `آلبوم ${data.faTitle} با موفقیت ویرایش شد`
+              `${
+                language === "en"
+                  ? `Edit ${data.enTitle} successfully`
+                  : `آلبوم ${data.faTitle} با موفقیت ویرایش شد`
               }`
             );
             onClose();
@@ -69,22 +70,26 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
         }
       );
     } else {
-      createSubAlbum(album._id, newSubAlbum, {
-        onSuccess: () => {
-          toast.success(
-            `${language === "en"
-              ? `Create ${data.enTitle} successfully`
-              : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`
-            }`
-          );
-          onClose();
-          reset();
-          setEnTags([]);
-          setFaTags([]);
-        },
+      createSubAlbum(
+        { albumId: album._id, newSubAlbum: newSubAlbum },
+        {
+          onSuccess: () => {
+            toast.success(
+              `${
+                language === "en"
+                  ? `Create ${data.enTitle} successfully`
+                  : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`
+              }`
+            );
+            onClose();
+            reset();
+            setEnTags([]);
+            setFaTags([]);
+          },
 
-        onError: (error) => toast.error(error?.response?.data?.message),
-      });
+          onError: (error) => toast.error(error?.response?.data?.message),
+        }
+      );
     }
   };
   return (
@@ -97,14 +102,16 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${language === "en" ? "Title is required" : "عنوان ضروری است"
-                }`,
+              required: `${
+                language === "en" ? "Title is required" : "عنوان ضروری است"
+              }`,
               minLength: {
                 value: 3,
-                message: `${language === "en"
+                message: `${
+                  language === "en"
                     ? "Title must be atleast 3 character"
                     : "عنوان حداقل باید 3 کاراکتر باشد"
-                  }`,
+                }`,
               },
             }}
             errors={errors}
@@ -117,14 +124,16 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${language === "en" ? "Title is required" : "عنوان ضروری است"
-                }`,
+              required: `${
+                language === "en" ? "Title is required" : "عنوان ضروری است"
+              }`,
               minLength: {
                 value: 3,
-                message: `${language === "en"
+                message: `${
+                  language === "en"
                     ? "Title must be atleast 3 character"
                     : "عنوان حداقل باید 3 کاراکتر باشد"
-                  }`,
+                }`,
               },
             }}
             errors={errors}
@@ -141,16 +150,18 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${language === "en"
+              required: `${
+                language === "en"
                   ? "Category is required"
                   : "دسته بندی ضروری است"
-                }`,
+              }`,
               minLength: {
                 value: 3,
-                message: `${language === "en"
+                message: `${
+                  language === "en"
                     ? "Category must be atleast 3 character"
                     : "دسته بندی حداقل باید 3 کاراکتر باشد"
-                  }`,
+                }`,
               },
             }}
             errors={errors}
@@ -167,16 +178,18 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             register={register}
             required
             validationSchema={{
-              required: `${language === "en"
+              required: `${
+                language === "en"
                   ? "Category is required"
                   : "دسته بندی ضروری است"
-                }`,
+              }`,
               minLength: {
                 value: 3,
-                message: `${language === "en"
+                message: `${
+                  language === "en"
                     ? "Category must be atleast 3 character"
                     : "دسته بندی حداقل باید 3 کاراکتر باشد"
-                  }`,
+                }`,
               },
             }}
             errors={errors}
