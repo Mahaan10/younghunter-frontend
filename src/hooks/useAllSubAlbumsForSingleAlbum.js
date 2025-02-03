@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { getAllSubAlbumsForSingleAlbumApi } from "../services/albumService";
 
 export default function useAllSubAlbums() {
-  const { id } = useParams();
+  const { id : albumId } = useParams();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["all-subAlbums-single-album", id],
-    queryFn: () => getAllSubAlbumsForSingleAlbumApi(id),
+    queryKey: ["all-subAlbums-single-album", albumId],
+    queryFn: () => getAllSubAlbumsForSingleAlbumApi(albumId),
     retry: 1,
-    enabled: !!id,
+    enabled: !!albumId,
   });
 
   const { subAlbums } = data || {};
