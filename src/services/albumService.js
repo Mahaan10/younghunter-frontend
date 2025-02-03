@@ -16,8 +16,8 @@ export function getSingleSubAlbumApi(albumId, subAlbumId) {
     .then(({ data }) => data.data);
 }
 
-export function createAlbumApi(data) {
-  return http.post("/albums", data).then(({ data }) => data.data);
+export function createAlbumApi(newAlbum) {
+  return http.post("/albums", newAlbum).then(({ data }) => data.data);
 }
 
 export function editAlbumApi({ id, newAlbum }) {
@@ -26,23 +26,4 @@ export function editAlbumApi({ id, newAlbum }) {
 
 export function removeAlbumApi(albumId) {
   return http.delete(`/albums/${albumId}`).then(({ data }) => data.data);
-}
-
-export function removeSubAlbumApi({ albumId, subAlbumId }) {
-  return http
-    .delete(`/albums/${albumId}/sub-albums/${subAlbumId}`)
-    .then(({ data }) => data.data);
-}
-
-export function createSubAlbumApi({ albumId, newSubAlbum }) {
-  return http
-    .post(`/albums/${albumId}/sub-albums`, newSubAlbum)
-    .then(({ data }) => data.data);
-}
-
-export function editSubAlbumApi({ albumId, subAlbumId, newSubAlbum }) {
-  console.log(newSubAlbum);
-  return http
-    .patch(`/albums/${albumId.id}/sub-albums/${subAlbumId}`, newSubAlbum)
-    .then(({ data }) => data.data);
 }

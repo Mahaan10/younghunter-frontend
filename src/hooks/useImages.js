@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import getCarouselImagesApi from "../services/carouselService";
+import getImagesApi from "../services/imageService";
 
-export default function useCarouselImages() {
+export default function useImages() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["carousel-images"],
-    queryFn: getCarouselImagesApi,
+    queryFn: getImagesApi,
   });
 
   const { images } = data || {};

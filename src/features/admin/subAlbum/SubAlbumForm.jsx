@@ -1,8 +1,7 @@
 import { useLanguage } from "../../../context/useLanguageContext";
 import { useForm } from "react-hook-form";
 import InputTextField from "../../../ui/InputTextField";
-import { TagsInput } from "react-tag-input-component";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import useCreateSubAlbums from "../../../hooks/useCreateSubAlbums";
 import useEditSubAlbum from "../../../hooks/useEditSubAlbum";
@@ -11,8 +10,7 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
   const { createSubAlbum, isCreating } = useCreateSubAlbums();
   const { editSubAlbum, isEditing } = useEditSubAlbum();
   const { language } = useLanguage();
-  const { _id: editId } = subAlbumToEdit;
-
+  const { _id: subAlbumEditId } = subAlbumToEdit;
   const {
     register,
     formState: { errors, isValid },
@@ -21,37 +19,29 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
   } = useForm();
 
   useEffect(() => {
-    if (editId) {
+    if (subAlbumEditId) {
       reset({
         enTitle: subAlbumToEdit.title.en,
         faTitle: subAlbumToEdit.title.fa,
-        //enCategory: subAlbumToEdit.category.en,
-        //faCategory: subAlbumToEdit.category.fa,
         imageCover: subAlbumToEdit.imageCover,
-        //enTags: subAlbumToEdit.tags.en,
-        //faTags: subAlbumToEdit.tags.fa,
       });
-      //setEnTags(subAlbumToEdit.tags.en || []);
-      //setFaTags(subAlbumToEdit.tags.fa || []);
     }
-  }, [subAlbumToEdit, reset, editId]);
-
-  const [enTags, setEnTags] = useState([]);
-  const [faTags, setFaTags] = useState([]);
+  }, [subAlbumToEdit, reset, subAlbumEditId]);
 
   const onSubmit = (data) => {
     const newSubAlbum = {
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
-      category: { en: data.enCategory, fa: data.faCategory },
       imageCover: data.imageCover,
-      tags: { en: enTags, fa: faTags },
-      //imageCover: URL.createObjectURL(data.imageCover),
     };
 
-    if (editId) {
+    if (subAlbumEditId) {
       editSubAlbum(
-        { id: editId, newSubAlbum },
+        {
+          albumId: album._id,
+          subAlbumId: subAlbumEditId,
+          newSubAlbum: newSubAlbum,
+        },
         {
           onSuccess: () => {
             toast.success(
@@ -63,8 +53,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             );
             onClose();
             reset();
-            setEnTags([]);
-            setFaTags([]);
           },
           onError: (error) => toast.error(error?.response?.data?.message),
         }
@@ -83,8 +71,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             );
             onClose();
             reset();
-            setEnTags([]);
-            setFaTags([]);
           },
 
           onError: (error) => toast.error(error?.response?.data?.message),
@@ -140,62 +126,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <InputTextField
-            label={
-              language === "en"
-                ? "English Category"
-                : "عنوان دسته بندی به انگلیسی"
-            }
-            name="enCategory"
-            register={register}
-            required
-            validationSchema={{
-              required: `${
-                language === "en"
-                  ? "Category is required"
-                  : "دسته بندی ضروری است"
-              }`,
-              minLength: {
-                value: 3,
-                message: `${
-                  language === "en"
-                    ? "Category must be atleast 3 character"
-                    : "دسته بندی حداقل باید 3 کاراکتر باشد"
-                }`,
-              },
-            }}
-            errors={errors}
-          />
-        </div>
-        <div className="flex flex-col w-[80%]">
-          <InputTextField
-            label={
-              language === "en"
-                ? "Persian Category"
-                : "عنوان دسته بندی به فارسی"
-            }
-            name="faCategory"
-            register={register}
-            required
-            validationSchema={{
-              required: `${
-                language === "en"
-                  ? "Category is required"
-                  : "دسته بندی ضروری است"
-              }`,
-              minLength: {
-                value: 3,
-                message: `${
-                  language === "en"
-                    ? "Category must be atleast 3 character"
-                    : "دسته بندی حداقل باید 3 کاراکتر باشد"
-                }`,
-              },
-            }}
-            errors={errors}
-          />
-        </div>
-        <div className="flex flex-col w-[80%]">
           <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
             {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
             <span className="text-red-600">*</span>
@@ -226,18 +156,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
             </span>
           )}
         </div>
-        <div className="flex flex-col w-[80%] text-neutral-200">
-          <label htmlFor="enTags">
-            {language === "en" ? "English Tags" : "تگ ها به انگلیسی"}
-          </label>
-          <TagsInput value={enTags} onChange={setEnTags} name="enTags" />
-        </div>
-        <div className="flex flex-col w-[80%] text-neutral-200">
-          <label htmlFor="faTags">
-            {language === "en" ? "Persian Tags" : "تگ ها به فارسی"}
-          </label>
-          <TagsInput value={faTags} onChange={setFaTags} name="faTags" />
-        </div>
         <div className="w-[80%] mt-2">
           <button
             type="submit"
@@ -246,7 +164,7 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
           >
             {isCreating || isEditing ? (
               <h1 className="">...</h1>
-            ) : editId ? (
+            ) : subAlbumEditId ? (
               language === "en" ? (
                 "Save Changes"
               ) : (

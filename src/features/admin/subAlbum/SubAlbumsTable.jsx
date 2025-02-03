@@ -18,6 +18,7 @@ function SubAlbumsTable({ album }) {
         <th>#</th>
         <th>{language === "en" ? "English Title" : "عنوان به انگلیسی"}</th>
         <th>{language === "en" ? "Persian Title" : "عنوان به فارسی"}</th>
+        <th>{language === "en" ? "Images" : "عکس ها"}</th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>

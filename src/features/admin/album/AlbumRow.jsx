@@ -27,7 +27,7 @@ function AlbumRow({ album, index }) {
       <td>{album.title.fa}</td>
       <td className="flex justify-center">
         <button
-          className="flex items-center justify-between btn w-32 bg-lime-800"
+          className="flex items-center justify-between btn w-32 bg-emerald-700"
           onClick={() => setIsSubAlbumOpen(true)}
         >
           <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>

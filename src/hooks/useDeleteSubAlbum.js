@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { removeSubAlbumApi } from "../services/albumService";
+import { removeSubAlbumApi } from "../services/subAlbumService";
 import toast from "react-hot-toast";
 
 export default function useDeleteSubAlbum() {

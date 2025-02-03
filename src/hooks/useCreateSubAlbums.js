@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createSubAlbumApi } from "../services/albumService";
+import { createSubAlbumApi } from "../services/subAlbumService";
 import { toast } from "react-hot-toast";
 
 export default function useCreateSubAlbums() {
