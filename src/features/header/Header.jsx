@@ -25,11 +25,11 @@ function Header() {
               <img src="/logo demo.jpg" alt="" />
             </Link>
           </button>
-          <h5 className="md:text-4xl text-base tracking-wide font-headerFont font-bold">
-            Y O U N G H U N T E R
+          <h5 className="md:text-4xl text-sm sm:text-2xl tracking-wide font-headerFont font-bold">
+          Y O U N G H U N T E R
           </h5>
         </div>
-        <div className="flex items-center mr-16 md:mr-10">
+        <div className="flex items-center mr-11 md:mr-10">
           <ThemeMode />
         </div>
       </div>

@@ -103,7 +103,7 @@ function Carousel() {
                 <img
                   src={`${img.url}`}
                   alt=""
-                  className={`object-cover border-2 border-transparent sm:min-w-[70px] ${
+                  className={`object-cover border-2 border-transparent sm:min-w-[70px] min-w-[50px] ${
                     img.position === "horizontal"
                       ? "sm:min-h-[105px]"
                       : "sm:min-h-[70px]"

@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         sans: ["Ubuntu", "Vazir", ...fontFamily.sans],
-        headerFont: ["Ivy mode"],
+        headerFont: ["Ivy mode", ...fontFamily.serif],
       },
     },
   },
