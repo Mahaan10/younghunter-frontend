@@ -18,7 +18,13 @@ function FooterMain() {
   // error message needs to be re-watch!
   if (isError) {
     toast.error(error?.response?.data?.message);
-    return <p className="text-center text-red-600">{language === "en" ? "Failed to load Albums" : "مشکلی در بازگذاری آلبوم ها وجود دارد!"}</p>
+    return (
+      <p className="text-center text-red-600">
+        {language === "en"
+          ? "Failed to load Albums"
+          : "مشکلی در بارگذاری آلبوم ها وجود دارد!"}
+      </p>
+    );
   }
 
   return (
@@ -29,9 +35,10 @@ function FooterMain() {
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6 w-full">
+            {/* Pages Section */}
             <div>
               <FooterTitle
-                className="dark:text-black text-neutral-200"
+                className="dark:text-black text-neutral-200 text-center"
                 title={language === "en" ? "Pages" : "صفحات"}
               />
               <FooterLinkGroup col className="space-y-2">
@@ -49,36 +56,71 @@ function FooterMain() {
                 </ul>
               </FooterLinkGroup>
             </div>
+            {/* Albums Section */}
             <div>
               <FooterTitle
-                className="dark:text-black text-neutral-200"
+                className="dark:text-black text-neutral-200 text-center"
                 title="Albums"
               />
               <FooterLinkGroup
                 col
-                className={`grid space-y-2 ${albums.length > 5 ? "grid-cols-2" : "grid-cols-1"} dark:text-black dark:text-opacity-80`}
+                className={`grid items-center justify-between space-y-0 gap-y-2 ${
+                  albums.length > 5 ? "grid-cols-2" : "grid-cols-1"
+                } dark:text-black dark:text-opacity-80`}
               >
-                {albums.length ? albums.map((album) => (
-                  <FooterLink key={album._id} href={`/albums/${album._id}/sub-albums`}>
-                    {language === "en" ? album.title.en : album.title.fa}
-                  </FooterLink>
-                )) : <p className="text-gray-400 text-sm">{language === "en" ? "No Albums available!" : "آلبومی یافت نشد!"}</p>}
+                {albums.length ? (
+                  albums.map((album) => (
+                    <FooterLink
+                      key={album._id}
+                      className="text-center !me-0 !mr-0"
+                      href={`/albums/${album._id}/sub-albums`}
+                    >
+                      {language === "en" ? album.title.en : album.title.fa}
+                    </FooterLink>
+                  ))
+                ) : (
+                  <p className="text-gray-400 text-sm">
+                    {language === "en"
+                      ? "No Albums available!"
+                      : "آلبومی یافت نشد!"}
+                  </p>
+                )}
               </FooterLinkGroup>
             </div>
-            <div>
-              <FooterTitle className="text-neutral-200 dark:text-black" title="Sub Albums" />
+            {/* SubAlbums Section */}
+            <div className="space-y-0.5">
+              <FooterTitle
+                className="text-neutral-200 md:px-20 dark:text-black"
+                title="Sub Albums"
+              />
               {albums.length ? (
                 albums.map((album) => (
-                  <FooterLinkGroup key={album._id} col className={`grid space-y-2 ${album.subAlbums.length > 5 ? "grid-cols-2" : "grid-cols-1"} dark:text-opacity-80 dark:text-black gap-2`}>
+                  <FooterLinkGroup
+                    key={album._id}
+                    col
+                    className={`grid space-y-0 items-center ${
+                      album.subAlbums.length > 5 ? "grid-cols-2" : "grid-cols-1"
+                    } dark:text-opacity-80 dark:text-black gap-2`}
+                  >
                     {album.subAlbums.map((subAlbum) => (
-                      <FooterLink key={subAlbum._id} className="py-1" href={`/albums/${album._id}/sub-albums/${subAlbum._id}`}>
-                        {language === "en" ? subAlbum.title.en : subAlbum.title.fa}
+                      <FooterLink
+                        key={subAlbum._id}
+                        className="!me-0 !mr-0"
+                        href={`/albums/${album._id}/sub-albums/${subAlbum._id}`}
+                      >
+                        {language === "en"
+                          ? subAlbum.title.en
+                          : subAlbum.title.fa}
                       </FooterLink>
                     ))}
                   </FooterLinkGroup>
                 ))
               ) : (
-                <p className="text-gray-400 text-sm">No sub-albums available.</p>
+                <p className="text-gray-400 text-sm">
+                  {language === "en"
+                    ? "No sub-albums available!"
+                    : "زیر آلبومی یافت نشد!"}
+                </p>
               )}
             </div>
           </div>

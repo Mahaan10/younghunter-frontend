@@ -6,7 +6,7 @@ function FooterNavlink({ to, children }) {
   };
 
   const navlinkClass =
-    "transition-all duration-300 w-24 px-6 py-1 flex rounded-md";
+    "transition-all duration-300 w-36 mx-auto items-center justify-center py-1.5 flex rounded-md";
 
   return (
       <NavLink
