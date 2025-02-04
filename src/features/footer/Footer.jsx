@@ -60,7 +60,7 @@ function FooterMain() {
             <div>
               <FooterTitle
                 className="dark:text-black text-neutral-200 text-center"
-                title="Albums"
+                title={`${language === "en" ? "Albums" : "آلبوم ها"}`}
               />
               <FooterLinkGroup
                 col
@@ -91,7 +91,7 @@ function FooterMain() {
             <div className="space-y-0.5">
               <FooterTitle
                 className="text-neutral-200 md:px-20 dark:text-black"
-                title="Sub Albums"
+                title={`${language === "en" ? "Sub Albums" : "زیر آلبوم ها"}`}
               />
               {albums.length ? (
                 albums.map((album) => (
