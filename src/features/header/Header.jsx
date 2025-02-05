@@ -11,7 +11,6 @@ import ThemeMode from "../../ui/ThemeMode";
 function Header() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
-  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <>
@@ -26,7 +25,7 @@ function Header() {
             </Link>
           </button>
           <h5 className="md:text-4xl text-sm sm:text-2xl tracking-wide font-headerFont font-bold">
-          Y O U N G H U N T E R
+            Y O U N G H U N T E R
           </h5>
         </div>
         <div className="flex items-center mr-11 md:mr-10">
@@ -75,9 +74,9 @@ function Header() {
           </ul>
           <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
             <HeaderSelectBox onClose={() => setOpen(false)} />
-            <Authentication isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+            <Authentication />
           </div>
-          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+          <HeaderOffcanvas open={open} onClose={() => setOpen(false)} />
         </div>
       </div>
     </>
