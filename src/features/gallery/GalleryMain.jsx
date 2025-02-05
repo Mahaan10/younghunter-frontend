@@ -3,50 +3,35 @@ import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect } from "react";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
+import { usePagination } from "../../context/usePaginationContext";
 
 function GalleryMain() {
   const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const {
+    currentPage,
+    totalPages,
+    setPage,
+    nextPage,
+    previousPage,
+    setTotalPages,
+    pageSize,
+  } = usePagination();
 
-  /* Pagination Calcs */
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 9;
-  const totalPages = Math.ceil(albums.length / pageSize);
+  useEffect(() => {
+    if (albums) setTotalPages(Math.ceil(albums.length / pageSize));
+  }, [albums, pageSize, setTotalPages]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return toast.error(error.response.data.message);
+
   const currentAlbums = albums.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-
-  /* Scroll Fn */
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  /* Pagination Fn */
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      scrollToTop();
-    }
-  };
-
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      scrollToTop();
-    }
-  };
-
-  const clickPage = (page) => {
-    setCurrentPage(page);
-    scrollToTop();
-  };
-
-  if (isLoading) return <Loading />;
-  if (isError) return toast.error(error.response.data.message);
 
   return (
     <>
@@ -79,7 +64,7 @@ function GalleryMain() {
       {albums.length > pageSize && (
         <div className="flex justify-center mt-6 gap-2">
           <button
-            onClick={prevPage}
+            onClick={previousPage}
             disabled={currentPage === 1}
             className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
           >
@@ -90,7 +75,7 @@ function GalleryMain() {
             (page) => (
               <button
                 key={page}
-                onClick={() => clickPage(page)}
+                onClick={() => setPage(page)}
                 className={`px-4 py-2 rounded ${
                   currentPage === page
                     ? "bg-gray-950 bg-opacity-90 text-neutral-200"
