@@ -72,7 +72,7 @@ function Header() {
               <span>{language === "en" ? "About" : "درباره ما"}</span>
             </HeaderHashlink>
           </ul>
-          <div className="md:flex hidden items-center justify-center gap-x-4 mb-2">
+          <div className="md:flex hidden items-center justify-center gap-x-4 mb-2 relative px-4">
             <HeaderSelectBox onClose={() => setOpen(false)} />
             <Authentication />
           </div>

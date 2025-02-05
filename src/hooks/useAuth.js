@@ -9,22 +9,36 @@ export default function useAuth() {
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
-      Cookies.set("token", data.token, { expires: 90, secure: true, sameSite: 'Strict' });
-      Cookies.set("role", data.data.user.role, { expires: 90, secure: true, sameSite: "Strict" });
+      Cookies.set("token", data.token, {
+        expires: 90,
+        secure: true,
+        sameSite: "Strict",
+      });
+      Cookies.set("role", data.data.user.role, {
+        expires: 90,
+        secure: true,
+        sameSite: "Strict",
+      });
       if (data.data.user.role === "admin") {
-        window.location.reload()
+        window.location.reload();
       } else {
-        window.location.href = "/"
+        window.location.href = "/";
       }
 
       toast.success(
-        `${language === "en"
-          ? `Welcome ${data.data.user.name}`
-          : `${data.data.user.name}، خوش آمدید!`
+        `${
+          language === "en"
+            ? `Welcome ${data.data.user.name}`
+            : `${data.data.user.name}، خوش آمدید!`
         }`
       );
     },
-    onError: (error) => toast.error(error?.response?.data?.message || error.message || "Something went wrong, please try again later!"),
+    onError: (error) =>
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "Something went wrong, please try again later!"
+      ),
   });
   return { isLoggedIn, getLoggedIn };
 }
