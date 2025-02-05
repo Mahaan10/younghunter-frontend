@@ -4,7 +4,7 @@ import { useGalleryContext } from "../../context/useGalleryContext";
 import { Outlet } from "react-router-dom";
 import ScrollToTopButton from "../../ui/ScrollButton";
 import GalleryOffcanvas from "../gallery/GalleryOffcanvas";
-import AdminButtons from "../admin/AdminButtons";
+import AdminDashboard from "../admin/AdminDashboard";
 
 function AlbumLayout() {
   const { setIsOpen } = useGalleryContext();
@@ -22,7 +22,7 @@ function AlbumLayout() {
         </button>
       </div>
       <div className="w-full mx-auto py-8 dark:bg-zinc-950 transition-all duration-300">
-        <AdminButtons />
+        <AdminDashboard />
         <div className="rounded-2xl shadow-3xl  gap-y-4 p-5 max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3 dark:bg-neutral-200 dark:shadow-neutral-600">
           <Outlet />
         </div>

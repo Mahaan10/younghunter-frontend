@@ -10,15 +10,17 @@ import Albums from "./features/gallery/Albums";
 import ThemeModeProvider from "./context/useThemeModeContext";
 import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
+import AdminProvider from "./context/useAdminContext";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <ThemeModeProvider>
-      <QueryClientProvider client={queryClient}>
-        <LanguageProvider>
-          <Toaster />
+      <AdminProvider>
+        <QueryClientProvider client={queryClient}>
+          <LanguageProvider>
+            <Toaster />
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -32,8 +34,9 @@ function App() {
               </Route>
             </Routes>
             <FooterMain />
-        </LanguageProvider>
-      </QueryClientProvider>
+          </LanguageProvider>
+        </QueryClientProvider>
+      </AdminProvider>
     </ThemeModeProvider>
   );
 }

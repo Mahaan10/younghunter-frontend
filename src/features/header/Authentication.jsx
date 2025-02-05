@@ -4,15 +4,20 @@ import Login from "./Login";
 import { useLanguage } from "../../context/useLanguageContext";
 import { FaChevronDown } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { useAdmin } from "../../context/useAdminContext";
+import useUsers from "../../hooks/useUsers";
 
 function Authentication() {
   const [openModal, setOpenModal] = useState(false);
-
+  const { isAdmin } = useAdmin()
+  const { error, isError, isLoading, users } = useUsers()
   const { language } = useLanguage();
 
-  //if (isError) return toast.error(error.response.data.message);
+  const findAdmin = users && users.filter((user) => user.role === "admin")
+//findAdmin filter is not work!!
+  if (isError) return toast.error(error.response.data.message);
   //Loading component needs to be different!
-  //if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;
+  if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;
 
   return (
     <>
@@ -24,10 +29,10 @@ function Authentication() {
         {language === "en" ? "Login" : "ورود"}
       </button>
 
-      {/* <button className="px-3 md:w-28 text-sm font-bold flex items-center justify-between">
-          <span>{users[0].name}</span>
-          <FaChevronDown className="size-3" />
-        </button> */}
+      {isAdmin && <button className="px-3 md:w-28 text-sm font-bold flex items-center justify-between">
+        <span>{findAdmin[0].name}</span>
+        <FaChevronDown className="size-3" />
+      </button>}
 
       {openModal && (
         <Modal
