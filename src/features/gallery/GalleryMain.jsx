@@ -6,10 +6,12 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { usePagination } from "../../context/usePaginationContext";
 import Pagination from "../../ui/Pagination";
+import { useSorting } from "../../context/useSortingContext";
 
 function GalleryMain() {
   const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
+  const { sortOption } = useSorting()
   const navigate = useNavigate();
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
@@ -20,7 +22,13 @@ function GalleryMain() {
   if (isLoading) return <Loading />;
   if (isError) return toast.error(error.response.data.message);
 
-  const currentAlbums = albums.slice(
+  // Sorting Albums based on newest or oldest
+  const sortedAlbums = [...albums].sort((a, b) => {
+    return sortOption === "new" ? new Date(b.createdAt) - new Date(a.createdAt) : new Date(a.createdAt) - new Date(b.createdAt)
+  })
+
+  // Slicing Albums for pagination based on 9 items per page
+  const currentAlbums = sortedAlbums.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
@@ -46,9 +54,8 @@ function GalleryMain() {
                 alt=""
               />
             </button>
-            <h1 className="font-bold text-2xl mx-2.5">{`${
-              language === "en" ? album.title.en : album.title.fa
-            }`}</h1>
+            <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? album.title.en : album.title.fa
+              }`}</h1>
           </div>
         ))}
       </div>

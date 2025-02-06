@@ -12,6 +12,7 @@ import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
 import PaginationProvider from "./context/usePaginationContext";
+import SortingProvider from "./context/useSortingContext";
 
 function App() {
   const queryClient = new QueryClient();
@@ -24,17 +25,19 @@ function App() {
             <Toaster />
             <Header />
             <PaginationProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/albums" element={<Gallery />}>
-                  <Route index element={<Albums />} />
-                  <Route path=":id/sub-albums" element={<SingleAlbum />} />
-                  <Route
-                    path=":albumId/sub-albums/:subAlbumId"
-                    element={<SingleSubAlbum />}
-                  />
-                </Route>
-              </Routes>
+              <SortingProvider>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/albums" element={<Gallery />}>
+                    <Route index element={<Albums />} />
+                    <Route path=":id/sub-albums" element={<SingleAlbum />} />
+                    <Route
+                      path=":albumId/sub-albums/:subAlbumId"
+                      element={<SingleSubAlbum />}
+                    />
+                  </Route>
+                </Routes>
+              </SortingProvider>
             </PaginationProvider>
             <FooterMain />
           </LanguageProvider>

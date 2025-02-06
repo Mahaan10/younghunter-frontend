@@ -6,10 +6,12 @@ import useAllSubAlbums from "../../hooks/useAllSubAlbumsForSingleAlbum";
 import { useEffect } from "react";
 import { usePagination } from "../../context/usePaginationContext";
 import Pagination from "../../ui/Pagination";
+import { useSorting } from "../../context/useSortingContext";
 
 function SingleAlbum() {
   const { isError, isLoading, subAlbums, error } = useAllSubAlbums();
   const { language } = useLanguage();
+  const { sortOption } = useSorting()
   const navigate = useNavigate();
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
@@ -20,10 +22,18 @@ function SingleAlbum() {
   if (isLoading) return <Loading />;
   if (isError) return toast.error(error.response.data.message);
 
-  const currentSubAlbums = subAlbums.slice(
+  // Sorting Sub Albums based on newest or oldest
+  const sortedSubAlbums = [...subAlbums].sort((a, b) => {
+    return sortOption === "new" ? new Date(b.createdAt) - new Date(a.createdAt) : new Date(a.createdAt) - new Date(b.createdAt)
+  })
+
+  // Slicing Sub Albums for pagination based on 9 items per page
+  const currentSubAlbums = sortedSubAlbums.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
+
 
   return (
     <>
@@ -43,9 +53,8 @@ function SingleAlbum() {
                 alt=""
               />
             </button>
-            <h1 className="font-bold text-2xl mx-2.5">{`${
-              language === "en" ? subAlbum.title.en : subAlbum.title.fa
-            }`}</h1>
+            <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? subAlbum.title.en : subAlbum.title.fa
+              }`}</h1>
           </div>
         ))}
       </div>

@@ -5,11 +5,12 @@ import { useLanguage } from "../../context/useLanguageContext";
 import { usePagination } from "../../context/usePaginationContext";
 import { useEffect } from "react";
 import Pagination from "../../ui/Pagination";
+import { useSorting } from "../../context/useSortingContext";
 
 function SingleSubAlbum() {
   const { subAlbum, error, isError, isLoading } = useSingleSubAlbum();
   const { language } = useLanguage();
-
+  const { sortOption } = useSorting()
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
   useEffect(() => {
@@ -19,10 +20,17 @@ function SingleSubAlbum() {
   if (isLoading) return <Loading />;
   if (isError) return toast.error(error.response.data.message);
 
-  const currentSubAlbumImages = subAlbum.images.slice(
+  // Sorting Albums based on newest or oldest
+  const sortedSubAlbumImages = [...subAlbum.images].sort((a, b) => {
+    return sortOption === "new" ? new Date(b.dateTaken) - new Date(a.dateTaken) : new Date(a.dateTaken) - new Date(b.dateTaken)
+  })
+
+  // Slicing Albums for pagination based on 9 items per page
+  const currentSubAlbumImages = sortedSubAlbumImages.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
 
   return (
     <>
@@ -43,11 +51,7 @@ function SingleSubAlbum() {
               />
             </button>
             <div className="flex items-center justify-between text-sm mx-2">
-              <span className="">{`${
-                language === "en"
-                  ? subAlbumImgs.dateTaken
-                  : subAlbumImgs.dateTaken
-              }`}</span>
+              <DateComponent date={subAlbumImgs.dateTaken} />
               <span>Location</span>
             </div>
           </div>
@@ -60,3 +64,18 @@ function SingleSubAlbum() {
 }
 
 export default SingleSubAlbum;
+
+
+
+function formattedDate(isoString, language) {
+  return new Date(isoString).toLocaleDateString(language === "en" ? "en-Us" : "fa-IR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  })
+}
+
+function DateComponent({ date }) {
+  const { language } = useLanguage()
+  return <span>{formattedDate(date, language)}</span>
+}
