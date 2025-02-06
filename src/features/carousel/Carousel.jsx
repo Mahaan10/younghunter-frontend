@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { useLanguage } from "../../context/useLanguageContext";
 import useImages from "../../hooks/useImages";
 import { useAdmin } from "../../context/useAdminContext";
+import useAlbums from "../../hooks/useAlbums";
+import { useNavigate } from "react-router-dom";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {
@@ -30,24 +32,60 @@ const carouselReducer = (state, { type, payload }) => {
 };
 
 function Carousel() {
-  const { isAdmin } = useAdmin()
+  const { isAdmin } = useAdmin();
   const { images, isLoading, isError, error } = useImages();
+  const {
+    albums,
+    isLoading: isAlbumLoading,
+    isError: isAlbumError,
+    error: albumError,
+  } = useAlbums();
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
   const prevCarouselItemHandler = () => {
-    if (!images.length) return
+    if (!images.length) return;
     dispatch({ type: "Prev", payload: images.length });
   };
 
   const nextCarouselItemHandeler = () => {
-    if (!images.length) return
+    if (!images.length) return;
     dispatch({ type: "Next", payload: images.length });
   };
 
   const indicatorClickHandler = (id) => {
     const index = images.findIndex((image) => image._id === id);
     if (index !== -1) dispatch({ type: "SetIndex", payload: index });
+  };
+
+  //find subAlbum and album which contains that specific image
+  const findSubAlbumAndAlbumByImageId = (imageId) => {
+    for (let album of albums) {
+      for (let subAlbum of album.subAlbums) {
+        const foundImage = subAlbum.images.find((img) => img === imageId);
+        if (foundImage) {
+          return { subAlbumId: subAlbum._id, albumId: album._id };
+        }
+      }
+    }
+    return null;
+  };
+
+  const imageClickHandler = (imageId) => {
+    const subAlbumData = findSubAlbumAndAlbumByImageId(imageId);
+
+    if (subAlbumData) {
+      navigate(
+        `/albums/${subAlbumData.albumId}/sub-albums/${subAlbumData.subAlbumId}`
+      );
+    } else {
+      toast.error(
+        language === "en"
+          ? "Image not found in any subAlbum!"
+          : "عکس در هیچ زیرآلبومی یافت نشد!"
+      );
+    }
   };
 
   useEffect(() => {
@@ -59,22 +97,34 @@ function Carousel() {
     return () => clearInterval(carouselInterval);
   }, [images]);
 
-  if (isLoading) return <Loading />;
-  if (isError) return toast.error(error.response.data.message);
-  if (!images.length) return <p className="text-center">{language === "en" ? "No Images available!" : "عکسی یافت نشد!"}</p>
-  const activeImage = images[state.activeItemIndex]
+  if (isLoading || isAlbumLoading) return <Loading />;
+  if (isError || isAlbumError)
+    return toast.error(
+      error?.response?.data?.message || albumError?.response?.data?.message
+    );
 
+  if (!images.length)
+    return (
+      <p className="text-center">
+        {language === "en" ? "No Images available!" : "عکسی یافت نشد!"}
+      </p>
+    );
+  const activeImage = images[state.activeItemIndex];
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
-      {isAdmin && <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
-        <button className="bg-green-600 adminRoleBtn text-neutral-200">
-          {language === "en" ? "Upload Image" : "بارگذاری عکس"}
-        </button>
-        <button className="bg-red-600 adminRoleBtn text-neutral-200">
-          {language === "en" ? "Delete Image from Carousel" : "حذف کردن عکس از کاروسل"}
-        </button>
-      </div>}
+      {isAdmin && (
+        <div className="flex items-center justify-center gap-x-8 text-sm pb-4 max-w-[500px] mx-auto">
+          <button className="bg-green-600 adminRoleBtn text-neutral-200">
+            {language === "en" ? "Upload Image" : "بارگذاری عکس"}
+          </button>
+          <button className="bg-red-600 adminRoleBtn text-neutral-200">
+            {language === "en"
+              ? "Delete Image from Carousel"
+              : "حذف کردن عکس از کاروسل"}
+          </button>
+        </div>
+      )}
       <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
           <div className="flex items-center justify-between">
@@ -85,9 +135,7 @@ function Carousel() {
               <FaCaretLeft className="min-[475px]:size-8 size-5" />
             </button>
             <div className="md:min-w-[300px] min-w-fit flex items-center justify-center h-full rounded-lg  bg-white">
-              <button
-                onClick={() => console.log(activeImage._id)}
-              >
+              <button onClick={() => imageClickHandler(activeImage._id)}>
                 <img
                   src={`${activeImage.url}`}
                   alt=""
@@ -107,14 +155,16 @@ function Carousel() {
             style={{ direction: "ltr" }}
           >
             {images.map((img) => (
-              <button key={img._id} onClick={() => indicatorClickHandler(img._id)}>
+              <button
+                key={img._id}
+                onClick={() => indicatorClickHandler(img._id)}
+              >
                 <img
                   src={`${img.url}`}
                   alt=""
-                  className={`border-2 border-transparent w-[70px] h-[100px] object-cover transition-opacity ${img._id === activeImage._id
-                    ? "opacity-100"
-                    : "opacity-30"
-                    }`}
+                  className={`border-2 border-transparent w-[70px] h-[100px] object-cover transition-opacity ${
+                    img._id === activeImage._id ? "opacity-100" : "opacity-30"
+                  }`}
                 />
               </button>
             ))}
