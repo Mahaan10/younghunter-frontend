@@ -15,7 +15,7 @@ function InputTextField({
       <input
         type={type}
         id={name}
-        {...register(name)}
+        {...register(name, validationSchema)}
         className="inputTextField"
         autoComplete="off"
       />

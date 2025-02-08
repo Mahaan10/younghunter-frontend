@@ -7,7 +7,7 @@ import AccessModal from "../../ui/AccessModal";
 import AlbumsHeader from "./album/AlbumsHeader";
 import { useState } from "react";
 
-function AdminDashboard() {
+function AdminGalleryDashboard() {
   const { language } = useLanguage();
   const [openModal, setOpenModal] = useState();
   const { error, isError, isLoading } = useAlbums();
@@ -41,4 +41,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default AdminGalleryDashboard;
