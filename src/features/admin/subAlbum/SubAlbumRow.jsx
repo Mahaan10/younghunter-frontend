@@ -10,8 +10,8 @@ import ConfirmDelete from "../../../ui/ConfirmDelete";
 import toast from "react-hot-toast";
 import useDeleteSubAlbum from "../../../hooks/useDeleteSubAlbum";
 import AccessModal from "../../../ui/AccessModal";
-import ImageHeader from "../image/ImageHeader";
-import ImageTable from "../image/ImageTable";
+import ImageHeader from "./image/ImageHeader";
+import ImageTable from "./image/ImageTable";
 
 function SubAlbumRow({ subAlbum, index, album }) {
   const { language } = useLanguage();

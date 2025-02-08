@@ -11,7 +11,7 @@ function RadioInputGroup({ register, watch, errors, configs }) {
             key={value}
             label={label}
             value={value}
-            id={value}
+            id={value.toString()}
             name={name}
             register={register}
             watch={watch}

@@ -104,13 +104,13 @@ function Carousel() {
       error?.response?.data?.message || albumError?.response?.data?.message
     );
 
-  if (!images.length)
+/*   if (!images.length)
     return (
       <p className="text-center">
         {language === "en" ? "No Images available!" : "عکسی یافت نشد!"}
       </p>
-    );
-  const activeImage = images[state.activeItemIndex];
+    ); */
+  const activeImage = images[state.activeItemIndex] || [];
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">

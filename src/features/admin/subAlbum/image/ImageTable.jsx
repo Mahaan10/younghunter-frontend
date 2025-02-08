@@ -1,5 +1,5 @@
-import { useLanguage } from "../../../context/useLanguageContext";
-import Table from "../../../ui/Table";
+import { useLanguage } from "../../../../context/useLanguageContext";
+import Table from "../../../../ui/Table";
 import ImageRow from "./ImageRow";
 
 function SubAlbumsTable({ subAlbum }) {

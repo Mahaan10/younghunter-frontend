@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useLanguage } from "../../../context/useLanguageContext";
-import Modal from "../../../ui/Modal";
+import { useLanguage } from "../../../../context/useLanguageContext";
+import Modal from "../../../../ui/Modal";
 import { HiOutlinePlus } from "react-icons/hi";
 
 function ImageHeader({ subAlbum }) {

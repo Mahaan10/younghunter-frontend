@@ -6,6 +6,7 @@ function RadioInput({
   id,
   validationSchema,
   watch,
+  errors
 }) {
   return (
     <>

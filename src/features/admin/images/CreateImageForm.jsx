@@ -20,11 +20,11 @@ function CreateImageForm({ onClose }) {
     const newImage = {
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
-      //location: {en: data.enLocation, fa: data.faLocation},
-      isFeaturedCarousel: data.isFeaturedCarousel,
+      location: { en: data.enLocation, fa: data.faLocation },
+      isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
       dateTaken: data.dateTaken,
       url: data.url,
-      position: data.position
+      position: data.position,
     };
 
     await createNewImage(newImage, {
@@ -117,7 +117,7 @@ function CreateImageForm({ onClose }) {
             </span>
           )}
         </div>
-        {/* <div className="flex flex-col w-[80%]">
+        <div className="flex flex-col w-[80%]">
           <InputTextField
             label={language === "en" ? "English Location" : "لوکیشن به انگلیسی"}
             name="enLocation"
@@ -138,8 +138,8 @@ function CreateImageForm({ onClose }) {
             }}
             errors={errors}
           />
-        </div> */}
-        {/* <div className="flex flex-col w-[80%]">
+        </div>
+        <div className="flex flex-col w-[80%]">
           <InputTextField
             label={language === "en" ? "Persian Location" : "لوکیشن به فارسی"}
             name="faLocation"
@@ -160,7 +160,7 @@ function CreateImageForm({ onClose }) {
             }}
             errors={errors}
           />
-        </div> */}
+        </div>
         <div className="flex flex-col w-[80%]">
           <InputTextField
             label={language === "en" ? "Date" : "تاریخ"}
@@ -219,7 +219,7 @@ function CreateImageForm({ onClose }) {
           <p className="text-neutral-200 text-center text-lg my-2">
             {language === "en"
               ? "Do you want to add this image to carousel?"
-              : "آیا میخوهید این عکس به کاروسل اضافه گردد؟"}
+              : "آیا میخواهید این عکس به کاروسل اضافه گردد؟"}
           </p>
           <RadioInputGroup
             errors={errors}

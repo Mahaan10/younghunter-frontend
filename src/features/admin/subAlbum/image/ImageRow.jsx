@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Table from "../../../ui/Table";
-import { useLanguage } from "../../../context/useLanguageContext";
+import Table from "../../../../ui/Table";
+import { useLanguage } from "../../../../context/useLanguageContext";
 import { HiOutlineTrash } from "react-icons/hi";
 
 function ImageRow({ subAlbum, image, index }) {
