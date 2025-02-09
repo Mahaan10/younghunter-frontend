@@ -1,16 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAccordion } from "../../context/useAccordionContext";
 import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import { HiChevronDown } from "react-icons/hi2";
 import { useLanguage } from "../../context/useLanguageContext";
 import toast from "react-hot-toast";
+import { useGalleryContext } from "../../context/useGalleryContext";
 
 function GalleryNavlink() {
   const { albums, isLoading, isError, error } = useAlbums();
-  //const { setIsOpen, isOpen } = useGalleryContext();
+
   //onClose needs to change!!!!
-  const { language } = useLanguage();
   const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
 
   const openAccordionHandler = (id) => {
@@ -44,7 +44,6 @@ console.log(formattedDateFa, formattedDateEn) */
           album={album}
           openSubAlbumId={openSubAlbumId}
           onClose={closeAccordion}
-          language={language}
         />
       </NavLink>
     </li>
@@ -53,7 +52,8 @@ console.log(formattedDateFa, formattedDateEn) */
 
 export default GalleryNavlink;
 
-const SubAlbum = ({ album, openSubAlbumId, onClose, language }) => {
+const SubAlbum = ({ album, openSubAlbumId, onClose }) => {
+  const { language } = useLanguage();
   const isOpen = album._id === openSubAlbumId;
   return (
     <div className="flex flex-col w-full">
@@ -77,6 +77,7 @@ const SubAlbum = ({ album, openSubAlbumId, onClose, language }) => {
 };
 
 const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
+  const { setIsOpen } = useGalleryContext();
   return (
     <div
       className={`${
@@ -91,12 +92,13 @@ const SubAlbumItem = ({ album, isOpen, onClose, language }) => {
           key={subAlbum._id}
           onClick={() => onClose()}
         >
-          <button
+          <Link
+            to={`/albums/${album._id}/sub-albums/${subAlbum._id}`}
             className="flex items-center justify-start w-full"
-            onClick={() => console.log(subAlbum._id)}
+            onClick={() => setIsOpen(false)}
           >{`${
             language === "en" ? subAlbum.title.en : subAlbum.title.fa
-          }`}</button>
+          }`}</Link>
         </div>
       ))}
     </div>

@@ -25,7 +25,7 @@ function AlbumLayout() {
       </div>
       <div className="w-full mx-auto py-8 dark:bg-zinc-950 transition-all duration-300">
         {isAdmin && <AdminGalleryDashboard />}
-        <div className="rounded-2xl shadow-3xl flex items-center flex-col flex-wrap p-5 max-w-[85%] mx-auto dark:bg-neutral-200 dark:shadow-neutral-600">
+        <div className="rounded-2xl shadow-3xl flex items-center flex-col flex-wrap p-5 max-w-[85%] mx-auto bg-neutral-100 dark:shadow-neutral-600">
           <Outlet />
         </div>
         <GalleryOffcanvas />

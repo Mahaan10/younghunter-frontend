@@ -41,16 +41,13 @@ function GalleryMain() {
             key={album._id}
             className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
           >
-            <span className="text-xs text-center font-bold text-red-950">
-              Lorem, ipsum dolor sit amet.
-            </span>
             <button
-              className=""
+              className="p-2"
               onClick={() => navigate(`${album._id}/sub-albums`)}
             >
               <img
                 src={album.imageCover}
-                className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}
+                className="object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px] p-1 bg-neutral-200"
                 alt=""
               />
             </button>

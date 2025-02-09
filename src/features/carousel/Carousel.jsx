@@ -104,7 +104,7 @@ function Carousel() {
       error?.response?.data?.message || albumError?.response?.data?.message
     );
 
-/*   if (!images.length)
+  /*   if (!images.length)
     return (
       <p className="text-center">
         {language === "en" ? "No Images available!" : "عکسی یافت نشد!"}
@@ -115,9 +115,9 @@ function Carousel() {
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
       {isAdmin && <AdminCarouselDashboard />}
-      <div className="max-w-[500px] mx-auto bg-white shadow-3xl dark:shadow-neutral-600 dark:bg-neutral-200 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
+      <div className="max-w-[500px] mx-auto bg-neutral-100 shadow-3xl dark:shadow-neutral-600 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
-          <div className="flex items-center justify-between bg-neutral-300">
+          <div className="flex items-center justify-between bg-neutral-200">
             <button
               onClick={prevCarouselItemHandler}
               className="min-[475px]:min-w-[40px] min-w-[30px] min-[475px]:h-[40px] h-[30px] rounded-full flex items-center justify-center text-white bg-neutral-800 hover:text-black hover:bg-neutral-500 duration-200 absolute left-0 min-[475px]:left-7"

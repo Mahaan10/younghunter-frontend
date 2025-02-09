@@ -11,7 +11,7 @@ import { useSorting } from "../../context/useSortingContext";
 function SingleAlbum() {
   const { isError, isLoading, subAlbums, error } = useAllSubAlbums();
   const { language } = useLanguage();
-  const { sortOption } = useSorting()
+  const { sortOption } = useSorting();
   const navigate = useNavigate();
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
@@ -24,16 +24,16 @@ function SingleAlbum() {
 
   // Sorting Sub Albums based on newest or oldest
   const sortedSubAlbums = [...subAlbums].sort((a, b) => {
-    return sortOption === "new" ? new Date(b.createdAt) - new Date(a.createdAt) : new Date(a.createdAt) - new Date(b.createdAt)
-  })
+    return sortOption === "new"
+      ? new Date(b.createdAt) - new Date(a.createdAt)
+      : new Date(a.createdAt) - new Date(b.createdAt);
+  });
 
   // Slicing Sub Albums for pagination based on 9 items per page
   const currentSubAlbums = sortedSubAlbums.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-
-
 
   return (
     <>
@@ -43,18 +43,16 @@ function SingleAlbum() {
             key={subAlbum._id}
             className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
           >
-            <span className="text-xs text-center font-bold text-red-950">
-              Lorem, ipsum dolor sit amet.
-            </span>
             <button className="" onClick={() => navigate(subAlbum._id)}>
               <img
                 src={subAlbum.imageCover}
-                className={`object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px]`}
+                className="object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px] bg-neutral-200"
                 alt=""
               />
             </button>
-            <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? subAlbum.title.en : subAlbum.title.fa
-              }`}</h1>
+            <h1 className="font-bold text-2xl mx-2.5">{`${
+              language === "en" ? subAlbum.title.en : subAlbum.title.fa
+            }`}</h1>
           </div>
         ))}
       </div>
