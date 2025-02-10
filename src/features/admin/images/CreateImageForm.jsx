@@ -18,9 +18,8 @@ function CreateImageForm({ onClose }) {
 
   const onSubmit = async (data) => {
     const newImage = {
-      ...data,
       title: { en: data.enTitle, fa: data.faTitle },
-      location: { en: data.enLocation, fa: data.faLocation },
+      location: { name: { en: data.enLocation, fa: data.faLocation } },
       isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
       dateTaken: data.dateTaken,
       url: data.url,
@@ -38,6 +37,7 @@ function CreateImageForm({ onClose }) {
         );
         reset();
         onClose();
+        console.log(newImage);
       },
       onError: (error) => toast.error(error?.response?.data?.message),
     });

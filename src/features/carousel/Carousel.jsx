@@ -45,18 +45,22 @@ function Carousel() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
+  const carouselImages = images && images.filter(
+    (img) => img.isFeaturedCarousel === true
+  );
+
   const prevCarouselItemHandler = () => {
-    if (!images.length) return;
-    dispatch({ type: "Prev", payload: images.length });
+    if (!carouselImages.length) return;
+    dispatch({ type: "Prev", payload: carouselImages.length });
   };
 
   const nextCarouselItemHandeler = () => {
-    if (!images.length) return;
-    dispatch({ type: "Next", payload: images.length });
+    if (!carouselImages.length) return;
+    dispatch({ type: "Next", payload: carouselImages.length });
   };
 
   const indicatorClickHandler = (id) => {
-    const index = images.findIndex((image) => image._id === id);
+    const index = carouselImages.findIndex((image) => image._id === id);
     if (index !== -1) dispatch({ type: "SetIndex", payload: index });
   };
 
@@ -64,7 +68,7 @@ function Carousel() {
   const findSubAlbumAndAlbumByImageId = (imageId) => {
     for (let album of albums) {
       for (let subAlbum of album.subAlbums) {
-        const foundImage = subAlbum.images.find((img) => img === imageId);
+        const foundImage = subAlbum.images.find((img) => img._id === imageId);
         if (foundImage) {
           return { subAlbumId: subAlbum._id, albumId: album._id };
         }
@@ -92,11 +96,11 @@ function Carousel() {
   useEffect(() => {
     //if (!images.length) return
     const carouselInterval = setInterval(() => {
-      dispatch({ type: "Next", payload: images.length });
+      dispatch({ type: "Next", payload: carouselImages.length });
     }, 10000);
 
     return () => clearInterval(carouselInterval);
-  }, [images]);
+  }, [carouselImages]);
 
   if (isLoading || isAlbumLoading) return <Loading />;
   if (isError || isAlbumError)
@@ -110,7 +114,7 @@ function Carousel() {
         {language === "en" ? "No Images available!" : "عکسی یافت نشد!"}
       </p>
     ); */
-  const activeImage = images[state.activeItemIndex] || [];
+  const activeImage = carouselImages[state.activeItemIndex] || [];
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
@@ -146,7 +150,7 @@ function Carousel() {
             className="flex items-center justify-center gap-x-3 filmstrip w-full sm:gap-x-6"
             style={{ direction: "ltr" }}
           >
-            {images.map((img) => (
+            {carouselImages.map((img) => (
               <button
                 key={img._id}
                 onClick={() => indicatorClickHandler(img._id)}

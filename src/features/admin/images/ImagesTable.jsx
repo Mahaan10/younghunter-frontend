@@ -7,12 +7,8 @@ function ImagesTable() {
   const { images } = useImages();
   const { language } = useLanguage();
 
-  const filteredImagesBasedonCarouselFeatured = images.filter(
-    (img) => img.isFeaturedCarousel === true
-  );
-console.log(images)
-  //console.log(filteredImagesBasedonCarouselFeatured);
-  if (images.length)
+
+  if (!images.length)
     return (
       <p>
         {language === "en"
@@ -26,6 +22,7 @@ console.log(images)
       <Table.Header>
         <th>#</th>
         <th>{language === "en" ? "Images" : "عکس ها"}</th>
+        <th>{language === "en" ? "Is there include in carousel?" : "در کاروسل وجود دارد؟"}</th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>
