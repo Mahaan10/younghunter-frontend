@@ -1,7 +1,7 @@
 import { useLanguage } from "../../../context/useLanguageContext";
 import useImages from "../../../hooks/useImages";
 import Table from "../../../ui/Table";
-import ImageRow from "../subAlbum/image/ImageRow";
+import ImagesRow from "./imagesRow";
 
 function ImagesTable() {
   const { images } = useImages();
@@ -10,10 +10,10 @@ function ImagesTable() {
 
   if (!images.length)
     return (
-      <p>
+      <p className="text-neutral-200">
         {language === "en"
-          ? "There is no Images in this Sub Album!"
-          : "عکسی در این زیر آلبوم یافت نشد!"}
+          ? "There is no Image!"
+          : "عکسی یافت نشد!"}
       </p>
     );
 
@@ -27,7 +27,7 @@ function ImagesTable() {
       </Table.Header>
       <Table.Body>
         {images.map((image, index) => (
-          <ImageRow key={image._id} image={image} index={index} />
+          <ImagesRow key={image._id} image={image} index={index} />
         ))}
       </Table.Body>
     </Table>

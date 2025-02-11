@@ -4,9 +4,13 @@ import { useLanguage } from "../../../context/useLanguageContext";
 import InputTextField from "../../../ui/InputTextField";
 import toast from "react-hot-toast";
 import RadioInputGroup from "../../../ui/RadioInputGroup";
+import useEditImage from "../../../hooks/useEditImage";
+import { useEffect } from "react";
 
-function CreateImageForm({ onClose }) {
-  const { createNewImage, isPending } = useCreateImage();
+function ImageForm({ onClose, imageToEdit = {} }) {
+  const { createNewImage, isPending: isCreating } = useCreateImage();
+  const { editImage, isEditing } = useEditImage();
+  const { _id: editId } = imageToEdit;
   const {
     register,
     reset,
@@ -15,6 +19,26 @@ function CreateImageForm({ onClose }) {
     formState: { errors, isValid },
   } = useForm();
   const { language } = useLanguage();
+
+  useEffect(() => {
+    if (editId) {
+      reset({
+        enTitle: imageToEdit.title.en,
+        faTitle: imageToEdit.title.fa,
+        enLocation: imageToEdit.location.name.en,
+        faLocation: imageToEdit.location.name.fa,
+        isFeaturedCarousel: imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
+        url: imageToEdit.url,
+        position: imageToEdit.position,
+        dateTaken: new Date(imageToEdit.dateTaken).toLocaleDateString(
+          language === "en" ? "en-Us" : "fa-IR",
+          {
+            year: "numeric",
+          }
+        )
+      });
+    }
+  }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
     const newImage = {
@@ -26,21 +50,40 @@ function CreateImageForm({ onClose }) {
       position: data.position,
     };
 
-    await createNewImage(newImage, {
-      onSuccess: () => {
-        toast.success(
-          `${
-            language === "en"
-              ? `Create ${data.enTitle} successfully`
-              : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`
-          }`
-        );
-        reset();
-        onClose();
-        console.log(newImage);
-      },
-      onError: (error) => toast.error(error?.response?.data?.message),
-    });
+    if (editId) {
+      editImage(
+        { imageId: editId, newImage },
+        {
+          onSuccess: () => {
+            toast.success(
+              `${
+                language === "en"
+                  ? `Edit ${data.enTitle} successfully`
+                  : `عکس ${data.faTitle} با موفقیت ویرایش شد`
+              }`
+            );
+            onClose();
+            reset();
+          },
+          onError: (error) => toast.error(error?.response?.data?.message),
+        }
+      );
+    } else {
+      await createNewImage(newImage, {
+        onSuccess: () => {
+          toast.success(
+            `${
+              language === "en"
+                ? `Create ${data.enTitle} successfully`
+                : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`
+            }`
+          );
+          reset();
+          onClose();
+        },
+        onError: (error) => toast.error(error?.response?.data?.message),
+      });
+    }
   };
 
   return (
@@ -253,8 +296,14 @@ function CreateImageForm({ onClose }) {
             disabled={!isValid}
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
           >
-            {isPending ? (
+            {isCreating || isEditing ? (
               <h1 className="">...</h1>
+            ) : editId ? (
+              language === "en" ? (
+                "Save Changes"
+              ) : (
+                "ذخیره تغییرات"
+              )
             ) : language === "en" ? (
               "Post"
             ) : (
@@ -267,4 +316,4 @@ function CreateImageForm({ onClose }) {
   );
 }
 
-export default CreateImageForm;
+export default ImageForm;

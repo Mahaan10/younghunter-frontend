@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiOutlinePlus } from "react-icons/hi";
-import CreateImageForm from "./CreateImageForm";
+import ImageForm from "./ImageForm";
 import { useLanguage } from "../../../context/useLanguageContext";
 import Modal from "../../../ui/Modal";
 
@@ -22,7 +22,7 @@ function ImagesHeader() {
           title={language === "en" ? "Create New Image" : "افزودن عکس جدید"}
           onClose={() => setIsOpen(false)}
         >
-          <CreateImageForm onClose={() => setIsOpen(false)} />
+          <ImageForm onClose={() => setIsOpen(false)} />
         </Modal>
       )}
     </div>

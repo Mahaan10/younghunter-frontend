@@ -3,7 +3,7 @@ import getImagesApi from "../services/imageService";
 
 export default function useImages() {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["carousel-images"],
+    queryKey: ["images"],
     queryFn: getImagesApi,
   });
 
