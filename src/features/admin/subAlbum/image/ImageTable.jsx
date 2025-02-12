@@ -2,7 +2,7 @@ import { useLanguage } from "../../../../context/useLanguageContext";
 import Table from "../../../../ui/Table";
 import ImageRow from "./ImageRow";
 
-function SubAlbumsTable({ subAlbum }) {
+function ImagesTable({ subAlbum }) {
   const { language } = useLanguage();
 
   if (!subAlbum.images.length)
@@ -33,4 +33,4 @@ function SubAlbumsTable({ subAlbum }) {
   );
 }
 
-export default SubAlbumsTable;
+export default ImagesTable;

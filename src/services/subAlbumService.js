@@ -17,3 +17,9 @@ export function editSubAlbumApi({ albumId, subAlbumId, newSubAlbum }) {
     .patch(`/albums/${albumId}/sub-albums/${subAlbumId}`, newSubAlbum)
     .then(({ data }) => data.data);
 }
+
+export function addImageToSubAlbum({ albumId, subAlbumId, newImage }) {
+  return http
+    .patch(`/albums/${albumId}/sub-albums/${subAlbumId}/images`, newImage)
+    .then(({ data }) => data.data);
+}

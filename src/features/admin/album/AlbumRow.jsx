@@ -34,24 +34,22 @@ function AlbumRow({ album, index }) {
           <FiLayers className="w-5 h-5" />
         </button>
       </td>
-      <td>
-        <main className="flex items-center justify-center gap-x-8">
-          <button
-            className="flex items-center justify-between btn bg-cyan-600"
-            onClick={() => setIsEditOpen(true)}
-          >
-            <span>{language === "en" ? "Edit" : "ویرایش"}</span>
-            <TbPencilMinus className="w-5 h-5" />
-          </button>
+      <td className="flex items-center justify-center gap-x-8">
+        <button
+          className="flex items-center justify-between btn bg-cyan-600"
+          onClick={() => setIsEditOpen(true)}
+        >
+          <span>{language === "en" ? "Edit" : "ویرایش"}</span>
+          <TbPencilMinus className="w-5 h-5" />
+        </button>
 
-          <button
-            className="flex items-center justify-between btn bg-red-600"
-            onClick={() => setIsDeleteOpen(true)}
-          >
-            <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
-            <HiOutlineTrash className="w-5 h-5" />
-          </button>
-        </main>
+        <button
+          className="flex items-center justify-between btn bg-red-600"
+          onClick={() => setIsDeleteOpen(true)}
+        >
+          <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
+          <HiOutlineTrash className="w-5 h-5" />
+        </button>
       </td>
       {isEditOpen && (
         <Modal
@@ -75,9 +73,10 @@ function AlbumRow({ album, index }) {
                 onSuccess: () => {
                   setIsDeleteOpen(false);
                   toast.success(
-                    `${language === "en"
-                      ? `You deleted ${album.title.en} successfully!`
-                      : `آلبوم ${album.title.fa} با موفقیت حذف شد!`
+                    `${
+                      language === "en"
+                        ? `You deleted ${album.title.en} successfully!`
+                        : `آلبوم ${album.title.fa} با موفقیت حذف شد!`
                     }`
                   );
                 },

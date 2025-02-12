@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useLanguage } from "../../../../context/useLanguageContext";
-import Modal from "../../../../ui/Modal";
 import { HiOutlinePlus } from "react-icons/hi";
+import Modal from "../../../../ui/Modal";
+import AddImage from "./AddImage";
 
-function ImageHeader({ subAlbum }) {
+function ImageHeader({ subAlbum, album }) {
   const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,19 +16,21 @@ function ImageHeader({ subAlbum }) {
       >
         <span>
           {language === "en"
-            ? "Add New Image to Sub album"
-            : "افزودن عکس جدید به زیر آلبوم"}
+            ? "Add Image to Sub album"
+            : "افزودن عکس به زیر آلبوم"}
         </span>
         <HiOutlinePlus className="w-5 h-5" />
       </button>
       {isOpen && (
         <Modal
           title={
-            language === "en" ? "Create New Sub Album" : "افزودن زیر آلبوم جدید"
+            language === "en"
+              ? "Add Image to Sub Album"
+              : "افزودن عکس به زیر آلبوم"
           }
           onClose={() => setIsOpen(false)}
         >
-          {/* !!!!!!!!! */}
+          <AddImage subAlbum={subAlbum} album={album}/>
         </Modal>
       )}
     </div>

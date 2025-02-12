@@ -27,7 +27,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faTitle: imageToEdit.title.fa,
         enLocation: imageToEdit.location.name.en,
         faLocation: imageToEdit.location.name.fa,
-        isFeaturedCarousel: imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
+        isFeaturedCarousel:
+          imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
         url: imageToEdit.url,
         position: imageToEdit.position,
         dateTaken: new Date(imageToEdit.dateTaken).toLocaleDateString(
@@ -35,7 +36,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           {
             year: "numeric",
           }
-        )
+        ),
       });
     }
   }, [editId, imageToEdit, reset, language]);

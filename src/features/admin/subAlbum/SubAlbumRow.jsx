@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import useDeleteSubAlbum from "../../../hooks/useDeleteSubAlbum";
 import AccessModal from "../../../ui/AccessModal";
 import ImageHeader from "./image/ImageHeader";
-import ImageTable from "./image/ImageTable";
+import ImagesTable from "./image/ImageTable";
 
 function SubAlbumRow({ subAlbum, index, album }) {
   const { language } = useLanguage();
@@ -34,32 +34,30 @@ function SubAlbumRow({ subAlbum, index, album }) {
           <SiMake className="w-5 h-5" />
         </button>
       </td>
-      <td>
-        <main className="flex items-center justify-center gap-x-8">
-          <button
-            className="flex items-center justify-between btn bg-cyan-600"
-            onClick={() => setIsSubAlbumEditOpen(true)}
-          >
-            <span>{language === "en" ? "Edit" : "ویرایش"}</span>
-            <TbPencilMinus className="w-5 h-5" />
-          </button>
+      <td className="flex items-center justify-center gap-x-8">
+        <button
+          className="flex items-center justify-between btn bg-cyan-600"
+          onClick={() => setIsSubAlbumEditOpen(true)}
+        >
+          <span>{language === "en" ? "Edit" : "ویرایش"}</span>
+          <TbPencilMinus className="w-5 h-5" />
+        </button>
 
-          <button
-            className="flex items-center justify-between btn bg-red-600"
-            onClick={() => setIsSubAlbumDeleteOpen(true)}
-          >
-            <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
-            <HiOutlineTrash className="w-5 h-5" />
-          </button>
-        </main>
+        <button
+          className="flex items-center justify-between btn bg-red-600"
+          onClick={() => setIsSubAlbumDeleteOpen(true)}
+        >
+          <span>{language === "en" ? "Delete" : "حذف کردن"}</span>
+          <HiOutlineTrash className="w-5 h-5" />
+        </button>
       </td>
       {isSubAlbumImagesOpen && (
         <AccessModal
           title={`${language === "en" ? "Images Access" : "دسترسی به عکس ها"}`}
           onClose={() => setIsSubAlbumImagesOpen(false)}
         >
-          <ImageHeader subAlbum={subAlbum}/>
-          <ImageTable subAlbum={subAlbum}/>
+          <ImageHeader subAlbum={subAlbum} album={album} />
+          <ImagesTable subAlbum={subAlbum} />
         </AccessModal>
       )}
       {isSubAlbumEditOpen && (

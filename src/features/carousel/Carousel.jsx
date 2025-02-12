@@ -45,9 +45,10 @@ function Carousel() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(carouselReducer, { activeItemIndex: 0 });
 
-  const carouselImages = images && images.filter(
-    (img) => img.isFeaturedCarousel === true
-  );
+  let carouselImages =
+    images && images.filter((img) => img.isFeaturedCarousel === true);
+
+  carouselImages = carouselImages && carouselImages.slice(0, 5);
 
   const prevCarouselItemHandler = () => {
     if (!carouselImages.length) return;

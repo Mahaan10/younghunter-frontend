@@ -1,19 +1,21 @@
 import { useLanguage } from "../../../context/useLanguageContext";
 import useImages from "../../../hooks/useImages";
 import Table from "../../../ui/Table";
-import ImagesRow from "./imagesRow";
+import CarouselRow from "./CarouselRow";
 
-function ImagesTable() {
+function CarouselAddImageTable() {
   const { images } = useImages();
   const { language } = useLanguage();
 
+  const notIncludeImages =
+    images && images.filter((img) => img.isFeaturedCarousel === false);
 
-  if (!images.length)
+  if (!notIncludeImages.length)
     return (
-      <p className="text-neutral-200">
+      <p>
         {language === "en"
           ? "There is no Image!"
-          : "عکسی یافت نشد!"}
+          : "!عکسی یافت نشد!"}
       </p>
     );
 
@@ -24,16 +26,15 @@ function ImagesTable() {
         <th>{language === "en" ? "Images" : "عکس ها"}</th>
         <th>{language === "en" ? "English Title" : "عنوان به انگلیسی"}</th>
         <th>{language === "en" ? "Persian Title" : "عنوان به فارسی"}</th>
-        <th>{language === "en" ? "Include in Carousel?" : "در کاروسل وجود دارد؟"}</th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>
-        {images.map((image, index) => (
-          <ImagesRow key={image._id} image={image} index={index} />
+        {notIncludeImages.map((image, index) => (
+          <CarouselRow key={image._id} image={image} index={index} />
         ))}
       </Table.Body>
     </Table>
   );
 }
 
-export default ImagesTable;
+export default CarouselAddImageTable;
