@@ -1,24 +1,33 @@
+import { useLanguage } from "../../../../context/useLanguageContext";
 import useImages from "../../../../hooks/useImages";
+import Table from "../../../../ui/Table";
+import AddImageRow from "./AddImageRow";
 
 function AddImage({ subAlbum, album }) {
   const { images } = useImages();
-console.log("SubALbumId :" ,subAlbum._id)
-console.log("ALbumId :" ,album._id)
+  const { language } = useLanguage();
+  console.log("SubALbumId :", subAlbum._id);
+  console.log("ALbumId :", album._id);
 
   return (
     <>
-    {images.map((image) => (
-      <div key={image._id} className="flex items-center justify-between">
-        <div className="flex gap-4">
-          <img src={image.url} alt="" className="w-9 h-9"/>
-        </div>
-        <div className="">
-          <button>Add</button>
-        </div>
-      </div>
-    ))}
+      <Table>
+        <Table.Header>
+          <th>#</th>
+          <th>{language === "en" ? "Images" : "عکس ها"}</th>
+          <th>{language === "en" ? "English Title" : "عنوان به انگلیسی"}</th>
+          <th>{language === "en" ? "Persian Title" : "عنوان به فارسی"}</th>
+          <th>{language === "en" ? "Operations" : "عملیات"}</th>
+        </Table.Header>
+        <Table.Body>
+          {images &&
+            images.map((image, index) => (
+              <AddImageRow key={image._id} image={image} index={index} />
+            ))}
+        </Table.Body>
+      </Table>
     </>
-  )
+  );
 }
 
 export default AddImage;

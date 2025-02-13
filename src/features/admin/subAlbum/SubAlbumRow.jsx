@@ -25,7 +25,7 @@ function SubAlbumRow({ subAlbum, index, album }) {
       <td>{index + 1}</td>
       <td>{subAlbum.title.en}</td>
       <td>{subAlbum.title.fa}</td>
-      <td className="flex justify-center">
+      <td>
         <button
           className="flex items-center justify-center gap-x-8 btn bg-emerald-700"
           onClick={() => setIsSubAlbumImagesOpen(true)}
