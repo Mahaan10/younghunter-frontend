@@ -7,11 +7,13 @@ import { useEffect } from "react";
 import { usePagination } from "../../context/usePaginationContext";
 import Pagination from "../../ui/Pagination";
 import { useSorting } from "../../context/useSortingContext";
+import { useGalleryContext } from "../../context/useGalleryContext";
 
 function GalleryMain() {
   const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
-  const { sortOption } = useSorting()
+  const { sortOption } = useSorting();
+  const { searchResults, value } = useGalleryContext();
   const navigate = useNavigate();
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
@@ -24,8 +26,10 @@ function GalleryMain() {
 
   // Sorting Albums based on newest or oldest
   const sortedAlbums = [...albums].sort((a, b) => {
-    return sortOption === "new" ? new Date(b.createdAt) - new Date(a.createdAt) : new Date(a.createdAt) - new Date(b.createdAt)
-  })
+    return sortOption === "new"
+      ? new Date(b.createdAt) - new Date(a.createdAt)
+      : new Date(a.createdAt) - new Date(b.createdAt);
+  });
 
   // Slicing Albums for pagination based on 9 items per page
   const currentAlbums = sortedAlbums.slice(
@@ -36,28 +40,64 @@ function GalleryMain() {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3 gap-x-16 gap-y-4">
-        {currentAlbums.map((album) => (
-          <div
-            key={album._id}
-            className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
-          >
-            <button
-              className="p-2"
-              onClick={() => navigate(`${album._id}/sub-albums`)}
+        {value.trim() ? ( // Check if the user has typed something
+          searchResults.length > 0 ? (
+            searchResults.map((album) => (
+              <div
+                key={album._id}
+                className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
+              >
+                <button
+                  className="p-2"
+                  onClick={() => navigate(`${album._id}/sub-albums`)}
+                >
+                  <img
+                    src={album.imageCover}
+                    className="object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px] p-1 bg-neutral-200"
+                    alt=""
+                  />
+                </button>
+                <h1 className="font-bold text-2xl mx-2.5">
+                  {language === "en" ? album.title.en : album.title.fa}
+                </h1>
+              </div>
+            ))
+          ) : (
+            // Show this message when there are NO search results
+            <div className="flex items-center justify-center gap-x-10">
+              <p className="text-gray-500 text-lg">
+                {language === "en" ? "No results found" : "نتیجه‌ای یافت نشد"}
+              </p>
+              <button className="btn bg-gray-800" onClick={() => navigate(-1)}>
+                <span>{language === "en" ? "Navigate Up" : "بازگشت"}</span>
+              </button>
+            </div>
+          )
+        ) : (
+          currentAlbums.map((album) => (
+            <div
+              key={album._id}
+              className="flex flex-col shadow-3xl max-w-[300px] rounded-lg mx-auto py-3 gap-y-2 max-h-[600px]"
             >
-              <img
-                src={album.imageCover}
-                className="object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px] p-1 bg-neutral-200"
-                alt=""
-              />
-            </button>
-            <h1 className="font-bold text-2xl mx-2.5">{`${language === "en" ? album.title.en : album.title.fa
-              }`}</h1>
-          </div>
-        ))}
+              <button
+                className="p-2"
+                onClick={() => navigate(`${album._id}/sub-albums`)}
+              >
+                <img
+                  src={album.imageCover}
+                  className="object-contain shadow-3xl rounded-lg mx-auto w-[300px] h-[300px] p-1 bg-neutral-200"
+                  alt=""
+                />
+              </button>
+              <h1 className="font-bold text-2xl mx-2.5">
+                {language === "en" ? album.title.en : album.title.fa}
+              </h1>
+            </div>
+          ))
+        )}
       </div>
       {/* Pagination Controls */}
-      {albums.length > pageSize && <Pagination />}
+      {value.trim() && albums.length > pageSize && <Pagination />}
     </>
   );
 }

@@ -11,7 +11,8 @@ import toast from "react-hot-toast";
 
 function GalleryOffcanvas() {
   const { isLoading, isError, error } = useAlbums();
-  const { isOpen, setIsOpen, value, setValue } = useGalleryContext();
+  const { isOpen, setIsOpen, value, setValue, handleSearch } =
+    useGalleryContext();
   const { direction, language } = useLanguage();
 
   if (isError) return toast.error(error.response.data.message);
@@ -41,7 +42,9 @@ function GalleryOffcanvas() {
             placeholder={`${language === "en" ? "Search..." : "جستجو ..."}`}
             className="my-2 rounded-xl w-full bg-gray-800 text-white hover:border-blue-500 focus:border-blue-500 focus:bg-gray-900 transition-all duration-300 ease-out shadow-sm shadow-slate-800 focus:shadow-slate-950 focus:shadow-md placeholder-white placeholder-opacity-70 dark:bg-neutral-200 dark:text-black dark:placeholder-black dark:placeholder-opacity-60 dark:shadow-neutral-500"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              setValue(e.target.value), handleSearch();
+            }}
           />
           <button
             className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 dark:bg-gray-950 dark:text-neutral-200 ${

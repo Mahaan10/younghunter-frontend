@@ -12,6 +12,9 @@ export default function useEditImage() {
       queryClient.invalidateQueries({
         queryKey: ["images"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["albums"],
+      });
     },
 
     onError: (error) =>

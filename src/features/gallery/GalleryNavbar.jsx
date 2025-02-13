@@ -4,7 +4,7 @@ import GallerySortSelectBox from "./GallerySortSelectBox";
 import { PiMagnifyingGlassBold } from "react-icons/pi";
 
 function GalleryNavbar() {
-  const { value, setValue } = useGalleryContext();
+  const { value, setValue, handleSearch } = useGalleryContext();
   const { language } = useLanguage();
 
   return (
@@ -16,7 +16,9 @@ function GalleryNavbar() {
           placeholder={`${language === "en" ? "Search..." : "جستجو ..."}`}
           className="my-2 rounded-xl w-full bg-neutral-200 text-black hover:border-blue-500 focus:border-blue-500  transition-all duration-300 ease-out  focus:shadow-slate-950 focus:shadow-md placeholder-black placeholder-opacity-70 dark:bg-neutral-200 dark:placeholder-white dark:placeholder-opacity-60 shadow-md shadow-slate-900 dark:bg-transparent dark:border dark:border-gray-100 dark:text-neutral-200"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            setValue(e.target.value), handleSearch();
+          }}
         />
         <button
           className={`absolute top-2 py-1.5  dark:text-neutral-200 ${
