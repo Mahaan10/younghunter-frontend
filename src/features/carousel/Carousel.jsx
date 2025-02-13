@@ -7,7 +7,7 @@ import useImages from "../../hooks/useImages";
 import { useAdmin } from "../../context/useAdminContext";
 import useAlbums from "../../hooks/useAlbums";
 import { useNavigate } from "react-router-dom";
-import AdminCarouselDashboard from "../admin/AdminCArouselDashboard";
+import AdminImagesDashboard from "../admin/AdminImagesDashboard";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {
@@ -119,7 +119,7 @@ function Carousel() {
 
   return (
     <div className="w-full dark:bg-zinc-950 transition-all duration-300 py-10">
-      {isAdmin && <AdminCarouselDashboard />}
+      {isAdmin && <AdminImagesDashboard />}
       <div className="max-w-[500px] mx-auto bg-neutral-100 shadow-3xl dark:shadow-neutral-600 flex items-center justify-center relative p-5 rounded-2xl transition-all duration-300">
         <div className="flex flex-col items-center gap-y-6 w-full">
           <div className="flex items-center justify-between bg-neutral-200">

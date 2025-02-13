@@ -9,7 +9,7 @@ function ImagesHeader({ sortImages, setSortImages }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4 mx-4 flex items-center justify-between">
+    <div className="mb-4 mx-4 flex items-center justify-between flex-col md:flex-row gap-y-2 md:gap-y-0">
       <button
         className="btn flex items-center justify-between w-64 bg-green-600"
         onClick={() => setIsOpen(true)}
@@ -19,7 +19,7 @@ function ImagesHeader({ sortImages, setSortImages }) {
       </button>
       <select
         name="preferSearch"
-        className="appearance-none text-xs font-semibold px-3 md:w-40 border border-gray-400 focus:ring-transparent focus:border-gray-400 focus:outline-none rounded-xl shadow-md shadow-slate-800 transition-all duration-300 dark:bg-inherit dark:[&>option]:bg-zinc-950 w-full dark:text-neutral-200 dark:border dark:border-gray100"
+        className="appearance-none text-xs font-semibold px-3 md:w-40 w-64 border border-gray-400 focus:ring-transparent focus:border-gray-400 focus:outline-none rounded-xl shadow-md shadow-slate-800 transition-all duration-300 dark:bg-inherit dark:[&>option]:bg-zinc-950 dark:text-neutral-200 dark:border dark:border-gray100"
         value={sortImages}
         onChange={(e) => setSortImages(e.target.value)}
       >

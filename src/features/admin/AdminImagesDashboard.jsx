@@ -4,11 +4,9 @@ import AccessModal from "../../ui/AccessModal";
 import ImagesHeader from "./images/ImagesHeader";
 import ImagesTable from "./images/ImagesTable";
 
-function AdminCarouselDashboard() {
+function AdminImagesDashboard() {
   const { language } = useLanguage();
   const [isImageAccessOpen, setIsImageAccessOpen] = useState(false);
-  const [isCarouselImageAccessOpen, setIsCarouselImageAccessOpen] =
-    useState(false);
   const [sortImages, setSortImages] = useState("all");
 
   return (
@@ -35,4 +33,4 @@ function AdminCarouselDashboard() {
   );
 }
 
-export default AdminCarouselDashboard;
+export default AdminImagesDashboard;
