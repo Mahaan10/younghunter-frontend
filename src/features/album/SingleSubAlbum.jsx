@@ -87,9 +87,17 @@ function SingleSubAlbum() {
               />
             </button>
             <div className="flex items-center justify-start text-sm mx-2 font-bold">
-              <span>{language === "en" ? `Title,` : "عنوان،"}</span>
+              <span>
+                {language === "en"
+                  ? `${subAlbumImgs.title.en},`
+                  : `${subAlbumImgs.title.fa}،`}
+              </span>
               <DateComponent date={subAlbumImgs.dateTaken} />
-              <span>{language === "en" ? ",Location" : "،لوکیشن"}</span>
+              <span>
+                {language === "en"
+                  ? `,${subAlbumImgs.location.name.en}`
+                  : `،${subAlbumImgs.location.name.fa}`}
+              </span>
             </div>
           </div>
         ))}

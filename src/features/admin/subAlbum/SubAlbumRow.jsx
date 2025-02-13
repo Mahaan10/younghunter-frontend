@@ -57,7 +57,7 @@ function SubAlbumRow({ subAlbum, index, album }) {
           onClose={() => setIsSubAlbumImagesOpen(false)}
         >
           <ImageHeader subAlbum={subAlbum} album={album} />
-          <ImagesTable subAlbum={subAlbum} />
+          <ImagesTable subAlbum={subAlbum} album={album}/>
         </AccessModal>
       )}
       {isSubAlbumEditOpen && (

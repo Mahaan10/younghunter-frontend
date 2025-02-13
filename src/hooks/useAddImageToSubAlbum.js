@@ -9,8 +9,11 @@ export default function useAddImageToSubAlbum() {
     mutationFn: addImageToSubAlbum,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["albums"],
+        queryKey: ["images"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["albums"]
+      })
     },
 
     onError: (error) => toast.error(error?.response?.data?.message),

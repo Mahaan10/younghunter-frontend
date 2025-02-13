@@ -25,3 +25,9 @@ export function addImageToSubAlbum({ albumId, subAlbumId, imageIds }) {
     })
     .then(({ data }) => data.data);
 }
+
+export function removeSubAlbumImageApi({ albumId, subAlbumId, imageId }) {
+  return http.delete(
+    `/albums/${albumId}/sub-albums/${subAlbumId}/images/${imageId}`
+  );
+}
