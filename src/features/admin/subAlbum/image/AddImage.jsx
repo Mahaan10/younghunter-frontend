@@ -6,8 +6,6 @@ import AddImageRow from "./AddImageRow";
 function AddImage({ subAlbum, album }) {
   const { images } = useImages();
   const { language } = useLanguage();
-  console.log("SubALbumId :", subAlbum._id);
-  console.log("ALbumId :", album._id);
 
   return (
     <>
@@ -22,7 +20,13 @@ function AddImage({ subAlbum, album }) {
         <Table.Body>
           {images &&
             images.map((image, index) => (
-              <AddImageRow key={image._id} image={image} index={index} />
+              <AddImageRow
+                key={image._id}
+                image={image}
+                index={index}
+                subAlbum={subAlbum}
+                album={album}
+              />
             ))}
         </Table.Body>
       </Table>

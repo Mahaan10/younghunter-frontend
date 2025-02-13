@@ -18,8 +18,10 @@ export function editSubAlbumApi({ albumId, subAlbumId, newSubAlbum }) {
     .then(({ data }) => data.data);
 }
 
-export function addImageToSubAlbum({ albumId, subAlbumId, newImage }) {
+export function addImageToSubAlbum({ albumId, subAlbumId, imageIds }) {
   return http
-    .patch(`/albums/${albumId}/sub-albums/${subAlbumId}/images`, newImage)
+    .patch(`/albums/${albumId}/sub-albums/${subAlbumId}/images`, {
+      imageIds: [imageIds],
+    })
     .then(({ data }) => data.data);
 }

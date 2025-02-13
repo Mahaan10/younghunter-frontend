@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLanguage } from "../../../../context/useLanguageContext";
 import { HiOutlinePlus } from "react-icons/hi";
-import Modal from "../../../../ui/Modal";
 import AddImage from "./AddImage";
+import AccessModal from "../../../../ui/AccessModal";
 
 function ImageHeader({ subAlbum, album }) {
   const { language } = useLanguage();
@@ -22,7 +22,7 @@ function ImageHeader({ subAlbum, album }) {
         <HiOutlinePlus className="w-5 h-5" />
       </button>
       {isOpen && (
-        <Modal
+        <AccessModal
           title={
             language === "en"
               ? "Add Image to Sub Album"
@@ -31,7 +31,7 @@ function ImageHeader({ subAlbum, album }) {
           onClose={() => setIsOpen(false)}
         >
           <AddImage subAlbum={subAlbum} album={album}/>
-        </Modal>
+        </AccessModal>
       )}
     </div>
   );
