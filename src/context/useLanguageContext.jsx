@@ -1,18 +1,15 @@
 import { createContext, useContext, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState("en");
-  const [direction, setDirection] = useState("ltr");
+  const [language, setLanguage] = useLocalStorage("language", "en");
+  const [direction, setDirection] = useLocalStorage("direction", "ltr");
 
   const changeLanguage = (lang) => {
     setLanguage(lang);
-    if (lang === "fa") {
-      setDirection("rtl");
-    } else {
-      setDirection("ltr");
-    }
+    setDirection(lang === "en" ? "ltr" : "rtl");
   };
 
   return (
