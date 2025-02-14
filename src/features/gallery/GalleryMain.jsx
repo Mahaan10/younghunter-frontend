@@ -97,7 +97,7 @@ function GalleryMain() {
         )}
       </div>
       {/* Pagination Controls */}
-      {value.trim() && albums.length > pageSize && <Pagination />}
+      {albums.length > pageSize && <Pagination />}
     </>
   );
 }

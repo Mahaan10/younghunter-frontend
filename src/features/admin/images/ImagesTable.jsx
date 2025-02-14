@@ -33,9 +33,7 @@ function ImagesTable({ sortImages }) {
         <th>{language === "en" ? "Images" : "عکس ها"}</th>
         <th>{language === "en" ? "English Title" : "عنوان به انگلیسی"}</th>
         <th>{language === "en" ? "Persian Title" : "عنوان به فارسی"}</th>
-        <th>
-          {language === "en" ? "Include in Carousel?" : "در کاروسل وجود دارد؟"}
-        </th>
+        <th>{language === "en" ? "Carousel Image" : "عکس در کاروسل"}</th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>

@@ -9,9 +9,9 @@ export function LanguageProvider({ children }) {
   const changeLanguage = (lang) => {
     setLanguage(lang);
     if (lang === "fa") {
-      setDirection("rtl")
+      setDirection("rtl");
     } else {
-      setDirection("ltr")
+      setDirection("ltr");
     }
   };
 
