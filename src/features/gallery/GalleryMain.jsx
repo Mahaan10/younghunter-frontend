@@ -8,6 +8,7 @@ import { usePagination } from "../../context/usePaginationContext";
 import Pagination from "../../ui/Pagination";
 import { useSorting } from "../../context/useSortingContext";
 import { useGalleryContext } from "../../context/useGalleryContext";
+import Empty from "../../ui/Empty";
 
 function GalleryMain() {
   const { albums, isLoading, isError, error } = useAlbums();
@@ -64,14 +65,7 @@ function GalleryMain() {
             ))
           ) : (
             // Show this message when there are NO search results
-            <div className="flex items-center justify-center gap-x-10">
-              <p className="text-gray-500 text-lg">
-                {language === "en" ? "No results found" : "نتیجه‌ای یافت نشد"}
-              </p>
-              <button className="btn bg-gray-800" onClick={() => navigate(-1)}>
-                <span>{language === "en" ? "Navigate Up" : "بازگشت"}</span>
-              </button>
-            </div>
+            <Empty />
           )
         ) : (
           currentAlbums.map((album) => (

@@ -13,6 +13,7 @@ import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
 import PaginationProvider from "./context/usePaginationContext";
 import SortingProvider from "./context/useSortingContext";
+import Empty from "./ui/Empty";
 
 function App() {
   const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ function App() {
                       element={<SingleSubAlbum />}
                     />
                   </Route>
+                  <Route path="*" element={<Empty />} />
                 </Routes>
               </SortingProvider>
             </PaginationProvider>
