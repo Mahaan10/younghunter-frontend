@@ -1,7 +1,7 @@
-import { use } from "react";
 import { createContext, useContext, useState } from "react";
 import { useLanguage } from "./useLanguageContext";
 import useAlbums from "../hooks/useAlbums";
+import useAllSubAlbums from "../hooks/useAllSubAlbumsForSingleAlbum";
 
 const GalleryContext = createContext();
 
@@ -10,6 +10,7 @@ export default function GalleryContextProvider({ children }) {
   const [value, setValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const { albums } = useAlbums();
+  const { subAlbums } = useAllSubAlbums();
   const { language } = useLanguage();
 
   const handleSearch = () => {
@@ -24,16 +25,12 @@ export default function GalleryContextProvider({ children }) {
 
     if (filteredAlbums.length > 0) return setSearchResults(filteredAlbums);
 
-    const filteredSubAlbums = albums.flatMap((album) =>
-      album.subAlbums.filter((subAlbum) =>
-        subAlbum.title[language]?.toLowerCase().includes(value.toLowerCase())
-      )
+    const filteredSubAlbums = subAlbums.filter((subAlbum) =>
+      subAlbum.title[language]?.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredSubAlbums.length > 0)
       return setSearchResults(filteredSubAlbums);
-
-    setSearchResults([]);
   };
 
   return (
