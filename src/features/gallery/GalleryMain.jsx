@@ -48,9 +48,11 @@ function GalleryMain() {
     <>
       <div
         className={`${
-          (value.trim() && searchResults.length > 0) || currentAlbums.length > 0
-            ? "grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3 gap-x-16 gap-y-4 w-full px-4"
-            : "flex items-center justify-center"
+          value.trim() && searchResults.length === 0
+            ? "flex items-center justify-center"
+            : albums.length > 0 || searchResults.length > 0
+            ? " grid grid-cols-1 md:grid-cols-2 min-[1119px]:grid-cols-3 gap-x-16 gap-y-4 w-full px-4"
+            : ""
         }`}
       >
         {/* Render search results if available */}
@@ -62,7 +64,7 @@ function GalleryMain() {
             >
               <button
                 className="p-2"
-                onClick={() => navigate(`/albums/${album._id}/sub-albums`)}
+                onClick={() => navigate(`${album._id}/sub-albums`)}
               >
                 <img
                   src={album.imageCover}
@@ -87,7 +89,7 @@ function GalleryMain() {
             >
               <button
                 className="p-2"
-                onClick={() => navigate(`/albums/${album._id}/sub-albums`)}
+                onClick={() => navigate(`${album._id}/sub-albums`)}
               >
                 <img
                   src={album.imageCover}

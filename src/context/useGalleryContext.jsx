@@ -14,10 +14,7 @@ export default function GalleryContextProvider({ children }) {
   const { language } = useLanguage();
 
   const handleSearch = () => {
-    if (!value.trim()) {
-      setSearchResults([]);
-      return;
-    }
+    if (!value.trim()) return setSearchResults([]);
 
     const filteredAlbums = albums.filter((album) =>
       album.title[language]?.toLowerCase().includes(value.toLowerCase())
