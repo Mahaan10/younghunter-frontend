@@ -9,22 +9,18 @@ function AlbumsTable() {
 
   if (!albums.length)
     return (
-      <p>{language === "en" ? "There is no Album!" : "آلبومی یافت نشد!"}</p>
+      <p className="text-neutral-200">
+        {language === "en" ? "There is no Album!" : "آلبومی یافت نشد!"}
+      </p>
     );
 
   return (
     <Table>
       <Table.Header>
         <th>#</th>
-        <th>
-          {language === "en" ? "English Title" : "عنوان به انگلیسی"}
-        </th>
-        <th>
-          {language === "en" ? "Persian Title" : "عنوان به فارسی"}
-        </th>
-        <th>
-          {language === "en" ? "Sub Albums" : "زیر آلبوم"}
-        </th>
+        <th>{language === "en" ? "English Title" : "عنوان به انگلیسی"}</th>
+        <th>{language === "en" ? "Persian Title" : "عنوان به فارسی"}</th>
+        <th>{language === "en" ? "Sub Albums" : "زیر آلبوم"}</th>
         <th>{language === "en" ? "Operations" : "عملیات"}</th>
       </Table.Header>
       <Table.Body>

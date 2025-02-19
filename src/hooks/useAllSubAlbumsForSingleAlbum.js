@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getAllSubAlbumsForSingleAlbumApi } from "../services/albumService";
+import { useEffect } from "react";
 
 export default function useAllSubAlbums() {
-  const { id : albumId } = useParams();
+  const { id: albumId } = useParams();
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["all-subAlbums-single-album", albumId],
@@ -12,7 +14,16 @@ export default function useAllSubAlbums() {
     enabled: !!albumId,
   });
 
-  const { subAlbums } = data || {};
+  useEffect(() => {
+    if (albumId) {
+      queryClient.invalidateQueries(["all-subAlbums-single-album"]);
+    }
+  }, [albumId, queryClient]);
 
-  return { subAlbums, isLoading, isError, error };
+  return {
+    subAlbums: data?.subAlbums || [],
+    isLoading,
+    isError,
+    error,
+  };
 }
