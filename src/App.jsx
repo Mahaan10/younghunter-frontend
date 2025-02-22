@@ -11,8 +11,6 @@ import ThemeModeProvider from "./context/useThemeModeContext";
 import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
-import PaginationProvider from "./context/usePaginationContext";
-import SortingProvider from "./context/useSortingContext";
 import Empty from "./ui/Empty";
 
 function App() {
@@ -25,22 +23,18 @@ function App() {
           <LanguageProvider>
             <Toaster />
             <Header />
-            <PaginationProvider>
-              <SortingProvider>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/albums" element={<Gallery />}>
-                    <Route index element={<Albums />} />
-                    <Route path=":id/sub-albums" element={<SingleAlbum />} />
-                    <Route
-                      path=":albumId/sub-albums/:subAlbumId"
-                      element={<SingleSubAlbum />}
-                    />
-                  </Route>
-                  <Route path="*" element={<Empty />} />
-                </Routes>
-              </SortingProvider>
-            </PaginationProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/albums" element={<Gallery />}>
+                <Route index element={<Albums />} />
+                <Route path=":id/sub-albums" element={<SingleAlbum />} />
+                <Route
+                  path=":albumId/sub-albums/:subAlbumId"
+                  element={<SingleSubAlbum />}
+                />
+              </Route>
+              <Route path="*" element={<Empty />} />
+            </Routes>
             <FooterMain />
           </LanguageProvider>
         </QueryClientProvider>

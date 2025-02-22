@@ -14,7 +14,8 @@ function GalleryMain() {
   const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
   const { sortOption } = useSorting();
-  const { searchResults, value } = useGalleryContext();
+  const { searchResults, value, setValue, setSearchResults } =
+    useGalleryContext();
   const navigate = useNavigate();
   const { currentPage, setTotalPages, pageSize } = usePagination();
 
@@ -41,6 +42,12 @@ function GalleryMain() {
     currentPage * pageSize
   );
 
+  const handleAlbumSearchClick = (albumId) => {
+    navigate(`${albumId}/sub-albums`);
+    setValue("");
+    setSearchResults([]);
+  };
+
   // If albums are empty, show Empty component
   if (albums.length === 0) return <Empty />;
 
@@ -64,7 +71,7 @@ function GalleryMain() {
             >
               <button
                 className="p-2"
-                onClick={() => navigate(`${album._id}/sub-albums`)}
+                onClick={() => handleAlbumSearchClick(album._id)}
               >
                 <img
                   src={album.imageCover}

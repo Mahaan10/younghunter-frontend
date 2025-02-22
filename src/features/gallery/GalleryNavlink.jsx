@@ -17,11 +17,6 @@ function GalleryNavlink() {
     openAccordion(id === openSubAlbumId ? null : id);
   };
 
-  /* const utcDate = "2025-01-20T10:10:00.00Z"
-const localDate = new Date(utcDate)
-const formattedDateFa = localDate.toLocaleString("fa-IR")
-const formattedDateEn = localDate.toLocaleString("en-US")
-console.log(formattedDateFa, formattedDateEn) */
 
   const navlinkClass =
     "flex items-center transition-all duration-300 bg-gray-300 dark:bg-gray-700 dark:text-neutral-200 py-2 rounded-md";

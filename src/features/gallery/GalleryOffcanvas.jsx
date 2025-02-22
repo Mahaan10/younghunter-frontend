@@ -2,7 +2,7 @@ import useAlbums from "../../hooks/useAlbums";
 import Loading from "../../ui/Loading";
 import { Drawer, Sidebar } from "flowbite-react";
 import { HiMiniXMark } from "react-icons/hi2";
-import { PiMagnifyingGlassDuotone } from "react-icons/pi";
+import { PiMagnifyingGlassBold } from "react-icons/pi";
 import { useGalleryContext } from "../../context/useGalleryContext";
 import GalleryNavlink from "./GalleryNavlink";
 import { AccordionProvider } from "../../context/useAccordionContext";
@@ -47,11 +47,11 @@ function GalleryOffcanvas() {
             }}
           />
           <button
-            className={`absolute top-2 bg-gray-400 border border-gray-500 py-1.5 dark:bg-gray-950 dark:text-neutral-200 ${
-              language === "en" ? "right-0 rounded-r-lg" : "left-0 rounded-l-xl"
+            className={`absolute top-2 py-1.5 text-neutral-200 dark:text-zinc-950 ${
+              language === "en" ? "right-1 rounded-r-lg" : "left-1 rounded-l-xl"
             }`}
           >
-            <PiMagnifyingGlassDuotone className="size-7" />
+            <PiMagnifyingGlassBold className="size-7" />
           </button>
         </div>
         {isLoading ? (
