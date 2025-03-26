@@ -19,7 +19,8 @@ function SingleSubAlbum() {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   useEffect(() => {
-    if (subAlbum) setTotalPages(Math.ceil(subAlbum.images.length / pageSize));
+    if (subAlbum.length > 0)
+      setTotalPages(Math.ceil(subAlbum.images.length / pageSize));
   }, [subAlbum, pageSize, setTotalPages]);
 
   if (isLoading) return <Loading />;

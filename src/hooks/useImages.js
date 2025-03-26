@@ -6,7 +6,8 @@ export default function useImages() {
     queryKey: ["images"],
     queryFn: getImagesApi,
   });
+ 
 
-  const { images } = data || {};
+  const images  = data?.images || data || [];
   return { images, isLoading, isError, error };
 }

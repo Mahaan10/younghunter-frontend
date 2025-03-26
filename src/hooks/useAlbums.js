@@ -7,6 +7,6 @@ export default function useAlbums() {
     queryFn: getAlbumsApi,
   });
 
-  const { albums } = data || {};
+  const  albums  = data?.albums || data || [];
   return { albums, isLoading, isError, error };
 }

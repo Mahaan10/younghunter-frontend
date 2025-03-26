@@ -20,8 +20,11 @@ export default function useAllSubAlbums() {
     }
   }, [albumId, queryClient]);
 
+  const subAlbums = data?.subAlbums || data || {}
+
+
   return {
-    subAlbums: data?.subAlbums || [],
+    subAlbums,
     isLoading,
     isError,
     error,

@@ -7,7 +7,7 @@ export default function useUsers() {
     queryFn: getUsers,
   });
 
-  const { data: users } = data || {};
+  const users = data?.data || data || [];
 
   return { users, isLoading, isError, error };
 }
