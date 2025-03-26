@@ -10,14 +10,17 @@ import Modal from "../../../../ui/Modal";
 import ImageForm from "../../images/ImageForm";
 import ConfirmDelete from "../../../../ui/ConfirmDelete";
 import useDeleteSubAlbumImage from "../../../../hooks/useDeleteSubAlbumImage";
+import Loading from "../../../../ui/Loading";
 
 function ImageRow({ subAlbum, image, index, album }) {
   const { deleteSubAlbumImage, isRemoving } = useDeleteSubAlbumImage();
-  const { editImage } = useEditImage();
+  const { editImage, isEditing } = useEditImage();
   const { language } = useLanguage();
   const [isSubAlbumEditOpen, setIsSubALbumEditOpen] = useState(false);
   const [isSubAlbumImageDeleteOpen, setIsSubALbumImageDeleteOpen] =
     useState(false);
+
+  if (isEditing) return <Loading />;
 
   return (
     <Table.Row>

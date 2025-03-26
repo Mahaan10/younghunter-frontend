@@ -1,10 +1,12 @@
+import toast from "react-hot-toast";
 import { useLanguage } from "../../../context/useLanguageContext";
 import useImages from "../../../hooks/useImages";
+import Loading from "../../../ui/Loading";
 import Table from "../../../ui/Table";
 import ImagesRow from "./ImagesRow";
 
 function ImagesTable({ sortImages }) {
-  const { images } = useImages();
+  const { images, isLoading, isError, error } = useImages();
   const { language } = useLanguage();
 
   let sortedImages = images;
@@ -18,6 +20,10 @@ function ImagesTable({ sortImages }) {
         (image) => image.isFeaturedCarousel === false
       ))
     : images;
+
+  if (isLoading) return <Loading />;
+  if (isError)
+    return toast.error(error?.response?.data?.message || error.message);
 
   if (!images.length)
     return (

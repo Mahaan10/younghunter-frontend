@@ -1,11 +1,17 @@
+import toast from "react-hot-toast";
 import { useLanguage } from "../../../../context/useLanguageContext";
 import useImages from "../../../../hooks/useImages";
+import Loading from "../../../../ui/Loading";
 import Table from "../../../../ui/Table";
 import AddImageRow from "./AddImageRow";
 
 function AddImage({ subAlbum, album }) {
-  const { images } = useImages();
+  const { images, error, isError, isLoading } = useImages();
   const { language } = useLanguage();
+
+  if (isLoading) return <Loading />;
+  if (isError)
+    return toast.error(error?.response?.data?.message || error.message);
 
   return (
     <>
