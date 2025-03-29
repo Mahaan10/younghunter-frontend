@@ -55,6 +55,14 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
+    if (!imageBase64) {
+      toast.error(
+        language === "en"
+          ? "Please Upload a valid image"
+          : "لطفا یک تصویر معتبر بارگذاری کنید"
+      );
+      return;
+    }
     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
       location: { name: { en: data.enLocation, fa: data.faLocation } },
@@ -157,8 +165,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             name="url"
             className="inputTextField"
             type="file"
-            accept="image/*"
             onChange={handleFileChange}
+            accept="image/*"
             {...register("url", {
               required: `${
                 language === "en"
@@ -320,7 +328,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         <div className="w-[80%] mt-2">
           <button
             type="submit"
-            //disabled={!isValid || !imageBase64}
+            disabled={!isValid}
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
           >
             {isCreating || isEditing ? (
