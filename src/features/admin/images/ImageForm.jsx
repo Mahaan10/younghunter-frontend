@@ -5,9 +5,10 @@ import InputTextField from "../../../ui/InputTextField";
 import toast from "react-hot-toast";
 import RadioInputGroup from "../../../ui/RadioInputGroup";
 import useEditImage from "../../../hooks/useEditImage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function ImageForm({ onClose, imageToEdit = {} }) {
+  const [imageBase64, setImageBase64] = useState("");
   const { createNewImage, isPending: isCreating } = useCreateImage();
   const { editImage, isEditing } = useEditImage();
   const { _id: editId } = imageToEdit;
@@ -19,6 +20,18 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formState: { errors, isValid },
   } = useForm();
   const { language } = useLanguage();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImageBase64(reader.result);
+      };
+    }
+  };
 
   useEffect(() => {
     if (editId) {
@@ -39,8 +52,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         ),
       });
     }
-    console.log(isValid);
-  }, [editId, imageToEdit, reset, language, isValid]);
+  }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
     const newImage = {
@@ -48,7 +60,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       location: { name: { en: data.enLocation, fa: data.faLocation } },
       isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
       dateTaken: data.dateTaken,
-      url: data.url,
+      url: imageBase64,
       position: data.position,
     };
 
@@ -77,7 +89,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             `${
               language === "en"
                 ? `Create ${data.enTitle} successfully`
-                : `آلبوم ${data.faTitle} با موفقیت ایجاد شد`
+                : `عکس ${data.faTitle} با موفقیت ایجاد شد`
             }`
           );
           reset();
@@ -143,8 +155,10 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
           <input
             name="url"
+            className="inputTextField"
             type="file"
             accept="image/*"
+            onChange={handleFileChange}
             {...register("url", {
               required: `${
                 language === "en"
@@ -306,7 +320,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         <div className="w-[80%] mt-2">
           <button
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || !imageBase64}
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
           >
             {isCreating || isEditing ? (
