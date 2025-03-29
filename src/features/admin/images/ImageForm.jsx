@@ -139,9 +139,11 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
             <span className="text-red-600">*</span>
           </label>
-          <InputTextField name="url" register={register} errors={errors} />
-          {/* <input
+          {/* <InputTextField name="url" register={register} errors={errors} /> */}
+          <input
+            name="url"
             type="file"
+            accept="image/*"
             {...register("file", {
               required: `${
                 language === "en"
@@ -150,11 +152,20 @@ function ImageForm({ onClose, imageToEdit = {} }) {
               }`,
               validate: {
                 acceptedFormats: (file) =>
-                  file && ["image/jpg"].includes(file[0]?.type),
-                fileSize: (file) => file && file[0]?.size <= 20 * 1024 * 1024, //20MB limit
+                  file?.[0] && ["image/jpg"].includes(file[0]?.type)
+                    ? true
+                    : language === "en"
+                    ? "Only JPG image is allowed!"
+                    : "فقط فرمت JPG مجاز است!",
+                fileSize: (file) =>
+                  file && file[0]?.size <= 20 * 1024 * 1024
+                    ? true
+                    : language === "en"
+                    ? "File size must be less tha 20MB"
+                    : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
               },
             })}
-          /> */}
+          />
           {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
               {errors?.file?.message}
