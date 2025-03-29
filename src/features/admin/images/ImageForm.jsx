@@ -320,7 +320,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         <div className="w-[80%] mt-2">
           <button
             type="submit"
-            disabled={!isValid || !imageBase64}
+            //disabled={!isValid || !imageBase64}
             className="w-full px-4 py-3 font-bold text-lg rounded-xl transition-all duration-300 bg-blue-900 text-white hover:bg-blue-800"
           >
             {isCreating || isEditing ? (
