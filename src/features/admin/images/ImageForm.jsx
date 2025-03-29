@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import useCreateImage from "../../../hooks/useCreateImage";
 import { useLanguage } from "../../../context/useLanguageContext";
 import InputTextField from "../../../ui/InputTextField";
@@ -17,6 +17,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     reset,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isValid },
   } = useForm();
   const { language } = useLanguage();
@@ -28,6 +29,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
+        console.log(reader.result);
         setImageBase64(reader.result);
       };
     }
@@ -161,34 +163,45 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             <span className="text-red-600">*</span>
           </label>
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
-          <input
+          <Controller
             name="url"
-            className="inputTextField"
-            type="file"
-            onChange={handleFileChange}
-            accept="image/*"
-            {...register("url", {
-              required: `${
+            control={control}
+            rules={{
+              required:
                 language === "en"
                   ? "Image Cover is required"
-                  : "عکس کاور ضروری است"
-              }`,
+                  : "عکس کاور ضروری است",
               validate: {
-                acceptedFormats: (file) =>
-                  file?.[0] && ["image/jpg"].includes(file[0]?.type)
+                acceptedFormats: (fileList) =>
+                  fileList?.[0] &&
+                  (fileList[0]?.type === "image/jpeg" ||
+                    fileList[0]?.type === "image/jpg")
                     ? true
                     : language === "en"
                     ? "Only JPG image is allowed!"
                     : "فقط فرمت JPG مجاز است!",
-                fileSize: (file) =>
-                  file && file[0]?.size <= 20 * 1024 * 1024
+                fileSize: (fileList) =>
+                  fileList && fileList[0]?.size <= 20 * 1024 * 1024
                     ? true
                     : language === "en"
-                    ? "File size must be less tha 20MB"
+                    ? "File size must be less than 20MB"
                     : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
               },
-            })}
+            }}
+            render={({ field }) => (
+              <input
+                type="file"
+                accept="image/*"
+                className="inputTextField"
+                onChange={(e) => {
+                  handleFileChange(e);
+                  field.onChange(e.target.files);
+                }}
+                ref={field.ref}
+              />
+            )}
           />
+
           {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
               {errors?.file?.message}
