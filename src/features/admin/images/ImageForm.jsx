@@ -144,7 +144,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             name="url"
             type="file"
             accept="image/*"
-            {...register("file", {
+            {...register("url", {
               required: `${
                 language === "en"
                   ? "Image Cover is required"
