@@ -39,7 +39,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         ),
       });
     }
-  }, [editId, imageToEdit, reset, language]);
+    console.log(isValid);
+  }, [editId, imageToEdit, reset, language, isValid]);
 
   const onSubmit = async (data) => {
     const newImage = {

@@ -96,12 +96,13 @@ function Carousel() {
 
   useEffect(() => {
     //if (!images.length) return
+    console.log(images);
     const carouselInterval = setInterval(() => {
       dispatch({ type: "Next", payload: carouselImages.length });
     }, 10000);
 
     return () => clearInterval(carouselInterval);
-  }, [carouselImages]);
+  }, [carouselImages, images]);
 
   if (isLoading || isAlbumLoading) return <Loading />;
   if (isError || isAlbumError)
