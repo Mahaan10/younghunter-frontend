@@ -8,7 +8,7 @@ import useEditImage from "../../../hooks/useEditImage";
 import { useEffect, useState } from "react";
 
 function ImageForm({ onClose, imageToEdit = {} }) {
-  const [imageBase64, setImageBase64] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const { createNewImage, isPending: isCreating } = useCreateImage();
   const { editImage, isEditing } = useEditImage();
   const { _id: editId } = imageToEdit;
@@ -21,14 +21,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formState: { errors, isValid },
   } = useForm();
   const { language } = useLanguage();
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setImageBase64(file);
-    }
-  };
 
   useEffect(() => {
     if (editId) {
@@ -52,7 +44,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
-    if (!imageBase64) {
+    if (!selectedFile) {
       toast.error(
         language === "en"
           ? "Please Upload a valid image"
@@ -62,7 +54,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     }
 
     const formData = new FormData();
-    formData.append("image", imageBase64);
+    formData.append("image", selectedFile);
     try {
       const response = await fetch(
         "https://young-hunter.liara.run/api/v1/upload",
@@ -128,7 +120,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      encType="multipart/form-Data"
+      encType="multipart/form-data"
       method="post"
     >
       <div className="flex items-center flex-col gap-y-3">
@@ -213,7 +205,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
                 accept="image/*"
                 className="inputTextField"
                 onChange={(e) => {
-                  handleFileChange(e);
+                  setSelectedFile(e.target.files[0]);
                   field.onChange(e.target.files);
                 }}
                 ref={field.ref}
