@@ -13,7 +13,7 @@ function AdminAccess() {
     <>
       <div className="flex items-center justify-center">
         <button
-          className="bg-green-600 adminRoleBtn text-black"
+          className="bg-green-600 adminRoleBtn text-black text-sm"
           //onClick={() => setIsImageAccessOpen((prev) => !prev)}
         >
           <Link to="/admin">

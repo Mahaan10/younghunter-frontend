@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useLanguage } from "../../../context/useLanguageContext";
 import useUsers from "../../../hooks/useUsers";
 import { logout } from "../../../hooks/useAuth";
+import { NavLink } from "react-router-dom";
 
 function AdminPageLayout() {
   const { users } = useUsers();
@@ -29,7 +30,7 @@ function AdminPageLayout() {
       <div className="row-start-1 row-span-2 border border-neutral-200 py-4 overflow-y-auto">
         <ul className="flex flex-col gap-y-4">
           <li className="flex items-center w-[95%] mx-auto">
-            <Navlink
+            <NavLink
               to="images"
               className={({ isActive }) =>
                 isActive
@@ -38,10 +39,10 @@ function AdminPageLayout() {
               }
             >
               {language === "en" ? "Images" : "عکس ها"}
-            </Navlink>
+            </NavLink>
           </li>
           <li className="flex items-center w-[95%] mx-auto">
-            <Navlink
+            <NavLink
               to="albums"
               className={({ isActive }) =>
                 isActive
@@ -50,7 +51,7 @@ function AdminPageLayout() {
               }
             >
               {language === "en" ? "َAlbums" : "آلبوم ها"}
-            </Navlink>
+            </NavLink>
           </li>
         </ul>
       </div>
