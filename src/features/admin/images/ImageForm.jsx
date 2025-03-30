@@ -69,7 +69,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
       }
       const result = await response.json();
-      const imageUrl = result.imageUrl;
+      const imageUrl = result.file;
       console.log("Server Response", result);
       console.log("imageURL", imageUrl);
 
