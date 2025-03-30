@@ -1,7 +1,14 @@
 import React from "react";
+import ImagesHeader from "./ImagesHeader";
+import ImagesTable from "./ImagesTable";
 
 function AdminImagesPageLayout() {
-  return <div>AdminImagesPageLayout</div>;
+  return (
+    <>
+      <ImagesHeader />
+      <ImagesTable />
+    </>
+  );
 }
 
 export default AdminImagesPageLayout;
