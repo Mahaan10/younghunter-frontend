@@ -55,6 +55,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
     const formData = new FormData();
     formData.append("image", selectedFile);
+    console.log("FormData image", formData.get("image"));
     try {
       const response = await fetch(
         "https://young-hunter.liara.run/api/v1/upload",
@@ -64,10 +65,13 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         }
       );
       if (!response.ok) {
+        console.log("UPLOAD Failed", response);
         toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
       }
       const result = await response.json();
       const imageUrl = result.imageUrl;
+      console.log("Server Response", result);
+      console.log("imageURL", imageUrl);
 
       const newImage = {
         title: { en: data.enTitle, fa: data.faTitle },
