@@ -26,12 +26,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     const file = e.target.files[0];
 
     if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        console.log(reader.result);
-        setImageBase64(reader.result);
-      };
+      setImageBase64(file);
     }
   };
 
@@ -65,48 +60,68 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       );
       return;
     }
-    const newImage = {
-      title: { en: data.enTitle, fa: data.faTitle },
-      location: { name: { en: data.enLocation, fa: data.faLocation } },
-      isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
-      dateTaken: data.dateTaken,
-      url: imageBase64,
-      position: data.position,
-    };
 
-    if (editId) {
-      editImage(
-        { imageId: editId, newImage },
+    const formData = new FormData();
+    formData.append("image", imageBase64);
+    try {
+      const response = await fetch(
+        "https://young-hunter.liara.run/api/v1/upload",
         {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (!response.ok) {
+        toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
+      }
+      const result = await response.json();
+      const imageUrl = result.imageUrl;
+
+      const newImage = {
+        title: { en: data.enTitle, fa: data.faTitle },
+        location: { name: { en: data.enLocation, fa: data.faLocation } },
+        isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
+        dateTaken: data.dateTaken,
+        url: imageUrl,
+        position: data.position,
+      };
+
+      if (editId) {
+        editImage(
+          { imageId: editId, newImage },
+          {
+            onSuccess: () => {
+              toast.success(
+                `${
+                  language === "en"
+                    ? `Edit ${data.enTitle} successfully`
+                    : `عکس ${data.faTitle} با موفقیت ویرایش شد`
+                }`
+              );
+              onClose();
+              reset();
+            },
+            onError: (error) => toast.error(error?.response?.data?.message),
+          }
+        );
+      } else {
+        await createNewImage(newImage, {
           onSuccess: () => {
             toast.success(
               `${
                 language === "en"
-                  ? `Edit ${data.enTitle} successfully`
-                  : `عکس ${data.faTitle} با موفقیت ویرایش شد`
+                  ? `Create ${data.enTitle} successfully`
+                  : `عکس ${data.faTitle} با موفقیت ایجاد شد`
               }`
             );
-            onClose();
             reset();
+            onClose();
           },
           onError: (error) => toast.error(error?.response?.data?.message),
-        }
-      );
-    } else {
-      await createNewImage(newImage, {
-        onSuccess: () => {
-          toast.success(
-            `${
-              language === "en"
-                ? `Create ${data.enTitle} successfully`
-                : `عکس ${data.faTitle} با موفقیت ایجاد شد`
-            }`
-          );
-          reset();
-          onClose();
-        },
-        onError: (error) => toast.error(error?.response?.data?.message),
-      });
+        });
+      }
+    } catch {
+      toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
     }
   };
 
