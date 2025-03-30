@@ -30,8 +30,9 @@ function App() {
             {/* <Header /> */}
             <Routes>
               <Route path="/" element={<HomePageLayout />}>
-                <Route index element={<Home />} />
-                <Route path="/albums" element={<Gallery />}>
+                <Route index element={<Navigate to="home" replace />} />
+                <Route path="home" element={<Home />} />
+                <Route path="albums" element={<Gallery />}>
                   <Route index element={<Albums />} />
                   <Route path=":id/sub-albums" element={<SingleAlbum />} />
                   <Route
