@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./features/header/Header";
 import Gallery from "./pages/Gallery";
@@ -12,6 +12,10 @@ import FooterMain from "./features/footer/Footer";
 import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
 import Empty from "./ui/Empty";
+import AdminPageLayout from "./features/admin/layout/AdminPageLayout";
+import Admin from "./pages/Admin";
+import AdminImagesPageLayout from "./features/admin/images/AdminImagesPageLayout";
+import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout";
 
 function App() {
   const queryClient = new QueryClient();
@@ -32,6 +36,12 @@ function App() {
                   path=":albumId/sub-albums/:subAlbumId"
                   element={<SingleSubAlbum />}
                 />
+              </Route>
+              <Route path="/admin" element={<AdminPageLayout />}>
+                <Route index element={<Navigate to="dashboard" replace />} />
+                <Route path="dashboard" element={<Admin />} />
+                <Route path="images" element={<AdminImagesPageLayout />} />
+                <Route path="albums" element={<AdminAlbumsPageLayout />} />
               </Route>
               <Route path="*" element={<Empty />} />
             </Routes>

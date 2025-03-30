@@ -5,8 +5,11 @@ import HeaderSelectBox from "./HeaderSelectBox";
 import Authentication from "./Authentication";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
+import AdminAccess from "../admin/AdminAccess";
+import { useAdmin } from "../../context/useAdminContext";
 
 function HeaderOffcanvas({ open, onClose }) {
+  const { isAdmin } = useAdmin();
   const { language } = useLanguage();
 
   return (
@@ -56,6 +59,7 @@ function HeaderOffcanvas({ open, onClose }) {
                     <div className="flex flex-col gap-y-4">
                       <HeaderSelectBox />
                       <Authentication />
+                      {isAdmin && <AdminAccess />}
                     </div>
                   </Sidebar.ItemGroup>
                 </Sidebar.Items>

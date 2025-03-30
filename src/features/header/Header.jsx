@@ -7,10 +7,13 @@ import HeaderOffcanvas from "./HeaderOffcanvas";
 import HeaderHashlink from "./HeaderHashlink";
 import { useLanguage } from "../../context/useLanguageContext";
 import ThemeMode from "../../ui/ThemeMode";
+import { useAdmin } from "../../context/useAdminContext";
+import AdminAccess from "../admin/AdminAccess";
 
 function Header() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
+  const { isAdmin } = useAdmin();
 
   return (
     <>
@@ -75,6 +78,7 @@ function Header() {
           <div className="md:flex hidden items-center justify-center gap-x-4 mb-2 relative px-4">
             <HeaderSelectBox onClose={() => setOpen(false)} />
             <Authentication />
+            {isAdmin && <AdminAccess />}
           </div>
           <HeaderOffcanvas open={open} onClose={() => setOpen(false)} />
         </div>
