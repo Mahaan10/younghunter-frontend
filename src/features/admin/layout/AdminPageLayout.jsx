@@ -11,7 +11,7 @@ function AdminPageLayout() {
   const findAdmin = users.find((user) => user.role === "admin");
 
   return (
-    <div className="grid h-screen grid-rows-[auto_1fr] md:grid-cols-[15rem_1fr] grid-cols-[7rem_1fr] bg-slate-900">
+    <div className="grid h-screen grid-rows-[auto_1fr] md:grid-cols-[15rem_1fr] grid-cols-[7rem_1fr] bg-slate-900 text-neutral-200">
       <div className="bg-blue-700 py-4 px-8 border-b border-neutral-200">
         <div className="container xl:max-w-screen-lg flex items-center gap-x-8">
           <ul className="flex justify-around w-full items-center gap-x-4">
@@ -34,8 +34,8 @@ function AdminPageLayout() {
               to="images"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-slate-950 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
-                  : "hover:bg-slate-800 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
+                  ? "bg-slate-800 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
+                  : "hover:bg-slate-700 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
               }
             >
               {language === "en" ? "Images" : "عکس ها"}

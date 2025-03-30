@@ -16,6 +16,7 @@ import AdminPageLayout from "./features/admin/layout/AdminPageLayout";
 import Admin from "./pages/Admin";
 import AdminImagesPageLayout from "./features/admin/images/AdminImagesPageLayout";
 import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout";
+import HomePageLayout from "./features/carousel/HomePageLayout";
 
 function App() {
   const queryClient = new QueryClient();
@@ -26,9 +27,20 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <LanguageProvider>
             <Toaster />
-            <Header />
+            {/* <Header /> */}
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<HomePageLayout />}>
+                <Route index element={<Home />} />
+                <Route path="/albums" element={<Gallery />}>
+                  <Route index element={<Albums />} />
+                  <Route path=":id/sub-albums" element={<SingleAlbum />} />
+                  <Route
+                    path=":albumId/sub-albums/:subAlbumId"
+                    element={<SingleSubAlbum />}
+                  />
+                </Route>
+              </Route>
+              {/* <Route path="/" element={<Home />} />
               <Route path="/albums" element={<Gallery />}>
                 <Route index element={<Albums />} />
                 <Route path=":id/sub-albums" element={<SingleAlbum />} />
@@ -36,7 +48,7 @@ function App() {
                   path=":albumId/sub-albums/:subAlbumId"
                   element={<SingleSubAlbum />}
                 />
-              </Route>
+              </Route> */}
               <Route path="/admin" element={<AdminPageLayout />}>
                 <Route index element={<Navigate to="dashboard" replace />} />
                 <Route path="dashboard" element={<Admin />} />
@@ -45,7 +57,7 @@ function App() {
               </Route>
               <Route path="*" element={<Empty />} />
             </Routes>
-            <FooterMain />
+            {/* <FooterMain /> */}
           </LanguageProvider>
         </QueryClientProvider>
       </AdminProvider>
