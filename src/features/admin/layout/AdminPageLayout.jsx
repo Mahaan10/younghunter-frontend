@@ -46,11 +46,11 @@ function AdminPageLayout() {
               to="albums"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-slate-950 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
-                  : "hover:bg-slate-800 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
+                  ? "bg-slate-800 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
+                  : "hover:bg-slate-700 flex items-center gap-x-2 px-2 py-1.5 rounded-lg transition-all duration-300 w-full"
               }
             >
-              {language === "en" ? "َAlbums" : "آلبوم ها"}
+              {language === "en" ? "Albums" : "آلبوم ها"}
             </NavLink>
           </li>
         </ul>
