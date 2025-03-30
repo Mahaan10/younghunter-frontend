@@ -21,6 +21,10 @@ import HomePageLayout from "./features/carousel/HomePageLayout";
 function App() {
   const queryClient = new QueryClient();
 
+  // Only Dark colors in Tables have to stay!
+  // Create a route for admin accessing albums's subAlbums
+  // modify Authentication section ui in both header and header menu!
+
   return (
     <ThemeModeProvider>
       <AdminProvider>
