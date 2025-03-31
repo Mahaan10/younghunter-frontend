@@ -8,8 +8,6 @@ function AdminSubAlbumPageLayout() {
   const { id } = useParams();
   const album = albums?.find((album) => album._id === id);
 
-  if (!album?.subAlbum) return <p>There is No SubAlbum</p>;
-
   return (
     <>
       <SubAlbumsHeader album={album} />
