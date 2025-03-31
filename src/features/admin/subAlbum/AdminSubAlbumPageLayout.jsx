@@ -7,7 +7,8 @@ function AdminSubAlbumPageLayout() {
   const { albums } = useAlbums();
   const { albumId } = useParams();
   const album = albums?.find((album) => album._id === albumId);
-
+  console.log("AdminSubAlbumPageLayout useParams:", albumId);
+  console.log("AdminSubAlbumPageLayout useParams:", useParams());
   return (
     <>
       <SubAlbumsHeader album={album} />
