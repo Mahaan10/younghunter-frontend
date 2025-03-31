@@ -12,12 +12,13 @@ import toast from "react-hot-toast";
 // import AccessModal from "../../../ui/AccessModal";
 // import SubAlbumsTable from "../subAlbum/SubAlbumsTable";
 // import SubAlbumsHeader from "../subAlbum/SubAlbumHeader";
-import AdminSubAlbumPageLayout from "../subAlbum/AdminSubAlbumPageLayout";
+//import AdminSubAlbumPageLayout from "../subAlbum/AdminSubAlbumPageLayout";
+import { Link } from "react-router-dom";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [isSubAlbumOpen, setIsSubAlbumOpen] = useState(false);
+  //const [isSubAlbumOpen, setIsSubAlbumOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { deleteAlbum, isRemoving } = useDeleteAlbum();
 
@@ -27,13 +28,15 @@ function AlbumRow({ album, index }) {
       <td>{album.title.en}</td>
       <td>{album.title.fa}</td>
       <td>
-        <button
-          className="flex items-center justify-between btn w-32 bg-emerald-700"
-          onClick={() => setIsSubAlbumOpen(true)}
-        >
-          <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
-          <FiLayers className="w-5 h-5" />
-        </button>
+        <Link to={`${album._id}/sub-albums`}>
+          <button
+            className="flex items-center justify-between btn w-32 bg-emerald-700"
+            //onClick={() => setIsSubAlbumOpen(true)}
+          >
+            <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
+            <FiLayers className="w-5 h-5" />
+          </button>
+        </Link>
       </td>
       <td className="flex items-center justify-center gap-x-8">
         <button
@@ -89,11 +92,11 @@ function AlbumRow({ album, index }) {
           />
         </Modal>
       )}
-      {isSubAlbumOpen && (
+      {/* {isSubAlbumOpen && (
         <>
           <AdminSubAlbumPageLayout album={album} />
         </>
-      )}
+      )} */}
     </Table.Row>
   );
 }
