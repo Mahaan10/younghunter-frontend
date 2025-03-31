@@ -81,7 +81,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         url: imageUrl,
         position: data.position,
       };
-
+      console.log(newImage);
       if (editId) {
         editImage(
           { imageId: editId, newImage },
