@@ -4,10 +4,8 @@ import Loading from "../../ui/Loading";
 import toast from "react-hot-toast";
 import { useLanguage } from "../../context/useLanguageContext";
 import useImages from "../../hooks/useImages";
-import { useAdmin } from "../../context/useAdminContext";
 import useAlbums from "../../hooks/useAlbums";
 import { useNavigate } from "react-router-dom";
-import AdminImagesDashboard from "../admin/AdminAccess";
 
 const carouselReducer = (state, { type, payload }) => {
   switch (type) {

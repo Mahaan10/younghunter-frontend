@@ -1,6 +1,6 @@
 function Table({ children }) {
   return (
-    <div className="bg-neutral-200 text-black dark:text-neutral-200 dark:bg-zinc-950 overflow-auto">
+    <div className="text-neutral-200 bg-zinc-900 overflow-auto">
       <table>{children}</table>
     </div>
   );
@@ -11,7 +11,7 @@ export default Table;
 function TableHeader({ children }) {
   return (
     <thead>
-      <tr className="bg-neutral-400 dark:bg-zinc-800">{children}</tr>
+      <tr className="bg-zinc-800">{children}</tr>
     </thead>
   );
 }

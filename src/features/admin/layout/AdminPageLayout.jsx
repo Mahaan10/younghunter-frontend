@@ -12,7 +12,7 @@ function AdminPageLayout() {
 
   return (
     <div className="grid h-screen grid-rows-[auto_1fr] md:grid-cols-[15rem_1fr] grid-cols-[7rem_1fr] bg-slate-900 text-neutral-200">
-      <div className="bg-blue-700 py-4 px-8 border-b border-neutral-200">
+      <div className="bg-blue-900 py-4 px-8 border-b border-neutral-200">
         <div className="container xl:max-w-screen-lg flex items-center gap-x-8">
           <ul className="flex justify-around w-full items-center gap-x-4">
             <li className="flex">
@@ -55,7 +55,7 @@ function AdminPageLayout() {
           </li>
         </ul>
       </div>
-      <div className="bg-blue-900 p-8 overflow-y-auto">
+      <div className="bg-zinc-950 p-8 overflow-y-auto">
         <div className="mx-auto max-w-screen-lg flex flex-col gap-y-12">
           <Outlet />
         </div>

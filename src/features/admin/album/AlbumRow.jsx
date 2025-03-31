@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import AccessModal from "../../../ui/AccessModal";
 import SubAlbumsTable from "../subAlbum/SubAlbumsTable";
 import SubAlbumsHeader from "../subAlbum/SubAlbumHeader";
+import { Link } from "react-router-dom";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
@@ -30,8 +31,10 @@ function AlbumRow({ album, index }) {
           className="flex items-center justify-between btn w-32 bg-emerald-700"
           onClick={() => setIsSubAlbumOpen(true)}
         >
-          <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
-          <FiLayers className="w-5 h-5" />
+          <Link to={album.id}>
+            <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
+            <FiLayers className="w-5 h-5" />
+          </Link>
         </button>
       </td>
       <td className="flex items-center justify-center gap-x-8">
