@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Gallery from "./pages/Gallery";
@@ -17,15 +17,10 @@ import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout"
 import HomePageLayout from "./features/carousel/HomePageLayout";
 import AdminSubAlbumPageLayout from "./features/admin/subAlbum/AdminSubAlbumPageLayout";
 import useAlbums from "./hooks/useAlbums";
-import Loading from "./ui/Loading";
 
 function App() {
   const queryClient = new QueryClient();
-  const { albums, error, isError, isLoading } = useAlbums();
-
-  if (isLoading) return <Loading />;
-  if (isError)
-    return toast.error(error?.response?.data?.message || error.message);
+  const { albums } = useAlbums();
 
   // Only Dark colors in Tables have to stay!
   // Create a route for admin accessing albums's subAlbums
@@ -66,7 +61,12 @@ function App() {
                 <Route path="albums" element={<AdminAlbumsPageLayout />}>
                   <Route
                     path=":id/sub-albums"
-                    element={<AdminSubAlbumPageLayout />}
+                    element={({ match }) => (
+                      <AdminSubAlbumPageLayout
+                        albums={albums}
+                        albumId={match.params.id}
+                      />
+                    )}
                   />
                 </Route>
               </Route>
