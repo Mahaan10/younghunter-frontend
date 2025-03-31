@@ -28,7 +28,7 @@ function AlbumRow({ album, index }) {
       <td>{album.title.fa}</td>
       <td>
         <Link
-          to={album._id}
+          to={`${album._id}/sub-albums`}
           className="flex items-center justify-between btn w-32 bg-emerald-700"
         >
           <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
