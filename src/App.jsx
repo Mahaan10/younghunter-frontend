@@ -56,12 +56,11 @@ function App() {
                 <Route index element={<Navigate to="dashboard" replace />} />
                 <Route path="dashboard" element={<Admin />} />
                 <Route path="images" element={<AdminImagesPageLayout />} />
-                <Route path="albums" element={<AdminAlbumsPageLayout />}>
-                  <Route
-                    path=":id/sub-albums"
-                    element={<AdminSubAlbumPageLayout />}
-                  />
-                </Route>
+                <Route path="albums" element={<AdminAlbumsPageLayout />} />
+                <Route
+                  path=":id/sub-albums"
+                  element={<AdminSubAlbumPageLayout />}
+                />
               </Route>
               <Route path="*" element={<Empty />} />
             </Routes>
