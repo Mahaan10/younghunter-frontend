@@ -9,15 +9,12 @@ import SubAlbumForm from "./SubAlbumForm";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import toast from "react-hot-toast";
 import useDeleteSubAlbum from "../../../hooks/useDeleteSubAlbum";
-import AccessModal from "../../../ui/AccessModal";
-import ImageHeader from "./image/ImageHeader";
-import ImagesTable from "./image/ImageTable";
+import { Link } from "react-router-dom";
 
 function SubAlbumRow({ subAlbum, index, album }) {
   const { language } = useLanguage();
   const [isSubAlbumEditOpen, setIsSubAlbumEditOpen] = useState(false);
   const [isSubAlbumDeleteOpen, setIsSubAlbumDeleteOpen] = useState(false);
-  const [isSubAlbumImagesOpen, setIsSubAlbumImagesOpen] = useState(false);
   const { deleteSubAlbum, isRemoving } = useDeleteSubAlbum();
 
   return (
@@ -26,13 +23,12 @@ function SubAlbumRow({ subAlbum, index, album }) {
       <td>{subAlbum.title.en}</td>
       <td>{subAlbum.title.fa}</td>
       <td>
-        <button
-          className="flex items-center justify-center gap-x-8 btn bg-emerald-700"
-          onClick={() => setIsSubAlbumImagesOpen(true)}
-        >
-          <span>{language === "en" ? "Images" : "عکس ها"}</span>
-          <SiMake className="w-5 h-5" />
-        </button>
+        <Link to={`${subAlbum._id}/images`}>
+          <button className="flex items-center justify-center gap-x-8 btn bg-emerald-700">
+            <span>{language === "en" ? "Images" : "عکس ها"}</span>
+            <SiMake className="w-5 h-5" />
+          </button>
+        </Link>
       </td>
       <td className="flex items-center justify-center gap-x-8">
         <button
@@ -51,15 +47,6 @@ function SubAlbumRow({ subAlbum, index, album }) {
           <HiOutlineTrash className="w-5 h-5" />
         </button>
       </td>
-      {isSubAlbumImagesOpen && (
-        <AccessModal
-          title={`${language === "en" ? "Images Access" : "دسترسی به عکس ها"}`}
-          onClose={() => setIsSubAlbumImagesOpen(false)}
-        >
-          <ImageHeader subAlbum={subAlbum} album={album} />
-          <ImagesTable subAlbum={subAlbum} album={album}/>
-        </AccessModal>
-      )}
       {isSubAlbumEditOpen && (
         <Modal
           title={language === "en" ? "Edit Album" : "ویرایش آلبوم"}

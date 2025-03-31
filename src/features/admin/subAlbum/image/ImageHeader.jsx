@@ -30,7 +30,7 @@ function ImageHeader({ subAlbum, album }) {
           }
           onClose={() => setIsOpen(false)}
         >
-          <AddImage subAlbum={subAlbum} album={album}/>
+          <AddImage subAlbum={subAlbum} album={album} />
         </AccessModal>
       )}
     </div>

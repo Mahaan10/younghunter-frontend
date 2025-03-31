@@ -16,6 +16,7 @@ import AdminImagesPageLayout from "./features/admin/images/AdminImagesPageLayout
 import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout";
 import HomePageLayout from "./features/carousel/HomePageLayout";
 import AdminSubAlbumPageLayout from "./features/admin/subAlbum/AdminSubAlbumPageLayout";
+import AdminSubAlbumImagesPageLayout from "./features/admin/subAlbum/image/AdminSubAlbumImagesPageLayout";
 
 function App() {
   const queryClient = new QueryClient();
@@ -60,7 +61,12 @@ function App() {
                   <Route
                     path=":id/sub-albums"
                     element={<AdminSubAlbumPageLayout />}
-                  />
+                  >
+                    <Route
+                      path=":albumId/sub-albums/:subAlbumId"
+                      element={<AdminSubAlbumImagesPageLayout />}
+                    />
+                  </Route>
                 </Route>
               </Route>
               <Route path="*" element={<Empty />} />

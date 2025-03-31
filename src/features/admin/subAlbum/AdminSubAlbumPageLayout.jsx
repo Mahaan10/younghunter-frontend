@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import useAlbums from "../../../hooks/useAlbums";
 import SubAlbumsHeader from "./SubAlbumHeader";
 import SubAlbumsTable from "./SubAlbumsTable";
@@ -12,6 +12,7 @@ function AdminSubAlbumPageLayout() {
     <>
       <SubAlbumsHeader album={album} />
       <SubAlbumsTable album={album} />
+      <Outlet />
     </>
   );
 }
