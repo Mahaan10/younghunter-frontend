@@ -11,6 +11,12 @@ function AdminSubAlbumImagesPageLayout() {
     (subAlbum) => subAlbum._id === subAlbumId
   );
 
+  console.log("albums:", albums);
+  console.log("album:", album);
+  console.log("subAlbum:", subAlbum);
+  console.log("albumId:", albumId);
+  console.log("subAlbumId:", subAlbumId);
+
   return (
     <>
       <ImageHeader album={album} subAlbum={subAlbum} />
