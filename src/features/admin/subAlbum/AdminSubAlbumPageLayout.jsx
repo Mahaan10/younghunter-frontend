@@ -1,11 +1,11 @@
 import SubAlbumsHeader from "./SubAlbumHeader";
 import SubAlbumsTable from "./SubAlbumsTable";
 
-function AdminSubAlbumPageLayout() {
+function AdminSubAlbumPageLayout({ album }) {
   return (
     <>
-      <SubAlbumsHeader />
-      <SubAlbumsTable />
+      <SubAlbumsHeader album={album} />
+      <SubAlbumsTable album={album} />
     </>
   );
 }
