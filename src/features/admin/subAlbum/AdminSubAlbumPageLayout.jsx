@@ -1,10 +1,14 @@
+import { useParams } from "react-router-dom";
+import useAlbums from "../../../hooks/useAlbums";
 import SubAlbumsHeader from "./SubAlbumHeader";
 import SubAlbumsTable from "./SubAlbumsTable";
 
-function AdminSubAlbumPageLayout({ albums, albumId }) {
-  const album = albums?.find((album) => album._id === albumId);
+function AdminSubAlbumPageLayout() {
+  const { albums } = useAlbums();
+  const { id } = useParams();
+  const album = albums?.find((album) => album._id === id);
 
-  if (!album) return <p>There is No SubAlbum</p>;
+  if (!album?.subAlbum) return <p>There is No SubAlbum</p>;
 
   return (
     <>

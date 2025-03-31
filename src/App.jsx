@@ -16,11 +16,9 @@ import AdminImagesPageLayout from "./features/admin/images/AdminImagesPageLayout
 import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout";
 import HomePageLayout from "./features/carousel/HomePageLayout";
 import AdminSubAlbumPageLayout from "./features/admin/subAlbum/AdminSubAlbumPageLayout";
-import useAlbums from "./hooks/useAlbums";
 
 function App() {
   const queryClient = new QueryClient();
-  const { albums } = useAlbums();
 
   // Only Dark colors in Tables have to stay!
   // Create a route for admin accessing albums's subAlbums
@@ -61,12 +59,7 @@ function App() {
                 <Route path="albums" element={<AdminAlbumsPageLayout />}>
                   <Route
                     path=":id/sub-albums"
-                    element={({ match }) => (
-                      <AdminSubAlbumPageLayout
-                        albums={albums}
-                        albumId={match.params.id}
-                      />
-                    )}
+                    element={<AdminSubAlbumPageLayout />}
                   />
                 </Route>
               </Route>
