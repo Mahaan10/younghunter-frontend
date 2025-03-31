@@ -23,7 +23,7 @@ function SubAlbumRow({ subAlbum, index, album }) {
       <td>{subAlbum.title.en}</td>
       <td>{subAlbum.title.fa}</td>
       <td>
-        <Link to={`${subAlbum._id}/images`}>
+        <Link to={`${subAlbum._id}`}>
           <button className="flex items-center justify-center gap-x-8 btn bg-emerald-700">
             <span>{language === "en" ? "Images" : "عکس ها"}</span>
             <SiMake className="w-5 h-5" />
