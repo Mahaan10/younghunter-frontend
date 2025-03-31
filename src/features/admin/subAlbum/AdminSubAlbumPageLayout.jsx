@@ -5,8 +5,8 @@ import SubAlbumsTable from "./SubAlbumsTable";
 
 function AdminSubAlbumPageLayout() {
   const { albums } = useAlbums();
-  const { id } = useParams();
-  const album = albums?.find((album) => album._id === id);
+  const { albumId } = useParams();
+  const album = albums?.find((album) => album._id === albumId);
 
   return (
     <>
