@@ -1,19 +1,14 @@
-import { useState } from "react";
 import { useLanguage } from "../../context/useLanguageContext";
-import AccessModal from "../../ui/AccessModal";
-import ImagesHeader from "./images/ImagesHeader";
-import ImagesTable from "./images/ImagesTable";
 import { Link } from "react-router-dom";
 
 function AdminAccess() {
   const { language } = useLanguage();
-  const [sortImages, setSortImages] = useState("all");
 
   return (
     <>
       <div className="flex items-center justify-center">
         <button
-          className="bg-green-600 adminRoleBtn text-black text-sm"
+          className="bg-green-600 py-2 px-2 rounded-md md:w-28 w-full mx-auto text-black text-sm"
           //onClick={() => setIsImageAccessOpen((prev) => !prev)}
         >
           <Link to="/admin">
