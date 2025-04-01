@@ -11,7 +11,7 @@ import SingleSubAlbum from "./features/album/SingleSubAlbum";
 import AdminProvider from "./context/useAdminContext";
 import Empty from "./ui/Empty";
 import AdminPageLayout from "./features/admin/layout/AdminPageLayout";
-import Admin from "./pages/Admin";
+//import Admin from "./pages/Admin";
 import AdminImagesPageLayout from "./features/admin/images/AdminImagesPageLayout";
 import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout";
 import HomePageLayout from "./features/carousel/HomePageLayout";
@@ -54,8 +54,8 @@ function App() {
                 />
               </Route> */}
               <Route path="/admin" element={<AdminPageLayout />}>
-                <Route index element={<Navigate to="dashboard" replace />} />
-                <Route path="dashboard" element={<Admin />} />
+                <Route index element={<Navigate to="images" replace />} />
+                {/* <Route path="dashboard" element={<Admin />} /> */}
                 <Route path="images" element={<AdminImagesPageLayout />} />
                 <Route path="albums" element={<AdminAlbumsPageLayout />}>
                   <Route
