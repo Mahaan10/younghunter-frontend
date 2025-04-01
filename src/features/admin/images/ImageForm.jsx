@@ -66,6 +66,15 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           body: formData,
         }
       );
+      if (!response.ok) {
+        console.log("UPLOAD Failed RESPONSE", response);
+        toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
+      }
+      const result = await response.json();
+      const imageUrl = result.file.filename;
+      console.log("Server Response", result);
+      console.log("imageURL", imageUrl);
+
       const newImage = {
         title: { en: data.enTitle, fa: data.faTitle },
         location: { name: { en: data.enLocation, fa: data.faLocation } },
@@ -80,16 +89,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         position: String(data.position),
       };
       console.log(newImage);
-
-      if (!response.ok) {
-        console.log("UPLOAD Failed", response);
-        toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
-      }
-      const result = await response.json();
-      const imageUrl = result.file.filename;
-      console.log("Server Response", result);
-      console.log("imageURL", imageUrl);
-
       if (editId) {
         editImage(
           { imageId: editId, newImage },
