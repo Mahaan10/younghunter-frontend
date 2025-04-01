@@ -50,6 +50,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           ? "Please Upload a valid image"
           : "لطفا یک تصویر معتبر بارگذاری کنید"
       );
+      console.log("Submit Data", data);
+      console.log("Watch Date Taken:", watch("dateTaken"));
       return;
     }
 
@@ -77,7 +79,12 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         title: { en: data.enTitle, fa: data.faTitle },
         location: { name: { en: data.enLocation, fa: data.faLocation } },
         isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
-        dateTaken: new Date(data.dateTaken),
+        dateTaken: new Date(data.dateTaken).toLocaleDateString(
+          language === "en" ? "en-Us" : "fa-IR",
+          {
+            year: "numeric",
+          }
+        ),
         url: imageUrl,
         position: String(data.position),
       };
