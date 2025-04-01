@@ -1,12 +1,13 @@
-import React from "react";
+import { useState } from "react";
 import ImagesHeader from "./ImagesHeader";
 import ImagesTable from "./ImagesTable";
 
 function AdminImagesPageLayout() {
+  const [sortImages, setSortImages] = useState("");
   return (
     <>
-      <ImagesHeader />
-      <ImagesTable />
+      <ImagesHeader sortImages={sortImages} setSortImages={setSortImages} />
+      <ImagesTable sortImages={sortImages} />
     </>
   );
 }
