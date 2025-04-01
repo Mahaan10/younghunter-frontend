@@ -33,7 +33,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
         url: imageToEdit.imageUrl,
         position: imageToEdit.position,
-        dateTaken: new Date(imageToEdit.dateTaken),
+        dateTaken: imageToEdit.dateTaken,
       });
     }
   }, [editId, imageToEdit, reset, language]);
@@ -79,6 +79,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           language === "en" ? "en-Us" : "fa-IR",
           {
             year: "numeric",
+            month: "numeric",
+            day: "numeric",
           }
         ),
         url: imageUrl,
