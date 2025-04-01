@@ -31,14 +31,9 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        url: imageToEdit.url,
+        url: imageToEdit.imageUrl,
         position: imageToEdit.position,
-        dateTaken: new Date(imageToEdit.dateTaken).toLocaleDateString(
-          language === "en" ? "en-Us" : "fa-IR",
-          {
-            year: "numeric",
-          }
-        ),
+        dateTaken: new Date(imageToEdit.dateTaken),
       });
     }
   }, [editId, imageToEdit, reset, language]);
@@ -278,6 +273,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           <InputTextField
             label={language === "en" ? "Date" : "تاریخ"}
             name="dateTaken"
+            type="date"
             register={register}
             required
             validationSchema={{
