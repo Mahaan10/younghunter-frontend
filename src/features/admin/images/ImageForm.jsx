@@ -53,6 +53,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     const formData = new FormData();
     formData.append("image", selectedFile);
     console.log("FormData image", formData.get("image"));
+
     try {
       const response = await fetch(
         "https://young-hunter.liara.run/api/v1/upload",
