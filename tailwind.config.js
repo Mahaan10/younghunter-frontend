@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       textUnderlineOffset: {
-        18: "15px",
+        18: "14px",
       },
       boxShadow: {
         "3xl": "0 10px 30px rgba(0,0,0,0.45)",
