@@ -55,7 +55,7 @@ function Authentication() {
         <div
           ref={ref}
           className={`absolute text-sm font-bold text-red-700 md:-bottom-10 bottom-48 md:w-28 w-64 origin-bottom-right rounded-md shadow-md shadow-slate-800 dark:shadow-transparent dark:bg-black bg-neutral-200  hover:bg-neutral-100 ring-1 ring-black ring-opacity-5 z-10 px-2 items-center justify-between dark:border-neutral-200 mx-auto transition-all duration-300 p-1.5 border border-t-0 border-gray-400 ${
-            language === "en" ? "md:right-[8.5rem]" : "md:left-[8.5rem]"
+            language === "en" ? "md:right-[9rem]" : "md:left-[9rem]"
           }`}
         >
           <button className="w-full px-1 flex items-start" onClick={logout}>
