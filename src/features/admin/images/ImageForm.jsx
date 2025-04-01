@@ -77,9 +77,9 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         title: { en: data.enTitle, fa: data.faTitle },
         location: { name: { en: data.enLocation, fa: data.faLocation } },
         isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
-        dateTaken: data.dateTaken,
+        dateTaken: new Date(data.dateTaken),
         url: imageUrl,
-        position: data.position,
+        position: String(data.position),
       };
       console.log(newImage);
       if (editId) {
