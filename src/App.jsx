@@ -63,7 +63,7 @@ function App() {
                     element={<AdminSubAlbumPageLayout />}
                   >
                     <Route
-                      path=":albumId/sub-albums/:subAlbumId"
+                      path=":subAlbumId"
                       element={<AdminSubAlbumImagesPageLayout />}
                     />
                   </Route>
