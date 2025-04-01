@@ -8,7 +8,6 @@ function RadioInput({
   watch,
   errors,
 }) {
-  console.log("RadioInput:", { name, value, watchValue: watch(name) });
   return (
     <>
       <div className="flex items-center justify-center gap-x-2">

@@ -128,6 +128,10 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     }
   };
 
+  useEffect(() => {
+    console.log("Watched Date Taken:", watch("dateTaken"));
+  }, [watch]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
