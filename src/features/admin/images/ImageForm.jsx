@@ -31,7 +31,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        url: imageToEdit.imageUrl,
+        url: imageToEdit.url ? imageToEdit.url : "",
         position: imageToEdit.position,
         dateTaken: imageToEdit.dateTaken,
       });
@@ -39,37 +39,17 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
-    if (!selectedFile) {
-      toast.error(
-        language === "en"
-          ? "Please Upload a valid image"
-          : "لطفا یک تصویر معتبر بارگذاری کنید"
-      );
-      console.log("Submit Data", data);
-      console.log("Watch Date Taken:", watch("dateTaken"));
-      return;
-    }
 
     const formData = new FormData();
     formData.append("image", selectedFile);
-    console.log("FormData image", formData.get("image"));
+  formData.append("title[en]", data.enTitle);
+  formData.append("title[fa]", data.faTitle);
+  formData.append("location[name][en]", data.enLocation);
+  formData.append("location[name][fa]", data.faLocation);
+  formData.append("isFeaturedCarousel", data.isFeaturedCarousel === "yes");
+  formData.append("dateTaken", data.dateTaken);
+  formData.append("position", data.position);
 
-    try {
-      const response = await fetch(
-        "https://young-hunter.liara.run/api/v1/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      if (!response.ok) {
-        console.log("UPLOAD Failed RESPONSE", response);
-        toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
-      }
-      const result = await response.json();
-      const imageUrl = result.file.filename;
-      console.log("Server Response", result);
-      console.log("imageURL", imageUrl);
 
       const newImage = {
         title: { en: data.enTitle, fa: data.faTitle },
@@ -83,13 +63,13 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             day: "numeric",
           }
         ),
-        url: imageUrl,
+        url: data.url?.file?.name,
         position: String(data.position),
       };
       console.log(newImage);
       if (editId) {
         editImage(
-          { imageId: editId, newImage },
+          { imageId: editId, formData },
           {
             onSuccess: () => {
               toast.success(
@@ -106,7 +86,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           }
         );
       } else {
-        await createNewImage(newImage, {
+        await createNewImage(formData, {
           onSuccess: () => {
             toast.success(
               `${
@@ -121,9 +101,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           onError: (error) => toast.error(error?.response?.data?.message),
         });
       }
-    } catch {
-      toast.error(language === "en" ? "Upload Failed" : "بارگذاری انجام نشد");
-    }
   };
 
   return (
@@ -178,49 +155,52 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="url" className="mb-1 block text-neutral-200">
+          <label htmlFor="image" className="mb-1 block text-neutral-200">
             {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
             <span className="text-red-600">*</span>
           </label>
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
           <Controller
-            name="url"
-            control={control}
-            rules={{
-              required:
-                language === "en"
-                  ? "Image Cover is required"
-                  : "عکس کاور ضروری است",
-              validate: {
-                acceptedFormats: (fileList) =>
-                  fileList?.[0] &&
-                  (fileList[0]?.type === "image/jpeg" ||
-                    fileList[0]?.type === "image/jpg")
-                    ? true
-                    : language === "en"
-                    ? "Only JPG image is allowed!"
-                    : "فقط فرمت JPG مجاز است!",
-                fileSize: (fileList) =>
-                  fileList && fileList[0]?.size <= 20 * 1024 * 1024
-                    ? true
-                    : language === "en"
-                    ? "File size must be less than 20MB"
-                    : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
-              },
-            }}
-            render={({ field }) => (
-              <input
-                type="file"
-                accept="image/*"
-                className="inputTextField"
-                onChange={(e) => {
-                  setSelectedFile(e.target.files[0]);
-                  field.onChange(e.target.files);
-                }}
-                ref={field.ref}
-              />
-            )}
-          />
+  name="image"
+  control={control}
+  rules={{
+    required:
+      language === "en"
+        ? "Image Cover is required"
+        : "عکس کاور ضروری است",
+    validate: {
+      acceptedFormats: (fileList) =>
+        fileList &&
+        fileList.type &&
+        (fileList.type === "image/jpeg" || fileList.type === "image/jpg")
+          ? true
+          : language === "en"
+          ? "Only JPG image is allowed!"
+          : "فقط فرمت JPG مجاز است!",
+      fileSize: (fileList) =>
+        fileList && fileList.size <= 20 * 1024 * 1024
+          ? true
+          : language === "en"
+          ? "File size must be less than 20MB"
+          : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
+    },
+  }}
+  render={({ field: { onChange, ref } }) => (
+    <input
+      type="file"
+      name="image"
+      accept="image/jpeg, image/jpg"
+      className="inputTextField"
+      onChange={(e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+        onChange(file); // Correctly storing only the first file
+      }}
+      ref={ref}
+    />
+  )}
+/>
+
 
           {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
