@@ -31,7 +31,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        image: imageToEdit.url ? imageToEdit.url : "",
+        image: imageToEdit.image,
         position: imageToEdit.position,
         dateTaken: imageToEdit.dateTaken,
       });
