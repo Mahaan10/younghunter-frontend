@@ -19,7 +19,7 @@ function InputTextField({
         className="inputTextField"
         autoComplete="off"
       />
-      {errors && errors[name] && (
+      {errors && errors[name] && errors[name].message && (
         <span className="text-red-600 block text-sm mt-2">
           {errors[name]?.message}
         </span>
