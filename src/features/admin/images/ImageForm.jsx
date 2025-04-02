@@ -31,7 +31,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        url: imageToEdit.url ? imageToEdit.url : "",
+        image: imageToEdit.url ? imageToEdit.url : "",
         position: imageToEdit.position,
         dateTaken: imageToEdit.dateTaken,
       });
@@ -63,7 +63,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             day: "numeric",
           }
         ),
-        url: data.url?.file?.name,
+        image: data.image.name,
         position: String(data.position),
       };
       console.log(newImage);
