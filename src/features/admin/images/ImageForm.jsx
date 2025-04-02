@@ -67,6 +67,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         position: String(data.position),
       };
       console.log(newImage);
+      console.log("URL:", data.url)
       if (editId) {
         editImage(
           { imageId: editId, formData },
@@ -160,7 +161,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             <span className="text-red-600">*</span>
           </label>
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
-          
+
           <Controller
   name="image"
   control={control}
