@@ -160,6 +160,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             <span className="text-red-600">*</span>
           </label>
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
+          
           <Controller
   name="image"
   control={control}
