@@ -67,7 +67,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         position: String(data.position),
       };
       console.log(newImage);
-      console.log("URL:", data.url)
+      console.log("URL:", data)
       if (editId) {
         editImage(
           { imageId: editId, formData },
@@ -204,11 +204,11 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 />
 
 
-          {errors.file && (
-            <span className="text-red-600 block text-sm mt-2">
-              {errors?.file?.message}
-            </span>
-          )}
+{errors?.image?.message && (
+  <span className="text-red-600 block text-sm mt-2">
+    {errors?.image?.message}
+  </span>
+)}
         </div>
         <div className="flex flex-col w-[80%]">
           <InputTextField
