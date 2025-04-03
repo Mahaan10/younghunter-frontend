@@ -113,11 +113,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      encType="multipart/form-data"
-      method="post"
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
           <InputTextField

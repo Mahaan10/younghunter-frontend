@@ -47,8 +47,7 @@ export default function useAuth() {
 }
 
 export const logout = () => {
-  const navigate = useNavigate();
   Cookies.remove("token");
   Cookies.remove("role");
-  navigate("/", { replace: true });
+  window.location.href = "/";
 };
