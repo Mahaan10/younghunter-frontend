@@ -1,6 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { getRoleFromCookies } from "../utils/authUtils";
+import { createContext, useContext, useState } from "react";
 
 const AdminContext = createContext();
 
