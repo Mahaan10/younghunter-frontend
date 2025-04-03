@@ -56,7 +56,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("dateTaken", data.dateTaken);
     formData.append("position", data.position);
 
-    console.log("Submitting FormData:", formData);
+    console.log("Submitting FormData:", Object.fromEntries(formData.entries()));
 
     /*     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
