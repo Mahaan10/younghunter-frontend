@@ -31,7 +31,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        image: imageToEdit.url,
+        //image: imageToEdit.url,
         position: imageToEdit.position,
         dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0],
       });
@@ -78,7 +78,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       await editImage(
         { imageId: editId, newImage: formData },
         {
-          onSuccess: () => {
+          onSuccess: (updatedData) => {
+            console.log(updatedData);
             toast.success(
               `${
                 language === "en"
@@ -161,20 +162,20 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             errors={errors}
           />
         </div>
-        {imagePreview && (
-          <div className="mb-4">
-            <img
-              src={imagePreview}
-              alt=""
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        )}
         <div className="flex flex-col w-[80%]">
           <label htmlFor="image" className="mb-1 block text-neutral-200">
             {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
             <span className="text-red-600">*</span>
           </label>
+          {imagePreview && (
+            <div className="">
+              <img
+                src={imagePreview}
+                alt=""
+                className="w-24 h-auto object-cover"
+              />
+            </div>
+          )}
           <Controller
             name="image"
             control={control}
