@@ -79,7 +79,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         { imageId: editId, newImage: formData },
         {
           onSuccess: (updatedData) => {
-            console.log(updatedData);
+            console.log("UPDATED DATA:",updatedData);
             toast.success(
               `${
                 language === "en"
@@ -95,7 +95,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       );
     } else {
       await createNewImage(formData, {
-        onSuccess: () => {
+        onSuccess: (createdDate) => {
+          console.log("CREATED DATA:", createdDate)
           toast.success(
             `${
               language === "en"
