@@ -46,10 +46,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    if (selectedFile) {
-      formData.append("image", selectedFile);
-    }
 
+    formData.append("image", selectedFile);
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
     formData.append("location[name][en]", data.enLocation);
@@ -58,7 +56,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("dateTaken", data.dateTaken);
     formData.append("position", data.position);
 
-    console.log("Submitting FormData:", Object.fromEntries(formData.entries()));
+    console.log("Submitting FormData:", formData);
 
     /*     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
