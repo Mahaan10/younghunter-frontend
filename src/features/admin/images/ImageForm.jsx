@@ -24,8 +24,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
   useEffect(() => {
     if (editId) {
-      console.log(imageToEdit);
-      setSelectedFile(null);
       reset({
         enTitle: imageToEdit.title.en,
         faTitle: imageToEdit.title.fa,
@@ -35,11 +33,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
         image: imageToEdit.url,
         position: imageToEdit.position,
-        dateTaken: new Date(imageToEdit.dateTaken).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }),
+        dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0]
       });
     }
   }, [editId, imageToEdit, reset, language]);
@@ -56,10 +50,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("dateTaken", data.dateTaken);
     formData.append("position", data.position);
 
-    console.log("Submitting FormData:", Object.fromEntries(formData.entries()));
-    const formObject = Object.fromEntries(formData.entries());
-    console.log(formObject.image);
-    console.log(formObject.position);
+    //  const formObject = Object.fromEntries(formData.entries());
+
     /*     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
       location: { name: { en: data.enLocation, fa: data.faLocation } },
@@ -168,8 +160,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
             <span className="text-red-600">*</span>
           </label>
-          {/* <InputTextField name="url" register={register} errors={errors} /> */}
-
           <Controller
             name="image"
             control={control}
@@ -205,7 +195,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
                 onChange={(e) => {
                   const file = e.target.files[0];
                   setSelectedFile(file);
-                  onChange(file); // Correctly storing only the first file
+                  onChange(file);
                 }}
                 ref={ref}
               />
