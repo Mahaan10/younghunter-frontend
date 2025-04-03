@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import useUsers from "../../hooks/useUsers";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useLogout } from "../../hooks/useAuth";
-import { getRoleFromCookies } from "../../hooks/authUtils"; // Import getRoleFromCookies
+import { getRoleFromCookies } from "../../hooks/authUtils";
 
 function Authentication() {
   const [openModal, setOpenModal] = useState(false);
