@@ -76,7 +76,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
     if (editId) {
       await editImage(
-        { imageId: editId, newImage: formData },
+        { imageId: editId, newImage: formData.image },
         {
           onSuccess: (updatedData) => {
             console.log(updatedData);
@@ -163,19 +163,21 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="image" className="mb-1 block text-neutral-200">
-            {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
-            <span className="text-red-600">*</span>
-          </label>
-          {imagePreview && (
-            <div className="">
-              <img
-                src={imagePreview}
-                alt=""
-                className="w-24 h-auto object-cover"
-              />
-            </div>
-          )}
+          <div className="flex">
+            <label htmlFor="image" className="mb-1 block text-neutral-200">
+              {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
+              <span className="text-red-600">*</span>
+            </label>
+            {imagePreview && (
+              <div className="">
+                <img
+                  src={imagePreview}
+                  alt=""
+                  className="w-16 h-auto object-cover"
+                />
+              </div>
+            )}
+          </div>
           <Controller
             name="image"
             control={control}
