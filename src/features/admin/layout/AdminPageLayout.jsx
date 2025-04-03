@@ -1,12 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
 import { useLanguage } from "../../../context/useLanguageContext";
 import useUsers from "../../../hooks/useUsers";
-import { logout } from "../../../hooks/useAuth";
+import { useLogout } from "../../../hooks/useAuth";
 import { NavLink } from "react-router-dom";
 
 function AdminPageLayout() {
   const { users } = useUsers();
   const { language } = useLanguage();
+  const logout = useLogout();
 
   const findAdmin = users.find((user) => user.role === "admin");
 
