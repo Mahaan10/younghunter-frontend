@@ -19,7 +19,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     watch,
     control,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const { language } = useLanguage();
 
   useEffect(() => {
