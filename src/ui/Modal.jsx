@@ -15,7 +15,7 @@ function Modal({ onClose, children, title }) {
         <div className="flex items-center justify-between border-b border-gray-300 pb-2 mb-6">
           <div className="flex items-center gap-x-2">
             <button className="w-10">
-              <img src="./public/logo demo.jpg" alt="" />
+              <img src="/logo demo.jpg" alt="" />
             </button>
             <h1 className="text-white font-bold text-2xl">{title}</h1>
           </div>

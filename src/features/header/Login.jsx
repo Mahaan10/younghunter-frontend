@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/useLanguageContext";
 import useAuth from "../../hooks/useAuth";
 
 function Login({ setOpenModal }) {
-  const { getLoggedIn, isLoggedIn } = useAuth()
+  const { getLoggedIn, isLoggedIn } = useAuth();
   const { language } = useLanguage();
   // need to modify new Loading component!
   const formik = useFormik({
@@ -13,9 +13,9 @@ function Login({ setOpenModal }) {
       password: "",
     },
     validateOnMount: true,
-    onSubmit: (values) => {
-      getLoggedIn({ email: values.email, password: values.password })
-      setOpenModal(false)
+    onSubmit: async (values) => {
+      await getLoggedIn({ email: values.email, password: values.password });
+      setOpenModal(false);
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -28,9 +28,10 @@ function Login({ setOpenModal }) {
       password: Yup.string()
         .min(
           8,
-          `${language === "en"
-            ? "Password must contain atleast 8 characters"
-            : "کلمه عبور باید حداقل ۸ کاراکتر باشد"
+          `${
+            language === "en"
+              ? "Password must contain atleast 8 characters"
+              : "کلمه عبور باید حداقل ۸ کاراکتر باشد"
           }`
         )
         .required(

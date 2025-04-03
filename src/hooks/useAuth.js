@@ -7,12 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function useAuth() {
   const { language } = useLanguage();
-  const navigate = useNavigate()
-  
-  const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
+  const navigate = useNavigate();
+
+  const { isPending: isLoggedIn, mutateAsync: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
-      console.log("Admin login:", data)
       Cookies.set("token", data.token, {
         expires: 90,
         secure: true,
@@ -24,9 +23,9 @@ export default function useAuth() {
         sameSite: "Strict",
       });
       if (data.data.user.role === "admin") {
-        navigate("/admin", {replace: true})
+        navigate("/admin", { replace: true });
       } else {
-        navigate("/", {replace: true})
+        navigate("/", { replace: true });
       }
 
       toast.success(
@@ -48,7 +47,8 @@ export default function useAuth() {
 }
 
 export const logout = () => {
+  const navigate = useNavigate();
   Cookies.remove("token");
   Cookies.remove("role");
-  window.location.href = "/";
+  navigate("/", { replace: true });
 };
