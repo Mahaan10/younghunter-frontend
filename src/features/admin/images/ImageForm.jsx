@@ -45,9 +45,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   const onSubmit = async (data) => {
     const formData = new FormData();
 
-    if (selectedFile) {
-      formData.append("image", selectedFile);
-    }
+    formData.append("image", selectedFile);
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
     formData.append("location[name][en]", data.enLocation);
@@ -79,7 +77,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         { imageId: editId, newImage: formData },
         {
           onSuccess: (updatedData) => {
-            console.log("UPDATED DATA:",updatedData);
+            console.log("UPDATED DATA:", updatedData);
             toast.success(
               `${
                 language === "en"
@@ -96,7 +94,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     } else {
       await createNewImage(formData, {
         onSuccess: (createdDate) => {
-          console.log("CREATED DATA:", createdDate)
+          console.log("CREATED DATA:", createdDate);
           toast.success(
             `${
               language === "en"
