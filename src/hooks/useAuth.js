@@ -4,10 +4,12 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useLanguage } from "../context/useLanguageContext";
 import { useNavigate } from "react-router-dom";
+import { useAdmin } from "../context/useAdminContext";
 
 export default function useAuth() {
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const { setAdmin } = useAdmin();
 
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
@@ -23,6 +25,7 @@ export default function useAuth() {
         sameSite: "Strict",
       });
       if (data.data.user.role === "admin") {
+        setAdmin(true);
         navigate("/admin");
       } else {
         navigate("/");
