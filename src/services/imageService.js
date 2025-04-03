@@ -12,8 +12,8 @@ export function removeImageApi(imageId) {
   return http.delete(`/images/${imageId}`).then(({ data }) => data.data);
 }
 
-export function editImageApi({ imageId, formData }) {
+export function editImageApi({ imageId, newImage }) {
   return http
-    .patch(`/images/${imageId}`, formData)
+    .patch(`/images/${imageId}`, newImage)
     .then(({ data }) => data.data);
 }

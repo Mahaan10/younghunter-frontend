@@ -43,8 +43,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     const formData = new FormData();
     if (selectedFile) {
       formData.append("image", selectedFile);
-    } else if (imageToEdit.image) {
-      formData.append("image", imageToEdit.image);
     }
 
     formData.append("title[en]", data.enTitle);
@@ -75,7 +73,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
     if (editId) {
       editImage(
-        { imageId: editId, formData: formData },
+        { imageId: editId, newImage: formData },
         {
           onSuccess: () => {
             toast.success(
