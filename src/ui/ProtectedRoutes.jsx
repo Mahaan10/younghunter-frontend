@@ -1,8 +1,8 @@
 // ProtectedRoute.jsx
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAdmin } from "./context/useAdminContext";
-import { getRoleFromCookies } from "./authUtils";
+import { useAdmin } from "../context/useAdminContext";
+import { getRoleFromCookies } from "../utils/authUtils";
 
 function ProtectedRoute({ children }) {
   const { setAdmin, loading, setLoading } = useAdmin();
