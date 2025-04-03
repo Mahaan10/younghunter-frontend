@@ -4,19 +4,19 @@ import Login from "./Login";
 import { useLanguage } from "../../context/useLanguageContext";
 import { FaChevronDown } from "react-icons/fa6";
 import toast from "react-hot-toast";
-import { useAdmin } from "../../context/useAdminContext";
 import useUsers from "../../hooks/useUsers";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useLogout } from "../../hooks/useAuth";
+import { getRoleFromCookies } from "../../hooks/authUtils"; // Import getRoleFromCookies
 
 function Authentication() {
   const [openModal, setOpenModal] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const { isAdmin } = useAdmin();
   const { error, isError, isLoading, users } = useUsers();
   const { language } = useLanguage();
   const ref = useOutsideClick(() => setIsDropDownOpen(false));
   const logout = useLogout();
+  const role = getRoleFromCookies();
 
   if (isError) return toast.error(error.response.data.message);
   if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;
@@ -25,7 +25,7 @@ function Authentication() {
 
   return (
     <>
-      {!isAdmin ? (
+      {!role === "admin" ? ( // Check role directly
         <button
           className="text-sm font-semibold border border-gray-400 md:mx-2 md:w-28 px-3 py-1.5 rounded-xl shadow-md shadow-slate-800 dark:border-neutral-200 dark:shadow-transparent w-full mx-auto transition-all duration-300"
           onClick={() => setOpenModal(true)}
