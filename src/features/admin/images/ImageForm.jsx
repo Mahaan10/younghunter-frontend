@@ -39,69 +39,67 @@ function ImageForm({ onClose, imageToEdit = {} }) {
   }, [editId, imageToEdit, reset, language]);
 
   const onSubmit = async (data) => {
-
     const formData = new FormData();
     formData.append("image", selectedFile);
-  formData.append("title[en]", data.enTitle);
-  formData.append("title[fa]", data.faTitle);
-  formData.append("location[name][en]", data.enLocation);
-  formData.append("location[name][fa]", data.faLocation);
-  formData.append("isFeaturedCarousel", data.isFeaturedCarousel === "yes");
-  formData.append("dateTaken", data.dateTaken);
-  formData.append("position", data.position);
+    formData.append("title[en]", data.enTitle);
+    formData.append("title[fa]", data.faTitle);
+    formData.append("location[name][en]", data.enLocation);
+    formData.append("location[name][fa]", data.faLocation);
+    formData.append("isFeaturedCarousel", data.isFeaturedCarousel === "yes");
+    formData.append("dateTaken", data.dateTaken);
+    formData.append("position", data.position);
 
-
-      const newImage = {
-        title: { en: data.enTitle, fa: data.faTitle },
-        location: { name: { en: data.enLocation, fa: data.faLocation } },
-        isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
-        dateTaken: new Date(data.dateTaken).toLocaleDateString(
-          language === "en" ? "en-Us" : "fa-IR",
-          {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          }
-        ),
-        image: data.image.name,
-        position: String(data.position),
-      };
-      console.log(newImage);
-      console.log("URL:", data)
-      if (editId) {
-        editImage(
-          { imageId: editId, formData },
-          {
-            onSuccess: () => {
-              toast.success(
-                `${
-                  language === "en"
-                    ? `Edit ${data.enTitle} successfully`
-                    : `عکس ${data.faTitle} با موفقیت ویرایش شد`
-                }`
-              );
-              onClose();
-              reset();
-            },
-            onError: (error) => toast.error(error?.response?.data?.message),
-          }
-        );
-      } else {
-        await createNewImage(formData, {
+    const newImage = {
+      title: { en: data.enTitle, fa: data.faTitle },
+      location: { name: { en: data.enLocation, fa: data.faLocation } },
+      isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
+      dateTaken: new Date(data.dateTaken).toLocaleDateString(
+        language === "en" ? "en-Us" : "fa-IR",
+        {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        }
+      ),
+      image: data.image.name,
+      position: String(data.position),
+    };
+    console.log(newImage);
+    console.log("URL:", data);
+    if (editId) {
+      editImage(
+        { imageId: editId, formData: formData },
+        {
           onSuccess: () => {
             toast.success(
               `${
                 language === "en"
-                  ? `Create ${data.enTitle} successfully`
-                  : `عکس ${data.faTitle} با موفقیت ایجاد شد`
+                  ? `Edit ${data.enTitle} successfully`
+                  : `عکس ${data.faTitle} با موفقیت ویرایش شد`
               }`
             );
-            reset();
             onClose();
+            reset();
           },
           onError: (error) => toast.error(error?.response?.data?.message),
-        });
-      }
+        }
+      );
+    } else {
+      await createNewImage(formData, {
+        onSuccess: () => {
+          toast.success(
+            `${
+              language === "en"
+                ? `Create ${data.enTitle} successfully`
+                : `عکس ${data.faTitle} با موفقیت ایجاد شد`
+            }`
+          );
+          reset();
+          onClose();
+        },
+        onError: (error) => toast.error(error?.response?.data?.message),
+      });
+    }
   };
 
   return (
@@ -163,52 +161,52 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           {/* <InputTextField name="url" register={register} errors={errors} /> */}
 
           <Controller
-  name="image"
-  control={control}
-  rules={{
-    required:
-      language === "en"
-        ? "Image Cover is required"
-        : "عکس کاور ضروری است",
-    validate: {
-      acceptedFormats: (fileList) =>
-        fileList &&
-        fileList.type &&
-        (fileList.type === "image/jpeg" || fileList.type === "image/jpg")
-          ? true
-          : language === "en"
-          ? "Only JPG image is allowed!"
-          : "فقط فرمت JPG مجاز است!",
-      fileSize: (fileList) =>
-        fileList && fileList.size <= 20 * 1024 * 1024
-          ? true
-          : language === "en"
-          ? "File size must be less than 20MB"
-          : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
-    },
-  }}
-  render={({ field: { onChange, ref } }) => (
-    <input
-      type="file"
-      name="image"
-      accept="image/jpeg, image/jpg"
-      className="inputTextField"
-      onChange={(e) => {
-        const file = e.target.files[0];
-        setSelectedFile(file);
-        onChange(file); // Correctly storing only the first file
-      }}
-      ref={ref}
-    />
-  )}
-/>
+            name="image"
+            control={control}
+            rules={{
+              required:
+                language === "en"
+                  ? "Image Cover is required"
+                  : "عکس کاور ضروری است",
+              validate: {
+                acceptedFormats: (fileList) =>
+                  fileList &&
+                  fileList.type &&
+                  (fileList.type === "image/jpeg" ||
+                    fileList.type === "image/jpg")
+                    ? true
+                    : language === "en"
+                    ? "Only JPG image is allowed!"
+                    : "فقط فرمت JPG مجاز است!",
+                fileSize: (fileList) =>
+                  fileList && fileList.size <= 20 * 1024 * 1024
+                    ? true
+                    : language === "en"
+                    ? "File size must be less than 20MB"
+                    : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
+              },
+            }}
+            render={({ field: { onChange, ref } }) => (
+              <input
+                type="file"
+                name="image"
+                accept="image/jpeg, image/jpg"
+                className="inputTextField"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setSelectedFile(file);
+                  onChange(file); // Correctly storing only the first file
+                }}
+                ref={ref}
+              />
+            )}
+          />
 
-
-{errors?.image?.message && (
-  <span className="text-red-600 block text-sm mt-2">
-    {errors?.image?.message}
-  </span>
-)}
+          {errors?.image?.message && (
+            <span className="text-red-600 block text-sm mt-2">
+              {errors?.image?.message}
+            </span>
+          )}
         </div>
         <div className="flex flex-col w-[80%]">
           <InputTextField
