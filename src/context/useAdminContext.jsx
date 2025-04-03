@@ -5,10 +5,15 @@ const AdminContext = createContext();
 
 export default function AdminProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const role = Cookies.get("role");
-    if (role === "admin") setIsAdmin(true);
+    const checkAdmin = () => {
+        const role = Cookies.get("role")
+        setIsAdmin(role === "admin")
+        setLoading(false)
+    };
+    checkAdmin()
   }, []);
 
   const setAdmin = (value) => {
@@ -16,7 +21,7 @@ export default function AdminProvider({ children }) {
   };
 
   return (
-    <AdminContext.Provider value={{ isAdmin, setAdmin }}>
+    <AdminContext.Provider value={{ isAdmin, setAdmin, loading }}>
       {children}
     </AdminContext.Provider>
   );
