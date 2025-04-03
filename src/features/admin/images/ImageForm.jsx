@@ -19,11 +19,12 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     watch,
     control,
     formState: { errors, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onBlur" });
   const { language } = useLanguage();
 
   useEffect(() => {
     if (editId) {
+      console.log(imageToEdit);
       setSelectedFile(null);
       reset({
         enTitle: imageToEdit.title.en,
