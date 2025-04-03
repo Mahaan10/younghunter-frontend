@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useLanguage } from "../context/useLanguageContext";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "../context/useAdminContext";
+import { clearAuthCookies, setAuthCookies } from "../utils/authUtils";
 
 export default function useAuth() {
   const { language } = useLanguage();
@@ -14,30 +15,9 @@ export default function useAuth() {
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
-      Cookies.set("token", data.token, {
-        expires: 90,
-        secure: true,
-        sameSite: "Strict",
-      });
-      Cookies.set("role", data.data.user.role, {
-        expires: 90,
-        secure: true,
-        sameSite: "Strict",
-      });
-      if (data.data.user.role === "admin") {
-        setAdmin(true);
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-
-      toast.success(
-        `${
-          language === "en"
-            ? `Welcome ${data.data.user.name}`
-            : `${data.data.user.name}، خوش آمدید!`
-        }`
-      );
+      setAuthCookies(data.token, data.data.user.role);
+      setAdmin(data.data.user.role);
+      navigate(data.data.user.role === "admin" ? "/admin" : "/");
     },
     onError: (error) =>
       toast.error(
@@ -50,7 +30,9 @@ export default function useAuth() {
 }
 
 export const logout = () => {
-  Cookies.remove("token");
-  Cookies.remove("role");
-  navigate("/");
+  const navigate = useNavigate();
+  return () => {
+    clearAuthCookies();
+    navigate("/");
+  };
 };
