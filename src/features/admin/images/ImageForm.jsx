@@ -33,9 +33,13 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        image: imageToEdit.image,
+        image: imageToEdit.url,
         position: imageToEdit.position,
-        dateTaken: imageToEdit.dateTaken,
+        dateTaken: new Date(imageToEdit.dateTaken).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        }),
       });
     }
   }, [editId, imageToEdit, reset, language]);
