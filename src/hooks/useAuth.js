@@ -3,13 +3,16 @@ import { loginApi } from "../services/userService";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useLanguage } from "../context/useLanguageContext";
+import { useNavigate } from "react-router-dom";
 
 export default function useAuth() {
   const { language } = useLanguage();
+  const navigate = useNavigate()
   
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
+      console.log("Admin login:", data)
       Cookies.set("token", data.token, {
         expires: 90,
         secure: true,
@@ -21,7 +24,7 @@ export default function useAuth() {
         sameSite: "Strict",
       });
       if (data.data.user.role === "admin") {
-        window.location.reload();
+        navigate("/admin")
       } else {
         window.location.href = "/";
       }

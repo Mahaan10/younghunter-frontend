@@ -4,12 +4,19 @@ import Cookies from "js-cookie";
 const AdminContext = createContext();
 
 export default function AdminProvider({ children }) {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
     const role = Cookies.get("role");
-    if (role === "admin") setIsAdmin(true);
+    console.log(role);
+    if (role === "admin") {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
   }, []);
+
+  if (isAdmin === null) return null;
 
   return (
     <AdminContext.Provider value={{ isAdmin }}>
