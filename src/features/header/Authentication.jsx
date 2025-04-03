@@ -19,7 +19,8 @@ function Authentication() {
   const role = getRoleFromCookies();
 
   if (isError) return toast.error(error.response.data.message);
-  if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;
+  if (isLoading)
+    return <div className="font-bold text-3xl px-3 w-28 ">...</div>;
 
   const findAdmin = users.find((user) => user.role === "admin");
 
