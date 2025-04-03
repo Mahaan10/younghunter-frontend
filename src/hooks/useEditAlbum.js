@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export default function useEditAlbum() {
   const queryClient = useQueryClient();
 
-  const { isPending: isEditing, mutateAsync: editAlbum } = useMutation({
+  const { isPending: isEditing, mutate: editAlbum } = useMutation({
     mutationFn: editAlbumApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
