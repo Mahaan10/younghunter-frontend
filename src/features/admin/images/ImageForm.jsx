@@ -33,15 +33,21 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
         image: imageToEdit.url,
         position: imageToEdit.position,
-        dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0]
+        dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0],
       });
     }
   }, [editId, imageToEdit, reset, language]);
 
+  const imagePreview = selectedFile
+    ? URL.createObjectURL(selectedFile)
+    : imageToEdit.url;
+
   const onSubmit = async (data) => {
     const formData = new FormData();
 
-    formData.append("image", selectedFile);
+    if (selectedFile) {
+      formData.append("image", selectedFile);
+    }
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
     formData.append("location[name][en]", data.enLocation);
@@ -155,6 +161,15 @@ function ImageForm({ onClose, imageToEdit = {} }) {
             errors={errors}
           />
         </div>
+        {imagePreview && (
+          <div className="mb-4">
+            <img
+              src={imagePreview}
+              alt=""
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
         <div className="flex flex-col w-[80%]">
           <label htmlFor="image" className="mb-1 block text-neutral-200">
             {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
