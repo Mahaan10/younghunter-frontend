@@ -36,7 +36,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0],
       });
     }
-  }, [editId, imageToEdit, reset, language]);
+  }, [editId, imageToEdit, reset]);
 
   const imagePreview = selectedFile
     ? URL.createObjectURL(selectedFile)
