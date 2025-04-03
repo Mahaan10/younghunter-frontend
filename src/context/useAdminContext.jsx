@@ -7,7 +7,7 @@ export default function AdminProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
-    const role = Cookies.get("role");
+    const role = Cookies.get("role") || null;
     console.log(role);
     if (role === "admin") {
       setIsAdmin(true);
