@@ -3,10 +3,16 @@ import { useLanguage } from "../../../context/useLanguageContext";
 import useUsers from "../../../hooks/useUsers";
 import { logout } from "../../../hooks/useAuth";
 import { NavLink } from "react-router-dom";
+import Loading from "../../../ui/Loading";
+import toast from "react-hot-toast";
 
 function AdminPageLayout() {
-  const { users } = useUsers();
+  const { users, isLoading, isError, error } = useUsers();
   const { language } = useLanguage();
+
+  if (isLoading) return <Loading />;
+  if (isError)
+    return toast.error(error?.response?.data?.message || error?.message);
 
   const findAdmin = users.find((user) => user.role === "admin");
 
@@ -18,7 +24,7 @@ function AdminPageLayout() {
             <li className="flex">
               <Link to="/">{language === "en" ? "Home" : "صفحه اصلی"}</Link>
             </li>
-            <li className="flex">{findAdmin.name}</li>
+            <li className="flex">{findAdmin ? findAdmin.name : "Admin"}</li>
             <li className="flex">
               <button onClick={logout}>
                 {language === "en" ? "Logout" : "خروج"}

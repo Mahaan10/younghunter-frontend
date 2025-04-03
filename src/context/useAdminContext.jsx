@@ -8,7 +8,6 @@ export default function AdminProvider({ children }) {
 
   useEffect(() => {
     const role = Cookies.get("role") || null;
-    console.log(role);
     if (role === "admin") {
       setIsAdmin(true);
     } else {
@@ -16,7 +15,7 @@ export default function AdminProvider({ children }) {
     }
   }, []);
 
-  if (isAdmin === null) return null;
+  if (isAdmin === null) return <div>...</div>;
 
   return (
     <AdminContext.Provider value={{ isAdmin }}>

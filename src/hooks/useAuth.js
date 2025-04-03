@@ -24,9 +24,9 @@ export default function useAuth() {
         sameSite: "Strict",
       });
       if (data.data.user.role === "admin") {
-        navigate("/admin")
+        navigate("/admin", {replace: true})
       } else {
-        window.location.href = "/";
+        navigate("/", {replace: true})
       }
 
       toast.success(
