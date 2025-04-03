@@ -15,5 +15,5 @@ export function removeImageApi(imageId) {
 export function editImageApi({ imageId, newImage }) {
   return http
     .patch(`/images/${imageId}`, newImage)
-    .then(({ data }) => data.data);
+    .then(({ data }) => data.data.image);
 }

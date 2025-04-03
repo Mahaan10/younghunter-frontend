@@ -76,7 +76,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
     if (editId) {
       await editImage(
-        { imageId: editId, newImage: formData.image },
+        { imageId: editId, newImage: formData },
         {
           onSuccess: (updatedData) => {
             console.log(updatedData);
@@ -163,7 +163,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <div className="flex">
+          <div className="flex items-center justify-between">
             <label htmlFor="image" className="mb-1 block text-neutral-200">
               {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
               <span className="text-red-600">*</span>
@@ -173,7 +173,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
                 <img
                   src={imagePreview}
                   alt=""
-                  className="w-16 h-auto object-cover"
+                  className="w-16 h-16 object-cover"
                 />
               </div>
             )}
