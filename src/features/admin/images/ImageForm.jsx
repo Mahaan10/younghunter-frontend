@@ -24,6 +24,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
   useEffect(() => {
     if (editId) {
+      setSelectedFile(null);
       reset({
         enTitle: imageToEdit.title.en,
         faTitle: imageToEdit.title.fa,
@@ -40,7 +41,12 @@ function ImageForm({ onClose, imageToEdit = {} }) {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append("image", selectedFile);
+    if (selectedFile) {
+      formData.append("image", selectedFile);
+    } else if (imageToEdit.image) {
+      formData.append("image", imageToEdit.image);
+    }
+
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
     formData.append("location[name][en]", data.enLocation);
@@ -49,7 +55,9 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("dateTaken", data.dateTaken);
     formData.append("position", data.position);
 
-    const newImage = {
+    console.log("Submitting FormData:", Object.fromEntries(formData.entries()));
+
+    /*     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
       location: { name: { en: data.enLocation, fa: data.faLocation } },
       isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
@@ -63,9 +71,8 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       ),
       image: data.image.name,
       position: String(data.position),
-    };
-    console.log(newImage);
-    console.log("URL:", data);
+    }; */
+
     if (editId) {
       editImage(
         { imageId: editId, formData: formData },
