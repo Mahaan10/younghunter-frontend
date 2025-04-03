@@ -5,21 +5,14 @@ import { getRoleFromCookies } from "../utils/authUtils";
 const AdminContext = createContext();
 
 export default function AdminProvider({ children }) {
-  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const role = getRoleFromCookies();
-    setIsAdmin(role === "admin");
+  const setAdmin = () => {
     setLoading(false);
-  }, []);
-
-  const setAdmin = (value) => {
-    setIsAdmin(value);
   };
 
   return (
-    <AdminContext.Provider value={{ isAdmin, setAdmin, loading }}>
+    <AdminContext.Provider value={{ setLoading, setAdmin, loading }}>
       {children}
     </AdminContext.Provider>
   );

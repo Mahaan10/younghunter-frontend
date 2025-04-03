@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useAdmin } from "../../context/useAdminContext";
 import useUsers from "../../hooks/useUsers";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import { logout } from "../../hooks/useAuth";
+import { useLogout } from "../../hooks/useAuth";
 
 function Authentication() {
   const [openModal, setOpenModal] = useState(false);
@@ -16,6 +16,7 @@ function Authentication() {
   const { error, isError, isLoading, users } = useUsers();
   const { language } = useLanguage();
   const ref = useOutsideClick(() => setIsDropDownOpen(false));
+  const logout = useLogout();
 
   if (isError) return toast.error(error.response.data.message);
   if (isLoading) return <div className="font-bold text-3xl px-3 w-28">...</div>;

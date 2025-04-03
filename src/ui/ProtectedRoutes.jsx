@@ -1,12 +1,29 @@
+// ProtectedRoute.jsx
+import { useContext, useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAdmin } from "../context/useAdminContext";
+import { useAdmin } from "./context/useAdminContext";
+import { getRoleFromCookies } from "./authUtils";
 
-function ProtectedRoutes({ children }) {
-  const { isAdmin, loading } = useAdmin();
+function ProtectedRoute({ children }) {
+  const { setAdmin, loading, setLoading } = useAdmin();
+  const [isAdmin, setIsAdmin] = useState(null);
 
-  if (loading) return <div>...</div>;
-  if (!isAdmin) return <Navigate to="/" replace />;
+  useEffect(() => {
+    const role = getRoleFromCookies();
+    setIsAdmin(role === "admin");
+    setAdmin(role === "admin");
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isAdmin === false) {
+    return <Navigate to="/" replace />;
+  }
+
   return children ? children : <Outlet />;
 }
 
-export default ProtectedRoutes;
+export default ProtectedRoute;

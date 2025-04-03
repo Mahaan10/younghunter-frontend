@@ -29,7 +29,7 @@ export default function useAuth() {
   return { isLoggedIn, getLoggedIn };
 }
 
-export const logout = () => {
+export const useLogout = () => {
   const navigate = useNavigate();
   return () => {
     clearAuthCookies();
