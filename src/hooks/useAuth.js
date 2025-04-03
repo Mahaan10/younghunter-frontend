@@ -3,21 +3,35 @@ import { loginApi } from "../services/userService";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useLanguage } from "../context/useLanguageContext";
-import { useNavigate } from "react-router-dom";
-import { useAdmin } from "../context/useAdminContext";
-import { clearAuthCookies, setAuthCookies } from "../utils/authUtils";
 
 export default function useAuth() {
   const { language } = useLanguage();
-  const navigate = useNavigate();
-  const { setAdmin } = useAdmin();
-
   const { isPending: isLoggedIn, mutate: getLoggedIn } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
-      setAuthCookies(data.token, data.data.user.role);
-      setAdmin(data.data.user.role);
-      navigate(data.data.user.role === "admin" ? "/admin" : "/");
+      Cookies.set("token", data.token, {
+        expires: 90,
+        secure: true,
+        sameSite: "Strict",
+      });
+      Cookies.set("role", data.data.user.role, {
+        expires: 90,
+        secure: true,
+        sameSite: "Strict",
+      });
+      if (data.data.user.role === "admin") {
+        window.location.reload();
+      } else {
+        window.location.href = "/";
+      }
+
+      toast.success(
+        `${
+          language === "en"
+            ? `Welcome ${data.data.user.name}`
+            : `${data.data.user.name}، خوش آمدید!`
+        }`
+      );
     },
     onError: (error) =>
       toast.error(
@@ -29,10 +43,8 @@ export default function useAuth() {
   return { isLoggedIn, getLoggedIn };
 }
 
-export const useLogout = () => {
-  const navigate = useNavigate();
-  return () => {
-    clearAuthCookies();
-    navigate("/");
-  };
+export const logout = () => {
+  Cookies.remove("token");
+  Cookies.remove("role");
+  window.location.href = "/";
 };

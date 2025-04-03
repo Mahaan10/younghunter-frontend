@@ -16,10 +16,13 @@ import AdminAlbumsPageLayout from "./features/admin/album/AdminAlbumsPageLayout"
 import HomePageLayout from "./features/carousel/HomePageLayout";
 import AdminSubAlbumPageLayout from "./features/admin/subAlbum/AdminSubAlbumPageLayout";
 import AdminSubAlbumImagesPageLayout from "./features/admin/subAlbum/image/AdminSubAlbumImagesPageLayout";
-import ProtectedRoutes from "./ui/ProtectedRoutes";
 
 function App() {
   const queryClient = new QueryClient();
+
+  // Only Dark colors in Tables have to stay!
+  // Create a route for admin accessing albums's subAlbums
+  // modify Authentication section ui in both header and header menu!
 
   return (
     <ThemeModeProvider>
@@ -49,14 +52,7 @@ function App() {
                   element={<SingleSubAlbum />}
                 />
               </Route> */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoutes>
-                    <AdminPageLayout />
-                  </ProtectedRoutes>
-                }
-              >
+              <Route path="/admin" element={<AdminPageLayout />}>
                 <Route index element={<Navigate to="images" replace />} />
                 <Route path="images" element={<AdminImagesPageLayout />} />
                 <Route path="albums" element={<AdminAlbumsPageLayout />}>

@@ -1,16 +1,18 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const AdminContext = createContext();
 
 export default function AdminProvider({ children }) {
-  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const setAdmin = () => {
-    setLoading(false);
-  };
+  useEffect(() => {
+    const role = Cookies.get("role");
+    if (role === "admin") setIsAdmin(true);
+  }, []);
 
   return (
-    <AdminContext.Provider value={{ setLoading, setAdmin, loading }}>
+    <AdminContext.Provider value={{ isAdmin }}>
       {children}
     </AdminContext.Provider>
   );
