@@ -57,7 +57,9 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("position", data.position);
 
     console.log("Submitting FormData:", Object.fromEntries(formData.entries()));
-
+    const formObject = Object.fromEntries(formData.entries());
+    console.log(formObject.image);
+    console.log(formObject.position);
     /*     const newImage = {
       title: { en: data.enTitle, fa: data.faTitle },
       location: { name: { en: data.enLocation, fa: data.faLocation } },
@@ -75,7 +77,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     }; */
 
     if (editId) {
-      editImage(
+      await editImage(
         { imageId: editId, newImage: formData },
         {
           onSuccess: () => {
