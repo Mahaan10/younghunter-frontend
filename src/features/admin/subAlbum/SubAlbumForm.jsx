@@ -56,7 +56,7 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
         {
           albumId: album._id,
           subAlbumId: subAlbumEditId,
-          newSubAlbum: formData,
+          newSubAlbum: updatedDate,
         },
         {
           onSuccess: () => {
