@@ -1,6 +1,6 @@
 import { useLanguage } from "../../../context/useLanguageContext";
 import useCreateAlbum from "../../../hooks/useCreateAlbum";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputTextField from "../../../ui/InputTextField";
 import useEditAlbum from "../../../hooks/useEditAlbum";
 import { TagsInput } from "react-tag-input-component";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function AlbumForm({ onClose, albumToEdit = {} }) {
+  const [selectedFile, setSelectedFile] = useState(null)
   const { createAlbum, isCreating } = useCreateAlbum();
   const { editAlbum, isEditing } = useEditAlbum();
   const { language } = useLanguage();
@@ -18,7 +19,8 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-  } = useForm();
+    control
+  } = useForm({mode: "onBlur"});
 
   useEffect(() => {
     if (editId) {
@@ -27,7 +29,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
         faTitle: albumToEdit.title.fa,
         enCategory: albumToEdit.category.en,
         faCategory: albumToEdit.category.fa,
-        imageCover: albumToEdit.imageCover,
+        //imageCover: albumToEdit.imageCover,
         enTags: albumToEdit.tags.en,
         faTags: albumToEdit.tags.fa,
       });
@@ -39,21 +41,32 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
   const [enTags, setEnTags] = useState([]);
   const [faTags, setFaTags] = useState([]);
 
-  const onSubmit = (data) => {
-    const newAlbum = {
+  const albumImagePreview = selectedFile ? URL.createObjectURL(selectedFile) : albumToEdit.url
+
+  const onSubmit = async (data) => {
+    const formData = new FormData()
+    formData.append("imageCover", selectedFile);
+    formData.append("title[en]", data.enTitle);
+    formData.append("title[fa]", data.faTitle);
+    formData.append("category[en]", data.enCategory);
+    formData.append("category[fa]", data.faCategory);
+    formData.append("tags[en]", data.enTags);
+    formData.append("tags[fa]", data.faTags);
+    /* const newAlbum = {
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
       category: { en: data.enCategory, fa: data.faCategory },
       imageCover: data.imageCover,
       tags: { en: enTags, fa: faTags },
       //imageCover: URL.createObjectURL(data.imageCover),
-    };
+    }; */
 
     if (editId) {
-      editAlbum(
-        { id: editId, newAlbum },
+      await editAlbum(
+        { id: editId, newAlbum: formData },
         {
-          onSuccess: () => {
+          onSuccess: (updatedData) => {
+            console.log("UPDATED DATA:", updatedData)
             toast.success(
               `${
                 language === "en"
@@ -70,8 +83,9 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
         }
       );
     } else {
-      createAlbum(newAlbum, {
-        onSuccess: () => {
+      await createAlbum(formData, {
+        onSuccess: (createdAlbum) => {
+          console.log("CREATED DATA:", createdAlbum)
           toast.success(
             `${
               language === "en"
@@ -90,7 +104,8 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}       encType="multipart/form-data"
+    method="post">
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
           <InputTextField
@@ -197,11 +212,53 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
             {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
             <span className="text-red-600">*</span>
           </label>
-          <InputTextField
+          <Controller
             name="imageCover"
-            register={register}
-            errors={errors}
+            control={control}
+            rules={{
+              required:
+                language === "en"
+                  ? "Image Cover is required"
+                  : "عکس کاور ضروری است",
+              validate: {
+                acceptedFormats: (fileList) =>
+                  fileList &&
+                  fileList.type &&
+                  (fileList.type === "image/jpeg" ||
+                    fileList.type === "image/jpg")
+                    ? true
+                    : language === "en"
+                    ? "Only JPG image is allowed!"
+                    : "فقط فرمت JPG مجاز است!",
+                fileSize: (fileList) =>
+                  fileList && fileList.size <= 20 * 1024 * 1024
+                    ? true
+                    : language === "en"
+                    ? "File size must be less than 20MB"
+                    : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
+              },
+            }}
+            render={({ field: { onChange, ref } }) => (
+              <input
+                type="file"
+                name="imageCover"
+                accept="image/jpeg, image/jpg"
+                className="inputTextField"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setSelectedFile(file);
+                  onChange(file);
+                }}
+                ref={ref}
+              />
+            )}
           />
+
+          {errors?.image?.message && (
+            <span className="text-red-600 block text-sm mt-2">
+              {errors?.image?.message}
+            </span>
+          )}
           {/* <input
             type="file"
             {...register("file", {
@@ -217,11 +274,11 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
               },
             })}
           /> */}
-          {errors.file && (
+          {/* {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
               {errors?.file?.message}
             </span>
-          )}
+          )} */}
         </div>
         <div className="flex flex-col w-[80%] text-neutral-200">
           <label htmlFor="enTags">
