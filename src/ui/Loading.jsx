@@ -14,7 +14,7 @@ export default Loading;
 export function LazyLoading() {
   return (
     <RotateLoader
-      cssOverride={{ height: "100%", width: "100%", margin: "auto" }}
+      cssOverride={{ width: "100%", margin: "auto" }}
       color="#222722"
     />
   );

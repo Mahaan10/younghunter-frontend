@@ -7,7 +7,7 @@ function Empty() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-start justify-center gap-x-20 h-[80vh] p-10">
+    <div className="flex items-start justify-center gap-x-20 h-[80vh] p-10 flex-col md:flex-row">
       <span className="text-xl font-bold">
         {language === "en" ? "No such page found!" : "چنین صفحه ای یافت نشد!"}
       </span>
