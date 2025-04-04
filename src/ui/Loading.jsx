@@ -1,4 +1,4 @@
-import { HashLoader } from "react-spinners";
+import { HashLoader, RotateLoader } from "react-spinners";
 
 function Loading() {
   return (
@@ -10,3 +10,7 @@ function Loading() {
 }
 
 export default Loading;
+
+export function LazyLoading() {
+  return <RotateLoader color="#222722" />;
+}

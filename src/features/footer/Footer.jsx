@@ -1,6 +1,6 @@
 import { useLanguage } from "../../context/useLanguageContext";
 import useAlbums from "../../hooks/useAlbums";
-import Loading from "../../ui/Loading";
+import { LazyLoading } from "../../ui/Loading";
 import FooterNavlink from "./FooterNavlink";
 import toast from "react-hot-toast";
 import {
@@ -14,7 +14,7 @@ function FooterMain() {
   const { albums, isLoading, isError, error } = useAlbums();
   const { language } = useLanguage();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <LazyLoading />;
   // error message needs to be re-watch!
   if (isError) {
     toast.error(error?.response?.data?.message);
