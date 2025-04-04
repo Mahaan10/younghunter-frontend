@@ -72,9 +72,26 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       position: String(data.position),
     }; */
 
+    const updatedData = {
+      ...formData,
+      title: { en: data.enTitle, fa: data.faTitle },
+      location: { name: { en: data.enLocation, fa: data.faLocation } },
+      isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
+      dateTaken: new Date(data.dateTaken).toLocaleDateString(
+        language === "en" ? "en-Us" : "fa-IR",
+        {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        }
+      ),
+      //image: data.image.name,
+      position: data.position,
+    };
+
     if (editId) {
       await editImage(
-        { imageId: editId, newImage: formData },
+        { imageId: editId, newImage: updatedData },
         {
           onSuccess: (updatedData) => {
             console.log("UPDATED DATA:", updatedData);

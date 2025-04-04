@@ -45,6 +45,12 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
       imageCover: data.imageCover,
     }; */
 
+    const updatedDate = {
+      ...formData,
+      title: { en: data.enTitle, fa: data.faTitle },
+      //imageCover: data.imageCover,
+    };
+
     if (subAlbumEditId) {
       await editSubAlbum(
         {
