@@ -64,13 +64,13 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
       //imageCover: URL.createObjectURL(data.imageCover),
     }; */
 
-const updatedData = {
-  ...formData,
-  title: { en: data.enTitle, fa: data.faTitle },
+    const updatedData = {
+      ...formData,
+      title: { en: data.enTitle, fa: data.faTitle },
       category: { en: data.enCategory, fa: data.faCategory },
-      imageCover: data.imageCover,
+      //imageCover: data.imageCover,
       tags: { en: enTags, fa: faTags },
-}
+    };
     if (editId) {
       await editAlbum(
         { id: editId, newAlbum: updatedData },
