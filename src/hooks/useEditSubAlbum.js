@@ -9,7 +9,7 @@ export default function useEditSubAlbum() {
     mutationFn: editSubAlbumApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["single-sub-album"],
+        queryKey: ["albums"],
       });
     },
 

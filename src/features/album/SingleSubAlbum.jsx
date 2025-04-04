@@ -24,7 +24,7 @@ function SingleSubAlbum() {
   }, [subAlbum, pageSize, setTotalPages]);
 
   if (isLoading) return <Loading />;
-  if (isError) return toast.error(error.response.data.message);
+  if (isError) return toast.error(error?.response?.data?.message);
 
   // Sorting Albums based on newest or oldest
   const sortedSubAlbumImages = [...subAlbum.images].sort((a, b) => {
