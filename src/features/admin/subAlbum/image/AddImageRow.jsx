@@ -8,8 +8,8 @@ function AddImageRow({ image, index, subAlbum, album }) {
   const { addImage, isAdding } = useAddImageToSubAlbum();
   const { language } = useLanguage();
 
-  const addImageHandler = () => {
-    addImage(
+  const addImageHandler = async () => {
+    await addImage(
       { subAlbumId: subAlbum._id, albumId: album._id, imageIds: image._id },
       {
         onSuccess: () => {

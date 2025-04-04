@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export default function useAddImageToSubAlbum() {
   const queryClient = useQueryClient();
 
-  const { isPending: isAdding, mutate: addImage } = useMutation({
+  const { isPending: isAdding, mutateAsync: addImage } = useMutation({
     mutationFn: addImageToSubAlbum,
     onSuccess: () => {
       queryClient.invalidateQueries({

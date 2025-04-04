@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export default function useDeleteAlbum() {
   const queryClient = useQueryClient();
 
-  const { isPending: isRemoving, mutate: deleteAlbum } = useMutation({
+  const { isPending: isRemoving, mutateAsync: deleteAlbum } = useMutation({
     mutationFn: removeAlbumApi,
     onSuccess: () => {
       queryClient.invalidateQueries({

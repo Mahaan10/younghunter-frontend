@@ -5,7 +5,7 @@ import { removeSubAlbumImageApi } from "../services/subAlbumService";
 export default function useDeleteSubAlbumImage() {
   const queryClient = useQueryClient();
 
-  const { isPending: isRemoving, mutate: deleteSubAlbumImage } = useMutation({
+  const { isPending: isRemoving, mutateAsync: deleteSubAlbumImage } = useMutation({
     mutationFn: removeSubAlbumImageApi,
     onSuccess: () => {
       queryClient.invalidateQueries({

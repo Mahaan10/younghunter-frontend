@@ -9,6 +9,7 @@ export default function useEditImage() {
     mutationFn: editImageApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["images"] });
+      queryClient.invalidateQueries({ queryKey: ["albums"] });
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message || error.message);

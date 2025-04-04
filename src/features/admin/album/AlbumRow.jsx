@@ -72,8 +72,8 @@ function AlbumRow({ album, index }) {
             englishTitle={album.title.en}
             persianTitle={album.title.fa}
             onClose={() => setIsDeleteOpen(false)}
-            onConfirm={() =>
-              deleteAlbum(album._id, {
+            onConfirm={async () =>
+              await deleteAlbum(album._id, {
                 onSuccess: () => {
                   setIsDeleteOpen(false);
                   toast.success(
