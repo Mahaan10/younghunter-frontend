@@ -24,6 +24,12 @@ import { LazyLoading } from "./ui/Loading";
 function App() {
   const queryClient = new QueryClient();
 
+  document.addEventListener("contextmenu", (e) => {
+    if (e.target.tagName === "IMG") {
+      e.preventDefault();
+    }
+  });
+
   return (
     <ThemeModeProvider>
       <AdminProvider>
