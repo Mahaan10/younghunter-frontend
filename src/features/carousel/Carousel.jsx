@@ -92,7 +92,6 @@ function Carousel() {
   };
 
   useEffect(() => {
-    //if (!images.length) return
     const carouselInterval = setInterval(() => {
       dispatch({ type: "Next", payload: carouselImages.length });
     }, 10000);
@@ -106,12 +105,6 @@ function Carousel() {
       error?.response?.data?.message || albumError?.response?.data?.message
     );
 
-  /*   if (!images.length)
-    return (
-      <p className="text-center">
-        {language === "en" ? "No Images available!" : "عکسی یافت نشد!"}
-      </p>
-    ); */
   const activeImage = carouselImages[state.activeItemIndex] || [];
 
   return (

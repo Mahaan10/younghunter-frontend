@@ -25,7 +25,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
       reset({
         enTitle: subAlbumToEdit.title.en,
         faTitle: subAlbumToEdit.title.fa,
-        //imageCover: subAlbumToEdit.imageCover,
       });
     }
   }, [subAlbumToEdit, reset, subAlbumEditId]);
@@ -39,16 +38,10 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
     formData.append("imageCover", selectedFile);
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
-    /* const newSubAlbum = {
-      ...data,
-      title: { en: data.enTitle, fa: data.faTitle },
-      imageCover: data.imageCover,
-    }; */
 
     const updatedDate = {
       ...formData,
       title: { en: data.enTitle, fa: data.faTitle },
-      //imageCover: data.imageCover,
     };
 
     if (subAlbumEditId) {
@@ -208,26 +201,6 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
               {errors?.image?.message}
             </span>
           )}
-          {/* <input
-            type="file"
-            {...register("file", {
-              required: `${
-                language === "en"
-                  ? "Image Cover is required"
-                  : "عکس کاور ضروری است"
-              }`,
-              validate: {
-                acceptedFormats: (file) =>
-                  file && ["image/jpg"].includes(file[0]?.type),
-                fileSize: (file) => file && file[0]?.size <= 20 * 1024 * 1024, //20MB limit
-              },
-            })}
-          /> */}
-          {/* {errors.file && (
-            <span className="text-red-600 block text-sm mt-2">
-              {errors?.file?.message}
-            </span>
-          )} */}
         </div>
         <div className="w-[80%] mt-2">
           <button

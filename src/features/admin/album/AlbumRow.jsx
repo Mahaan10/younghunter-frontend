@@ -9,16 +9,11 @@ import { HiOutlineTrash } from "react-icons/hi";
 import ConfirmDelete from "../../../ui/ConfirmDelete";
 import useDeleteAlbum from "../../../hooks/useDeleteAlbum";
 import toast from "react-hot-toast";
-// import AccessModal from "../../../ui/AccessModal";
-// import SubAlbumsTable from "../subAlbum/SubAlbumsTable";
-// import SubAlbumsHeader from "../subAlbum/SubAlbumHeader";
-//import AdminSubAlbumPageLayout from "../subAlbum/AdminSubAlbumPageLayout";
 import { Link } from "react-router-dom";
 
 function AlbumRow({ album, index }) {
   const { language } = useLanguage();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  //const [isSubAlbumOpen, setIsSubAlbumOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const { deleteAlbum, isRemoving } = useDeleteAlbum();
 
@@ -29,10 +24,7 @@ function AlbumRow({ album, index }) {
       <td>{album.title.fa}</td>
       <td>
         <Link to={`${album._id}/sub-albums`}>
-          <button
-            className="flex items-center justify-between btn w-32 bg-emerald-700"
-            //onClick={() => setIsSubAlbumOpen(true)}
-          >
+          <button className="flex items-center justify-between btn w-32 bg-emerald-700">
             <span>{language === "en" ? "Sub Albums" : "زیر آلبوم ها"}</span>
             <FiLayers className="w-5 h-5" />
           </button>
@@ -92,11 +84,6 @@ function AlbumRow({ album, index }) {
           />
         </Modal>
       )}
-      {/* {isSubAlbumOpen && (
-        <>
-          <AdminSubAlbumPageLayout album={album} />
-        </>
-      )} */}
     </Table.Row>
   );
 }

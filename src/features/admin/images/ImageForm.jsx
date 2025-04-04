@@ -31,7 +31,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
         faLocation: imageToEdit.location.name.fa,
         isFeaturedCarousel:
           imageToEdit.isFeaturedCarousel === true ? "yes" : "no",
-        //image: imageToEdit.url,
         position: imageToEdit.position,
         dateTaken: new Date(imageToEdit.dateTaken).toISOString().split("T")[0],
       });
@@ -54,24 +53,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
     formData.append("dateTaken", data.dateTaken);
     formData.append("position", data.position);
 
-    //  const formObject = Object.fromEntries(formData.entries());
-
-    /*     const newImage = {
-      title: { en: data.enTitle, fa: data.faTitle },
-      location: { name: { en: data.enLocation, fa: data.faLocation } },
-      isFeaturedCarousel: data.isFeaturedCarousel === "yes" ? true : false,
-      dateTaken: new Date(data.dateTaken).toLocaleDateString(
-        language === "en" ? "en-Us" : "fa-IR",
-        {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }
-      ),
-      image: data.image.name,
-      position: String(data.position),
-    }; */
-
     const updatedData = {
       ...formData,
       title: { en: data.enTitle, fa: data.faTitle },
@@ -85,7 +66,6 @@ function ImageForm({ onClose, imageToEdit = {} }) {
           day: "numeric",
         }
       ),
-      //image: data.image.name,
       position: data.position,
     };
 
@@ -93,8 +73,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       await editImage(
         { imageId: editId, newImage: updatedData },
         {
-          onSuccess: (updatedData) => {
-            console.log("UPDATED DATA:", updatedData);
+          onSuccess: () => {
             toast.success(
               `${
                 language === "en"
@@ -110,8 +89,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
       );
     } else {
       await createNewImage(formData, {
-        onSuccess: (createdDate) => {
-          console.log("CREATED DATA:", createdDate);
+        onSuccess: () => {
           toast.success(
             `${
               language === "en"

@@ -10,13 +10,11 @@ import { useGalleryContext } from "../../context/useGalleryContext";
 function GalleryNavlink() {
   const { albums, isLoading, isError, error } = useAlbums();
 
-  //onClose needs to change!!!!
   const { openSubAlbumId, openAccordion, closeAccordion } = useAccordion();
 
   const openAccordionHandler = (id) => {
     openAccordion(id === openSubAlbumId ? null : id);
   };
-
 
   const navlinkClass =
     "flex items-center transition-all duration-300 bg-gray-300 dark:bg-gray-700 dark:text-neutral-200 py-2 rounded-md";
@@ -24,7 +22,6 @@ function GalleryNavlink() {
   if (isLoading) return <Loading />;
   if (isError) return toast.error(error.response.data.message);
 
-  //dark mode in navlink needs change!!
   return albums.map((album) => (
     <li className="" key={album._id}>
       <NavLink

@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useLanguage } from "../../context/useLanguageContext";
 import useAuth from "../../hooks/useAuth";
+import { LazyLoading } from "../../ui/Loading";
 
 function Login({ setOpenModal }) {
   const { getLoggedIn, isLoggedIn } = useAuth();
   const { language } = useLanguage();
-  // need to modify new Loading component!
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -83,7 +83,7 @@ function Login({ setOpenModal }) {
             disabled={!formik.isValid}
           >
             {isLoggedIn ? (
-              <h1 className="">...</h1>
+              <LazyLoading />
             ) : language === "en" ? (
               "Login"
             ) : (

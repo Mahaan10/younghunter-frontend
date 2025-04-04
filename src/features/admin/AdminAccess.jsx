@@ -7,25 +7,12 @@ function AdminAccess() {
   return (
     <>
       <div className="flex items-center justify-center">
-        <button
-          className="bg-green-600 py-2 px-2 rounded-md md:w-28 w-full mx-auto text-black text-sm"
-          //onClick={() => setIsImageAccessOpen((prev) => !prev)}
-        >
+        <button className="bg-green-600 py-2 px-2 rounded-md md:w-28 w-full mx-auto text-black text-sm">
           <Link to="/admin">
             {language === "en" ? "Admin Access" : "دسترسی مدیریت"}
           </Link>
         </button>
       </div>
-
-      {/* {isImageAccessOpen && (
-        <AccessModal
-          title={language === "en" ? "Image Access" : "دسترسی به عکس"}
-          onClose={() => setIsImageAccessOpen(false)}
-        >
-          <ImagesHeader sortImages={sortImages} setSortImages={setSortImages} />
-          <ImagesTable sortImages={sortImages} />
-        </AccessModal>
-      )} */}
     </>
   );
 }

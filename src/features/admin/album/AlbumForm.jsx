@@ -22,7 +22,6 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     control,
   } = useForm({ mode: "onBlur" });
 
-  /// tags in edit need to be watch again!!!!
   useEffect(() => {
     if (editId) {
       reset({
@@ -30,7 +29,6 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
         faTitle: albumToEdit.title.fa,
         enCategory: albumToEdit.category.en,
         faCategory: albumToEdit.category.fa,
-        //imageCover: albumToEdit.imageCover,
         enTags: albumToEdit.tags.en,
         faTags: albumToEdit.tags.fa,
       });
@@ -55,28 +53,18 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     formData.append("category[fa]", data.faCategory);
     formData.append("tags[en]", data.enTags);
     formData.append("tags[fa]", data.faTags);
-    /* const newAlbum = {
-      ...data,
-      title: { en: data.enTitle, fa: data.faTitle },
-      category: { en: data.enCategory, fa: data.faCategory },
-      imageCover: data.imageCover,
-      tags: { en: enTags, fa: faTags },
-      //imageCover: URL.createObjectURL(data.imageCover),
-    }; */
 
     const updatedData = {
       ...formData,
       title: { en: data.enTitle, fa: data.faTitle },
       category: { en: data.enCategory, fa: data.faCategory },
-      //imageCover: data.imageCover,
       tags: { en: enTags, fa: faTags },
     };
     if (editId) {
       await editAlbum(
         { id: editId, newAlbum: updatedData },
         {
-          onSuccess: (updatedData) => {
-            console.log("UPDATED DATA:", updatedData);
+          onSuccess: () => {
             toast.success(
               `${
                 language === "en"
@@ -94,8 +82,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
       );
     } else {
       await createAlbum(formData, {
-        onSuccess: (createdAlbum) => {
-          console.log("CREATED DATA:", createdAlbum);
+        onSuccess: () => {
           toast.success(
             `${
               language === "en"
@@ -283,26 +270,6 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
               {errors?.image?.message}
             </span>
           )}
-          {/* <input
-            type="file"
-            {...register("file", {
-              required: `${
-                language === "en"
-                  ? "Image Cover is required"
-                  : "عکس کاور ضروری است"
-              }`,
-              validate: {
-                acceptedFormats: (file) =>
-                  file && ["image/jpg"].includes(file[0]?.type),
-                fileSize: (file) => file && file[0]?.size <= 20 * 1024 * 1024, //20MB limit
-              },
-            })}
-          /> */}
-          {/* {errors.file && (
-            <span className="text-red-600 block text-sm mt-2">
-              {errors?.file?.message}
-            </span>
-          )} */}
         </div>
         <div className="flex flex-col w-[80%] text-neutral-200">
           <label htmlFor="enTags">

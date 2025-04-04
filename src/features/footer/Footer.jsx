@@ -15,7 +15,7 @@ function FooterMain() {
   const { language } = useLanguage();
 
   if (isLoading) return <LazyLoading />;
-  // error message needs to be re-watch!
+
   if (isError) {
     toast.error(error?.response?.data?.message);
     return (

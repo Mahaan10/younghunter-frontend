@@ -3,8 +3,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 const Home = lazy(() => import("./pages/Home"));
-//import Home from "./pages/Home";
-//import Gallery from "./pages/Gallery";
 const Gallery = lazy(() => import("./pages/Gallery"));
 import { LanguageProvider } from "./context/useLanguageContext";
 import SingleAlbum from "./features/album/SingleAlbum";
