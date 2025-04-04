@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 export default function useCreateSubAlbums() {
   const queryClient = useQueryClient();
 
-  const { isPending: isCreating, mutate: createSubAlbum } = useMutation({
+  const { isPending: isCreating, mutateAsync: createSubAlbum } = useMutation({
     mutationFn: createSubAlbumApi,
     onSuccess: () => {
       queryClient.invalidateQueries({

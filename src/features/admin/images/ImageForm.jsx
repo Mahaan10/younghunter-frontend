@@ -172,7 +172,7 @@ function ImageForm({ onClose, imageToEdit = {} }) {
                 <img
                   src={imagePreview}
                   alt=""
-                  className="w-16 h-16 object-cover"
+                  className="w-14 h-14 object-cover"
                 />
               </div>
             )}

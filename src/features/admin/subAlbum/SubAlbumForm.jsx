@@ -1,12 +1,13 @@
 import { useLanguage } from "../../../context/useLanguageContext";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputTextField from "../../../ui/InputTextField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreateSubAlbums from "../../../hooks/useCreateSubAlbums";
 import useEditSubAlbum from "../../../hooks/useEditSubAlbum";
 
 function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
+  const [selectedFile, setSelectedFile] = useState(null);
   const { createSubAlbum, isCreating } = useCreateSubAlbums();
   const { editSubAlbum, isEditing } = useEditSubAlbum();
   const { language } = useLanguage();
@@ -16,31 +17,40 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-  } = useForm();
+    control,
+  } = useForm({ mode: "onBlur" });
 
   useEffect(() => {
     if (subAlbumEditId) {
       reset({
         enTitle: subAlbumToEdit.title.en,
         faTitle: subAlbumToEdit.title.fa,
-        imageCover: subAlbumToEdit.imageCover,
+        //imageCover: subAlbumToEdit.imageCover,
       });
     }
   }, [subAlbumToEdit, reset, subAlbumEditId]);
 
-  const onSubmit = (data) => {
-    const newSubAlbum = {
+  const subAlbumImagePreview = selectedFile
+    ? URL.createObjectURL(selectedFile)
+    : subAlbumToEdit.url;
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("imageCover", selectedFile);
+    formData.append("title[en]", data.enTitle);
+    formData.append("title[fa]", data.faTitle);
+    /* const newSubAlbum = {
       ...data,
       title: { en: data.enTitle, fa: data.faTitle },
       imageCover: data.imageCover,
-    };
+    }; */
 
     if (subAlbumEditId) {
-      editSubAlbum(
+      await editSubAlbum(
         {
           albumId: album._id,
           subAlbumId: subAlbumEditId,
-          newSubAlbum: newSubAlbum,
+          newSubAlbum: formData,
         },
         {
           onSuccess: () => {
@@ -58,8 +68,8 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
         }
       );
     } else {
-      createSubAlbum(
-        { albumId: album._id, newSubAlbum: newSubAlbum },
+      await createSubAlbum(
+        { albumId: album._id, newSubAlbum: formData },
         {
           onSuccess: () => {
             toast.success(
@@ -79,7 +89,11 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      encType="multipart/form-data"
+      method="post"
+    >
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
           <InputTextField
@@ -126,15 +140,68 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
-            {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
-            <span className="text-red-600">*</span>
-          </label>
-          <InputTextField
+          <div className="flex items-center justify-between">
+            <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
+              {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
+              <span className="text-red-600">*</span>
+            </label>
+            {subAlbumImagePreview && (
+              <div className="">
+                <img
+                  src={subAlbumImagePreview}
+                  alt=""
+                  className="w-14 h-14 object-cover"
+                />
+              </div>
+            )}
+          </div>
+          <Controller
             name="imageCover"
-            register={register}
-            errors={errors}
+            control={control}
+            rules={{
+              required:
+                language === "en"
+                  ? "Image Cover is required"
+                  : "عکس کاور ضروری است",
+              validate: {
+                acceptedFormats: (fileList) =>
+                  fileList &&
+                  fileList.type &&
+                  (fileList.type === "image/jpeg" ||
+                    fileList.type === "image/jpg")
+                    ? true
+                    : language === "en"
+                    ? "Only JPG image is allowed!"
+                    : "فقط فرمت JPG مجاز است!",
+                fileSize: (fileList) =>
+                  fileList && fileList.size <= 20 * 1024 * 1024
+                    ? true
+                    : language === "en"
+                    ? "File size must be less than 20MB"
+                    : "حجم فایل نباید بیشتر از 20 مگابایت باشد",
+              },
+            }}
+            render={({ field: { onChange, ref } }) => (
+              <input
+                type="file"
+                name="imageCover"
+                accept="image/jpeg, image/jpg"
+                className="inputTextField"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setSelectedFile(file);
+                  onChange(file);
+                }}
+                ref={ref}
+              />
+            )}
           />
+
+          {errors?.image?.message && (
+            <span className="text-red-600 block text-sm mt-2">
+              {errors?.image?.message}
+            </span>
+          )}
           {/* <input
             type="file"
             {...register("file", {
@@ -150,11 +217,11 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
               },
             })}
           /> */}
-          {errors.file && (
+          {/* {errors.file && (
             <span className="text-red-600 block text-sm mt-2">
               {errors?.file?.message}
             </span>
-          )}
+          )} */}
         </div>
         <div className="w-[80%] mt-2">
           <button

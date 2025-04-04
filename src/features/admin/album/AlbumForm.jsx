@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function AlbumForm({ onClose, albumToEdit = {} }) {
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFile, setSelectedFile] = useState(null);
   const { createAlbum, isCreating } = useCreateAlbum();
   const { editAlbum, isEditing } = useEditAlbum();
   const { language } = useLanguage();
@@ -19,9 +19,10 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    control
-  } = useForm({mode: "onBlur"});
+    control,
+  } = useForm({ mode: "onBlur" });
 
+  /// tags in edit need to be watch again!!!!
   useEffect(() => {
     if (editId) {
       reset({
@@ -41,10 +42,12 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
   const [enTags, setEnTags] = useState([]);
   const [faTags, setFaTags] = useState([]);
 
-  const albumImagePreview = selectedFile ? URL.createObjectURL(selectedFile) : albumToEdit.url
+  const albumImagePreview = selectedFile
+    ? URL.createObjectURL(selectedFile)
+    : albumToEdit.url;
 
   const onSubmit = async (data) => {
-    const formData = new FormData()
+    const formData = new FormData();
     formData.append("imageCover", selectedFile);
     formData.append("title[en]", data.enTitle);
     formData.append("title[fa]", data.faTitle);
@@ -66,7 +69,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
         { id: editId, newAlbum: formData },
         {
           onSuccess: (updatedData) => {
-            console.log("UPDATED DATA:", updatedData)
+            console.log("UPDATED DATA:", updatedData);
             toast.success(
               `${
                 language === "en"
@@ -85,7 +88,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     } else {
       await createAlbum(formData, {
         onSuccess: (createdAlbum) => {
-          console.log("CREATED DATA:", createdAlbum)
+          console.log("CREATED DATA:", createdAlbum);
           toast.success(
             `${
               language === "en"
@@ -104,8 +107,11 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}       encType="multipart/form-data"
-    method="post">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      encType="multipart/form-data"
+      method="post"
+    >
       <div className="flex items-center flex-col gap-y-3">
         <div className="flex flex-col w-[80%]">
           <InputTextField
@@ -208,10 +214,21 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
           />
         </div>
         <div className="flex flex-col w-[80%]">
-          <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
-            {language === "en" ? "Upload Image Cover" : "بارگذاری عکس کاور"}{" "}
-            <span className="text-red-600">*</span>
-          </label>
+          <div className="flex items-center justify-between">
+            <label htmlFor="imageCover" className="mb-1 block text-neutral-200">
+              {language === "en" ? "Upload Image" : "بارگذاری عکس"}{" "}
+              <span className="text-red-600">*</span>
+            </label>
+            {albumImagePreview && (
+              <div className="">
+                <img
+                  src={albumImagePreview}
+                  alt=""
+                  className="w-14 h-14 object-cover"
+                />
+              </div>
+            )}
+          </div>
           <Controller
             name="imageCover"
             control={control}
