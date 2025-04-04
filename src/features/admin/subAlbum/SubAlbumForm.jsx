@@ -32,7 +32,7 @@ function SubAlbumForm({ onClose, album, subAlbumToEdit = {} }) {
 
   const subAlbumImagePreview = selectedFile
     ? URL.createObjectURL(selectedFile)
-    : subAlbumToEdit.url;
+    : subAlbumToEdit.imageCover;
 
   const onSubmit = async (data) => {
     const formData = new FormData();

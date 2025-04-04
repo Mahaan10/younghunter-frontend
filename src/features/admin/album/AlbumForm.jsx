@@ -44,7 +44,7 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
 
   const albumImagePreview = selectedFile
     ? URL.createObjectURL(selectedFile)
-    : albumToEdit.url;
+    : albumToEdit.imageCover;
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -64,9 +64,16 @@ function AlbumForm({ onClose, albumToEdit = {} }) {
       //imageCover: URL.createObjectURL(data.imageCover),
     }; */
 
+const updatedData = {
+  ...formData,
+  title: { en: data.enTitle, fa: data.faTitle },
+      category: { en: data.enCategory, fa: data.faCategory },
+      imageCover: data.imageCover,
+      tags: { en: enTags, fa: faTags },
+}
     if (editId) {
       await editAlbum(
-        { id: editId, newAlbum: formData },
+        { id: editId, newAlbum: updatedData },
         {
           onSuccess: (updatedData) => {
             console.log("UPDATED DATA:", updatedData);
