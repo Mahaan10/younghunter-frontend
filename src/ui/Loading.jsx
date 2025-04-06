@@ -1,4 +1,4 @@
-import { HashLoader, RotateLoader } from "react-spinners";
+import { BeatLoader, HashLoader, RotateLoader } from "react-spinners";
 
 function Loading() {
   return (
@@ -13,7 +13,7 @@ export default Loading;
 
 export function LazyLoading() {
   return (
-    <RotateLoader
+    <BeatLoader
       cssOverride={{ height: "100%", margin: "auto" }}
       color="#222722"
     />
